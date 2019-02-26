@@ -1,0 +1,16 @@
+{{ if .Site.Params.roomsURL }}
+   {{ $many := 20 }}
+   {{ $containerType := "list--fullpage"}}
+   {{ with .Get "items" }}
+      {{ $many = . }}
+   {{ end }}
+   {{ with .Get "isFluid" }}
+      {{ $containerType = "list--fluid"}}
+   {{ end }}
+   {{ $rooms := getJSON .Site.Params.roomsURL }}
+   <div class="{{ $containerType }}">
+   {{ range first $many (where (sort $rooms "id" "desc") "isActive" true) }}
+      {{ partial "room" (dict "room" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+   {{ end }}
+   </div>
+{{ end }}

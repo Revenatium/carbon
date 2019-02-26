@@ -1,0 +1,17 @@
+{{ $base := .Get "base" }}
+{{ $path := .Get "path" }}
+<div class="row listItem">
+   {{ if and $base $path }}
+   <div class="listItem-pic" style="background-image: url({{ print $base `f_auto,h_400,c_fill/` $path }})"></div>
+   {{ else }}
+   <div class="listItem-pic listItem-pic--empty"></div>
+   {{ end }}
+   <div class="listItem-info listItem-info--full">
+      {{ with .Get "title" }}
+      <h2 class="listItem-title">{{ . | markdownify }}</h2>
+      {{ end}}
+      <div class="listItem-shortDesc">
+         {{ .Inner }}
+      </div>
+   </div>
+</div>

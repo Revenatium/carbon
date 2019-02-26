@@ -1,0 +1,46 @@
+{{ $ := .main }}
+{{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
+{{ $bannerScratch := newScratch }}
+{{ $bannerScratch.Add "classes" (slice "itm-banner-item") }}
+{{ if .isCarousel }}
+   {{ $bannerScratch.Add "classes" (slice "carousel-item") }}
+{{ end }}
+{{ if .active }}
+   {{ $bannerScratch.Add "classes" (slice "active") }}
+{{ end }}
+
+{{ with .banner }}
+
+{{ if .image }}
+   <div 
+      class="{{ delimit ($bannerScratch.Get `classes`) ` ` }}"
+      style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
+      <div class="container itm-banner-info-container">
+         <div class="row">
+            <div class="col-12 col-sm-9 col-md-6">
+               <div class="itm-banner-info">
+               {{ if .labelText }}
+                  <div class="badge badge-primary text-uppercase d-none d-md-inline-block">{{ .labelText | markdownify }}</div>
+               {{ end }}
+               {{ if .title }}
+                  <h1>{{.title | markdownify}}</h1>
+               {{ end }}
+               {{ if .subTitle }}
+                  <p class="lead">{{ .subTitle | markdownify }}</p>
+               {{ end }}
+               {{ if .actionText }}
+                  <a href="{{ $bookingEngineUrl }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+               {{ end}}
+               </div>
+            </div>
+         {{ if .actionText }}
+            <div class="col-12 d-block d-md-none itm-banner-extra-info">
+               <a href="{{ $bookingEngineUrl }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
+            </div>
+         {{end}}
+         </div>
+      </div>
+   </div>
+{{ end }}
+
+{{ end }}

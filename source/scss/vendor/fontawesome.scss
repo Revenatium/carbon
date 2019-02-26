@@ -1,0 +1,67 @@
+
+
+@import 'node_modules/@fortawesome/fontawesome-free/scss/variables';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/mixins';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/core';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/larger';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/fixed-width';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/list';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/bordered-pulled';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/animated';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/rotated-flipped';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/stacked';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/icons';
+
+.#{$fa-css-prefix}-tag:before { content: fa-content($fa-var-tag); }
+.#{$fa-css-prefix}-folder:before { content: fa-content($fa-var-folder); }
+.#{$fa-css-prefix}-linkedin:before { content: fa-content($fa-var-linkedin); }
+.#{$fa-css-prefix}-rss:before { content: fa-content($fa-var-rss); }
+.#{$fa-css-prefix}-rss-square:before { content: fa-content($fa-var-rss-square); }
+.#{$fa-css-prefix}-user:before { content: fa-content($fa-var-user); }
+.#{$fa-css-prefix}-bed:before { content: fa-content($fa-var-bed); }
+.#{$fa-css-prefix}-phone:before { content: fa-content($fa-var-phone); }
+.#{$fa-css-prefix}-envelope:before { content: fa-content($fa-var-envelope); }
+.#{$fa-css-prefix}-calendar:before { content: fa-content($fa-var-calendar); }
+.#{$fa-css-prefix}-bars:before { content: fa-content($fa-var-bars); }
+.#{$fa-css-prefix}-instagram:before { content: fa-content($fa-var-instagram); }
+.#{$fa-css-prefix}-facebook-square:before { content: fa-content($fa-var-facebook-square); }
+.#{$fa-css-prefix}-facebook:before { content: fa-content($fa-var-facebook); }
+.#{$fa-css-prefix}-twitter-square:before { content: fa-content($fa-var-twitter-square); }
+.#{$fa-css-prefix}-twitter:before { content: fa-content($fa-var-twitter); }
+.#{$fa-css-prefix}-google-plus-square:before { content: fa-content($fa-var-google-plus-square); }
+.#{$fa-css-prefix}-google-plus:before { content: fa-content($fa-var-google-plus); }
+.#{$fa-css-prefix}-youtube-square:before { content: fa-content($fa-var-youtube-square); }
+.#{$fa-css-prefix}-youtube:before { content: fa-content($fa-var-youtube); }
+.#{$fa-css-prefix}-vimeo-square:before { content: fa-content($fa-var-vimeo-square); }
+.#{$fa-css-prefix}-vimeo:before { content: fa-content($fa-var-vimeo); }
+.#{$fa-css-prefix}-pinterest-square:before { content: fa-content($fa-var-pinterest-square); }
+.#{$fa-css-prefix}-pinterest:before { content: fa-content($fa-var-pinterest); }
+.#{$fa-css-prefix}-tripadvisor:before { content: fa-content($fa-var-tripadvisor); }
+.#{$fa-css-prefix}-plus:before { content: fa-content($fa-var-plus); }
+.#{$fa-css-prefix}-minus:before { content: fa-content($fa-var-minus); }
+.#{$fa-css-prefix}-building:before { content: fa-content($fa-var-building); }
+.#{$fa-css-prefix}-whatsapp:before { content: fa-content($fa-var-whatsapp); }
+
+@import 'node_modules/@fortawesome/fontawesome-free/scss/screen-reader';
+
+@import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
+@import 'node_modules/@fortawesome/fontawesome-free/scss/regular';
+
+//estoy importando "solid" aparte para evitar que se sobreescriba el "fa" 
+@font-face {
+   font-family: 'Font Awesome 5 Free';
+   font-style: normal;
+   font-weight: 900;
+   font-display: $fa-font-display;
+   src: url('#{$fa-font-path}/fa-solid-900.eot');
+   src: url('#{$fa-font-path}/fa-solid-900.eot?#iefix') format('embedded-opentype'),
+   url('#{$fa-font-path}/fa-solid-900.woff2') format('woff2'),
+   url('#{$fa-font-path}/fa-solid-900.woff') format('woff'),
+   url('#{$fa-font-path}/fa-solid-900.ttf') format('truetype'),
+   url('#{$fa-font-path}/fa-solid-900.svg#fontawesome') format('svg');
+ }
+ 
+ .fas {
+   font-family: 'Font Awesome 5 Free';
+   font-weight: 900;
+ }

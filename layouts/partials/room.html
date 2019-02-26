@@ -1,0 +1,69 @@
+{{ $base := .imageBase }}
+{{ $bucket := .imageBucket }}
+{{ $bookingEngineURL := .bookingEngineURL }}
+
+{{ with .room}}
+<div class="row listItem listItem-room">
+   {{if .photos }}
+      {{ $image := index .photos 0 }}
+   <div class="listItem-pic" style="background-image: url( {{ print $base `f_auto,h_400,c_fill/` $bucket `/` $image.path }})">
+   </div>
+   {{ else }}
+   <div class="listItem-pic listItem-pic--empty">
+   </div>
+   {{ end}}
+   <div class="listItem-info listItem-info--full">
+      {{ with .name }}
+      <h2 class="listItem-title">{{ . | markdownify }}</h2>
+      {{ end}}
+      <div class="listItem-data">
+         {{ if .capacity }}
+         <div class="room-data-pax"><i class="fas fax-user mr-1"></i>{{ .capacity }}</div>
+         {{ end }}
+         {{ if .bedding }}
+         <div class="room-data-bed"><i class="fas fax-bed mr-1"></i>{{ .bedding }}</div>
+         {{ end }}
+      </div>
+      {{ if .description }}
+      <div class="listItem-shortDesc">
+         {{ .description  | safeHTML | truncate 150 }}
+      </div>
+      {{ end }}
+      <div class="listItem-actions">
+         <a href="{{ $bookingEngineURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#room{{.id}}">{{ i18n "roomDetails"}}</button>
+      </div>
+   </div>
+   <div class="listItem-details collapse" id="room{{.id}}">
+      <div class="lead">{{ .description }}</div>
+      {{ $items := .photos}}
+      {{ $len := (len $items) }}
+      <div class="clearfix photo-gallery-container has-{{$len}}">
+         <div class="photo-gallery">
+            {{ range $index, $element := $items }}
+            <a href="{{ print $base `f_auto,w_1200,h_800,c_fit/` $bucket `/` $element.path }}" class="gallery-link{{if (gt $index 4)}} d-none{{end}}">
+            {{ if (eq $index 0) }}
+               <img src="{{ print $base `f_auto,w_600,h_430,c_fill/` $bucket `/` $element.path }}" />
+            {{ else if (lt $index 5) }}
+               <img src="{{ print $base `f_auto,w_300,h_215,c_fill/` $bucket `/` $element.path }}" />
+            {{ end }}
+            {{ if (eq $index 4) }}
+               <span class="gallery-count">
+               + {{ sub $len 5 }}
+               </span>
+            {{ end }}
+            </a>
+            {{ end }}
+         </div>
+      </div>
+      <div class="room-amenities">
+         <h2 class="text-center">Comodidades</h2>
+         <ul class="list-unstyled row">
+            {{ range $amenity := .amenities }}
+            <li class="col-sm-4"><i class="fas fax-check"></i>&nbsp;{{ $amenity.name }}</li>
+            {{ end}}
+         </ul>
+      </div>
+   </div>
+</div>
+{{ end }}

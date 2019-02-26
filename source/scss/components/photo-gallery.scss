@@ -1,0 +1,51 @@
+.photo-gallery {
+   a {
+       display: block;
+       float: left;
+       border: 2px solid #fff;
+       position: relative;
+       overflow: hidden;
+       width: 25%;
+
+       img {
+           width: 100%;
+       }
+   }
+   a:first-child {
+       float: left;
+       width: 50%;
+   }
+   .gallery-count {
+       position: absolute;
+       top: 0;
+       bottom: 0;
+       left: 0;
+       right: 0;
+       background: rgba(0,0,0,0.4);
+       color: #fff;
+       font-size: 200%;
+       text-align: center;
+       line-height: 150px;
+       white-space: nowrap;
+   }
+}
+
+.has-3 {
+   .photo-gallery {
+       a {
+           width: 33.3333%;
+       }
+       a:first-child {
+           width: 66.6666%;
+      }
+   }
+}
+
+.has-4 {
+   .photo-gallery {
+       a,
+       a:first-child {
+           width: 50%;
+      }
+   }
+}

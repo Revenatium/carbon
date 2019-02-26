@@ -1,0 +1,6 @@
+{{ $id := .Get "youtubeId" }}
+{{ $base := .Get "base" }}
+{{ $path := .Get "path" }}
+<a href="https://www.youtube-nocookie.com/embed/{{ $id }}?rel=0&amp;autoplay=1&amp;showinfo=0" class="d-block video-link">
+   <img src="{{ print $base `f_auto,w_640/` $path }}" class="w-100">
+</a>

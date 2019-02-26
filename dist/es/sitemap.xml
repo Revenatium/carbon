@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/contact/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/gallery/</loc>
+    <lastmod>2017-08-15T12:40:54-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/location/</loc>
+    <lastmod>2017-08-15T12:40:54-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/hotels/flamingos/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/hoteles/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/hoteles/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/hoteles/"
+                />
+  </url>
+  
+  <url>
+    <loc>/hotels/buenaventura/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/habitaciones/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/habitaciones/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/habitaciones/"
+                />
+  </url>
+  
+  <url>
+    <loc>/promociones/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/promociones/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/promociones/"
+                />
+  </url>
+  
+  <url>
+    <loc>/amenidades/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2018-11-14T19:02:50-07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/"
+                />
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/hotels/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

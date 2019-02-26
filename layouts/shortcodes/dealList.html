@@ -1,0 +1,16 @@
+{{ if .Site.Params.promotionsURL }}
+   {{ $many := 20 }}
+   {{ $containerType := "list--fullpage"}}
+   {{ with .Get "items" }}
+      {{ $many = . }}
+   {{ end }}
+   {{ with .Get "isFluid" }}
+      {{ $containerType = "list--fluid"}}
+   {{ end }}
+   {{ $deals := getJSON .Site.Params.promotionsURL }}
+   <div class="{{ $containerType }}">
+   {{ range first $many (where $deals "isActive" true) }}
+      {{ partial "deal" (dict "deal" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "showHotel" $.Site.Params.promotionsShowHotel) }}
+   {{ end }}
+   </div>
+{{ end }}

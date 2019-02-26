@@ -1,0 +1,75 @@
+{{ define "main" }}
+{{ partial "main-text" . }}
+<div class="container"> 
+   <div class="row">
+      <div class="col-sm-8">
+      <form method="POST" action="thank-you" netlify name="contact" class="contact-form" novalidate="">
+         <input type="hidden" name="site" value="{{ .Site.BaseURL }}"/>
+         <input type="hidden" name="account" value="{{ .Site.Params.Account }}"/>		
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="name">{{ i18n "name"}} <span class="required text-danger">*</span></label>
+                     <input type="text" name="name" id="name" class="form-control" required>
+                  </div>
+               </div>
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="last_name">{{ i18n "lastName"}}</label>
+                     <input type="text" name="last_name" id="last_name" class="form-control">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="email">{{ i18n "email"}} <span class="required text-danger">*</span></label>
+                     <input type="email" name="email" id="email" class="form-control" required>
+                  </div>
+               </div>
+               <div class="col-sm-6">
+                  <div class="form-group">
+                     <label for="phone">{{ i18n "phone"}}</label>
+                     <input type="text" name="phone" id="phone" class="form-control">
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-sm-12">
+                  <div class="form-group">
+                     <label for="comments">{{ i18n "comments"}} <span class="required text-danger">*</span></label>
+                     <textarea name="comments" id="comments" class="form-control" rows="5" required></textarea>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+         <div class="col-sm-12">
+            <div class="form-group">
+               <button type="submit" id="submitContactForm" class="btn btn-primary">{{ i18n "contactBtn"}}</button>
+            </div>    
+         </div>
+         </div>
+         </form>
+      </div>
+      <div class="col-sm-4">
+         <div class="sidebar-block contact-sidebar">
+            <h5>{{ i18n "contactSidebarTitle"}}</h5>	
+            {{ with .Site.Params.hotelPhone }}<span class="hotel-phone">{{.}}</span><br>{{ end }}
+            {{ with .Site.Params.hotelEmail }}<a href="mailto:{{.}}" class="hotel-email">{{.}}</a>{{ end }}
+            {{ with .Site.Params.hotelAddress | markdownify }} <p><span class="hotel-address">{{.}}</span></p>{{ end }}
+         </div>
+      </div>
+   </div>
+</div>
+{{ .Content }}
+<script>
+window.formMessages = {
+   name: {{ i18n "nameEmptyErrorMsg" }},
+   comments: {{ i18n "commentsEmptyErrorMsg" }},
+   email: {
+      required: {{ i18n "emailEmptyErrorMsg" }},
+      email: {{ i18n "emailInvalidErrorMsg" }}
+    }
+}
+</script>
+{{end}}

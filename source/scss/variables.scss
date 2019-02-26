@@ -1,0 +1,40 @@
+$body-color:                  #484848;
+$light-color:                 #fff;
+$light-bgcolor:               #f8f9fa;
+$dark-color:                  rgba(0, 0, 0, 0.9);
+$dark-bgcolor:                #343a40;
+
+$brand-color:                 #ef8caa;
+$brand-color-secondary:       $light-bgcolor;
+
+$footer-bgcolor:              $brand-color-secondary;
+$footer-txtcolor:             $dark-color;
+$footer-linkcolor:            $brand-color;
+
+$top-bar-bgcolor:             $dark-bgcolor;
+$top-bar-txtcolor:            change-color($light-color, $alpha: 0.8);
+$top-bar-linkcolor:           change-color($light-color, $alpha: 0.8);
+
+$navbar-bgcolor:              $light-bgcolor;
+$navbar-item-color:           $brand-color;
+$navbar-item-bgcolor:         transparent;
+$navbar-item-hover-color:     lighten($brand-color, 10%);
+$navbar-item-hover-bgcolor:   transparent;
+$navbar-item-active-color:    $brand-color;
+$navbar-item-active-bgcolor:  transparent;
+
+$stage-bgcolor:               darken($light-bgcolor, 5%);
+$stage-color:                 $dark-color;
+
+$promo-bgcolor:               rgb(212, 40, 40);
+$promo-txtcolor:              $light-color;
+
+$listItem-bgcolor:            $light-bgcolor;
+$listItem-color:              $dark-color;
+
+$custom-font-path:            "../../static/fonts";
+$itm-font-version:            1;
+$fa-font-path:                "../../node_modules/@fortawesome/fontawesome-free/webfonts";
+$fa-css-prefix:               fax;
+
+

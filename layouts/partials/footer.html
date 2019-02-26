@@ -1,0 +1,24 @@
+<footer class="mt-5 py-5 itm-footer">
+   <div class="container">
+      <ul class="list-inline">
+      {{ range .Site.Menus.footer }}
+         <li class="list-inline-item">
+            <a  href="{{.URL | absURL }}">{{ .Name }}</a>
+         </li>
+      {{ end }}
+      </ul>
+      <ul class="list-unstyled">
+         {{ with .Site.Params.hotelAddress | markdownify }}<li>{{.}}</span></li>{{ end }}
+         {{ with .Site.Params.hotelPhone | markdownify }}<li>{{.}}</span></li>{{ end }}
+         {{ with .Site.Params.hotelEmail | markdownify }}<li><a href="mailto:{{.}}">{{.}}</a></li>{{ end }}
+      </ul>
+      {{ if .Site.Params.Social }}
+      <ul class="list-inline itm-socialMedia">
+         {{ range .Site.Params.Social }}
+         <li class="list-inline-item"><a href="{{ .url }}" target="_blank"><span class="fab fax-{{ .icon }} fax-2x"></span></a></li>
+         {{ end }}
+      </ul>
+      {{ end }}
+      <p class="copyright">Revenatium {{ dateFormat "2006" now }}</p>
+   </div>
+</footer>

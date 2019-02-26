@@ -1,0 +1,38 @@
+.itm-stage{
+   margin: 0 auto;
+   margin-bottom: 2rem;
+   position: relative;
+   @media (min-width: 768px){
+      background-color: $stage-bgcolor;
+   }
+   
+   &.itm-stage--hconstrained{
+      background-color: #FFF;
+      @media (min-width: 576px){
+         max-width: 576px;
+      }
+      @media (min-width: 768px){
+         max-width: 768px;
+         min-height: 360px; /* para conservar tamaño mínimo en w horizontal */
+      }
+      @media(min-width: 992px){
+         max-width: 1024px;
+      }
+      @media(min-width: 1200px){
+         max-width: 1280px;
+      }
+   }
+   //importante que vcontrained vaya después de hcontrained
+   &.itm-stage--vconstrained{
+      background-color: #FFF;
+      @media (min-width: 768px){
+         min-height: 360px;
+      }
+      @media(min-width: 992px){
+         min-height: 480px;
+      }
+      @media(min-width: 1200px){
+         min-height: 600px;
+      }
+   }
+}

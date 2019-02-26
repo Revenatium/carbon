@@ -1,0 +1,42 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "containerClasses" (slice "itm-header-content") }}
+{{ $customScratch.Add "widgetClasses" (slice "itm-booker") }}
+{{ $customScratch.Add "columnClasses" (slice "col-12") }}
+{{ $isVertical := .Site.Params.widgetVertical }}
+
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if $isVertical }}
+   {{ $customScratch.Add "containerClasses" (slice "itm-widget-container-vertical") }}
+   {{ $customScratch.Add "widgetClasses" (slice "itm-booker-vertical") }}
+   {{ $customScratch.Add "columnClasses" (slice "col-md-6" "col-lg-4" "offset-md-6" "offset-lg-8") }}
+{{ else }}
+   {{ $customScratch.Add "containerClasses" (slice "itm-widget-container-horizontal") }}
+   {{ $customScratch.Add "widgetClasses" (slice "itm-booker-horizontal") }}
+   {{ $customScratch.Add "columnClasses" (slice "col-lg-9" ) }}
+{{ end }}
+
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+
+{{ if and (ne .Params.hideBooker true) (eq $widgetLocation "top")}}
+<div class="{{ delimit ($customScratch.Get `containerClasses`) ` ` }}">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="{{ delimit ($customScratch.Get `columnClasses`) ` ` }}">
+               <div class="card widget-container">
+                  <div class="card-body">
+                     <h5 class="card-title d-md-none d-block">{{ i18n "bookNow"}}</h5>
+                     <div id="rvm-booker-container" class="{{ delimit ($customScratch.Get `widgetClasses`) ` ` }}">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{{ end }}
+

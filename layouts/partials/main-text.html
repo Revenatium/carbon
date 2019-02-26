@@ -1,0 +1,20 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "itm-banner-container") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage") }}
+{{ if and (ne .Params.hideBooker true) (eq .Site.Params.widgetVertical true) }}
+   {{ $customScratch.Add "classes" (slice "itm-banner-container--nobgimage") }}
+{{ end }}
+
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+      <div class="container itm-banner-info-container">
+         {{ if ne .Params.hideTitle true }}
+            <div class="itm-banner-info">
+               <h1>{{ .Title | markdownify }}</h1>
+               {{ with .Description | markdownify }}<p class="lead">{{ . }}</p>{{ end }}
+            </div>
+         {{ end }}
+      </div>
+   </div>
+   {{ partial "widget-container" . }}
+</div>

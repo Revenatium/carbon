@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg {{ if eq .Site.Params.stickyHeader true}} navbar-sticky {{ end }}">
+   <div class="container">
+      <a class="navbar-brand" href="{{ .Site.BaseURL | absLangURL }}">
+         {{ if (and .Site.Params.logoBase .Site.Params.logoPath)}}
+            <picture>
+               <source media="(max-width: 320px)" srcset="{{ .Site.Params.logoBase }}q_auto,w_150,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
+               <source media="(max-width: 425px)" srcset="{{ .Site.Params.logoBase }}q_auto,w_180,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
+               <img src="{{ .Site.Params.logoBase }}q_auto,h_45,dpr_2.0/{{ .Site.Params.logoPath }}" />
+            </picture>
+         {{ else if .Site.Params.logoURL }}
+            <img src="{{ .Site.Params.logoURL }}" alt="{{ .Site.Title | safeHTML }}">
+         {{ else }}
+            {{ .Site.Title | safeHTML }}
+         {{ end }}
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
+         <span class="fas fax-bars"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbar">
+         <ul class="navbar-nav ml-auto">
+            {{- $currentURL := .URL | absLangURL -}}
+            {{ if .Site.Params.custom_navbar }}
+               {{ range .Site.Menus.main }}
+                  {{ $menuURL := .URL | absLangURL }}
+            <li class="nav-item{{ if eq $menuURL $currentURL }} active{{ end }}">
+               <a class="nav-link" href="{{.URL | absURL }}">{{ .Name }}</a>
+            </li>
+               {{ end }}
+            {{ else }}
+            <li class="nav-item{{ if .IsHome }} active{{ end }}">
+               <a class="nav-link" href="{{ "/" | absLangURL }}">{{ i18n "home" }}</a>
+            </li>
+               {{ range where (where .Site.RegularPages "Type" "==" "page") ".Params.weight" ">=" 1 }}
+                  {{ $permalinkURL := .Permalink | absLangURL }}
+            <li class="nav-item{{ if eq $permalinkURL $currentURL }} active{{ end }}">
+               <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
+            </li>
+               {{ end }}
+            {{ end }}
+         </ul>
+      </div>
+   </div>
+</nav>

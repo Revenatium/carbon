@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/en/hoteles/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/hoteles/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/hoteles/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/promociones/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/promociones/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/promociones/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/habitaciones/</loc>
+    <lastmod>2017-08-19T12:35:17-05:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/habitaciones/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/habitaciones/"
+                />
+  </url>
+  
+  <url>
+    <loc>/en/</loc>
+    <lastmod>2018-11-14T19:02:50-07:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="es"
+                href="/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="/en/"
+                />
+  </url>
+  
+</urlset>

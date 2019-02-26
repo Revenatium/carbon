@@ -1,0 +1,6 @@
+{{ $base := .Get "base" }}
+{{ $path := .Get "path" }}
+<a class="home-amenity" href="{{.Get `url`}}" style="background-image: url({{print $base `f_auto,w_600,h_400,c_fill/` $path }})">
+   <h5>{{.Get "title"}}</h5>
+   <p>{{ .Inner }}</p>
+</a>

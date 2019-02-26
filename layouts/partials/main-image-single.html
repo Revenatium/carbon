@@ -1,0 +1,14 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--hconstrained") }}
+{{ if eq .Params.verticalConstrained true }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
+{{ end }}
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div class="itm-banner-container itm-banner-container--absolute itm-banner-container--dark">
+   {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) "title" .Title "subTitle" .Description}}
+   {{ partial "banner" (dict "banner" $banner "main" $) }}
+   </div>
+   {{ partial "widget-container" . }}
+</div>

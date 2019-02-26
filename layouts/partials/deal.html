@@ -1,0 +1,76 @@
+{{ $base := .imageBase }}
+{{ $bucket := .imageBucket }}
+{{ $bookingEngineURL := .bookingEngineURL }}
+{{ $showHotel := .showHotel}}
+
+{{ with .deal}}
+{{ $lastValidDate := time .lastValidDate }}
+{{ $startDate := dateFormat "2006-01-02" ($lastValidDate.AddDate 0 0 -2) }}
+<div class="row listItem listItem-deal">
+   {{if .photos }}
+   {{ $image := index .photos 0 }}
+   <div class="listItem-pic" style="background-image: url( {{ print $base `f_auto,h_252,w_448,c_fill/` $bucket `/` $image.path }})">
+      {{ if and (.discountPercentage) (gt .discountPercentage 0) }}
+      <p class="discount-amount">
+         -{{ .discountPercentageComplete }}
+      </p>
+      {{ end }}
+   </div>
+   {{else}}
+   <div class="listItem-pic listItem-pic--empty">
+      {{ if and (.discountPercentage) (gt .discountPercentage 0) }}
+      <p class="discount-amount">
+         -{{ .discountPercentageComplete }}
+      </p>
+      {{ end }}
+   </div>
+   {{end}}
+   <div class="listItem-info listItem-info--full">
+      {{ if .title}}
+      <h2 class="listItem-title">{{ .title | markdownify }} {{ if and $showHotel .hotel }}<div class="listItem-subtitle">{{.hotel.name}}</div>{{end}}</h2>
+      {{else}}
+      <h2 class="listItem-title">{{ i18n "promotion" }} {{ if and $showHotel .hotel }}<div class="listItem-subtitle">{{.hotel.name}}</div>{{end}}</h2>
+      {{end}}
+      
+      <div class="listItem-shortDesc">
+         <div class="deal-includes">
+            {{ if .description }}
+            <blockquote>{{ .description | markdownify }}</blockquote>
+            {{ end }}
+            {{ if .lastValidDate }}
+            <div class="badge badge-warning itm-timer-badge d-none"><i class="fas fax-clock-o fax-lg mr-2" ></i>{{ i18n "hurryUp"}} <span class="font-weight-bold" data-countdown="{{.lastValidDate}}"></span></div>
+            {{ end }}
+            <ul class="list-unstyled">
+               {{ range .importantDates }}
+                  <li>{{ . }}</li>
+               {{ end }}
+            </ul>
+            <p><strong>{{ i18n "dealIncludes"}}</strong></p>
+            <ul>
+               {{ range .includesDescription }}
+               <li>{{ . }}</li>
+               {{ end }}
+            </ul>
+            <div class="deal-conditions dropdown">
+               <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <small>{{ i18n "dealTerms"}}</small></a>
+               <div class="dropdown-menu">
+                  <ul>
+                     {{ range .termsAndConditions}}
+                     <li>{{ . }}</li>
+                     {{ end }}
+                  </ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="listItem-actions">
+         {{ if and $showHotel .hotel }}
+         <a href="{{ $bookingEngineURL }}#/s/{{ .hotel.id }}/{{ i18n "roomsUri"}}/{{ $startDate }}/{{ .lastValidDate }}?r[0].adults=2&r[0].children=0" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         {{ else }}
+         <a href="{{ $bookingEngineURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         {{end}}
+      </div>
+   </div>
+</div>
+{{end}}

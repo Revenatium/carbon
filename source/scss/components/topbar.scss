@@ -1,0 +1,33 @@
+.itm-header-top {
+   font-size: 90%;
+   padding: 10px 0;
+   background-color: $top-bar-bgcolor;
+   color: $top-bar-txtcolor;
+
+   .itm-header-top-contact{
+      display: none;
+      @media (min-width: 992px) {
+         display: block;
+         @if variable-exists(navbar-left-margin){
+         padding-left: $navbar-left-margin;
+         }
+         padding-top: 0;
+      }
+      a, span {
+         white-space: nowrap;
+         color: $top-bar-txtcolor;
+      }
+   }
+
+   .itm-header-top-lang > div > a,
+   .itm-header-top-nav a {
+      color: $top-bar-linkcolor;
+      text-transform: uppercase;
+      font-size: 13px;
+      padding-left: 15px;
+      @media (max-width: 576px) {
+         font-size: 12px;
+         padding: 0 3px;
+      }
+   } 
+}

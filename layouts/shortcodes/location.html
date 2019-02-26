@@ -1,0 +1,26 @@
+<div>
+   {{ with .Get "showTitle"}}
+   <h2>{{ i18n "location"}}</h2>
+   {{ end }}
+   {{ .Inner }}
+   <div id="map" class="itm-map"></div>
+</div>
+
+<script>
+function initMap() {
+   var uluru = { lat: parseFloat({{ .Get "lat" }}), lng: parseFloat({{ .Get "lng" }}) };
+   var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: parseInt({{ .Get "zoom" }}),
+      scrollwheel: false,
+      center: uluru
+   });
+   var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+   });
+}
+</script>
+{{ if .Site.Params.maps_api_key }}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ .Site.Params.maps_api_key }}&callback=initMap"></script>
+{{ end }}
+   

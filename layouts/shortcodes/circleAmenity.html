@@ -1,0 +1,7 @@
+{{ $base := .Get "base" }}
+{{ $path := .Get "path" }}
+<div class="text-center mb-3">
+   <img src="{{print $base `f_auto,w_200,h_200,c_fill,r_max/` $path }}"/>
+   <h5 class="mt-4">{{.Get "title"}}</h5>
+   {{ .Inner }}
+</div>

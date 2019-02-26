@@ -1,0 +1,130 @@
+[
+   {
+      "id": "home",
+      "translation": "Home"
+   },
+   {
+      "id": "deals",
+      "translation": "Deals"
+   },
+   {
+      "id": "rooms",
+      "translation": "Rooms"
+   },
+   {
+      "id": "photoGallery",
+      "translation": "Gallery"
+   },
+   {
+      "id": "location",
+      "translation": "Location"
+   },
+   {
+      "id": "amenities",
+      "translation": "Amenities"
+   },
+   {
+      "id": "name",
+      "translation": "Name"
+   },
+   {
+      "id": "lastName",
+      "translation": "Last name"
+   },
+   {
+      "id": "email",
+      "translation": "Email"
+   },
+   {
+      "id": "phone",
+      "translation": "Phone"
+   },
+   {
+      "id": "comments",
+      "translation": "Comments"
+   },
+   {
+      "id": "contactBtn",
+      "translation": "Contact us"
+   },
+   {
+      "id": "contactSidebarTitle",
+      "translation": "Other ways to contact us"
+   },
+   {
+      "id": "bookNow",
+      "translation": "Book now"
+   },
+   {
+      "id": "roomDetails",
+      "translation": "Details"
+   },
+   {
+      "id": "dealDiscount",
+      "translation": "Off"
+   },
+   {
+      "id": "dealTerms",
+      "translation": "Terms and conditions"
+   },
+   {
+      "id": "dealIncludes",
+      "translation": "Includes"
+   },
+   {
+      "id": "viewPromos",
+      "translation": "View promotions"
+   },
+   {
+      "id": "nameEmptyErrorMsg",
+      "translation": "Please type your name"
+   },
+   {
+      "id": "commentsEmptyErrorMsg",
+      "translation": "Please type your comments or questions"
+   },
+   {
+      "id": "emailEmptyErrorMsg",
+      "translation": "Please type your email"
+   },
+   {
+      "id": "emailInvalidErrorMsg",
+      "translation": "Please type a valid email address"
+   },
+   {
+      "id": "hotelEmptyErrorMsg",
+      "translation": "Please select a hotel"
+   },
+   {
+      "id": "checkinEmptyErrorMsg",
+      "translation": "Select your check-in date"
+   },
+   {
+      "id": "checkoutEmptyErrorMsg",
+      "translation": "Select your check-out date"
+   },
+   {
+      "id": "roomsEmptyErrorMsg",
+      "translation": "Select the number of rooms"
+   },
+   {
+      "id": "adultsEmptyErrorMsg",
+      "translation": "Select the number of adults"
+   },
+   {
+      "id": "promotion",
+      "translation": "Promotion"
+   },
+   {
+      "id": "roomsUri",
+      "translation": "rooms"
+   },
+   {
+      "id": "hurryUp",
+      "translation": "Hurry up, ends in:"
+   },
+   {
+      "id": "promotionFinished",
+      "translation": "Promotion ended"
+   }
+]

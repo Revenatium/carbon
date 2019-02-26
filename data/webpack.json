@@ -1,0 +1,37 @@
+{
+  "main": {
+    "css": "/build.css",
+    "js": "/build.js"
+  },
+  "": {
+    "eot": [
+      "/fonts/fa-brands-400.eot",
+      "/fonts/fa-regular-400.eot",
+      "/fonts/fa-solid-900.eot",
+      "/fonts/icons.eot"
+    ],
+    "svg": [
+      "/fonts/fa-brands-400.svg",
+      "/fonts/fa-regular-400.svg",
+      "/fonts/fa-solid-900.svg",
+      "/fonts/icons.svg"
+    ],
+    "ttf": [
+      "/fonts/fa-brands-400.ttf",
+      "/fonts/fa-regular-400.ttf",
+      "/fonts/fa-solid-900.ttf",
+      "/fonts/icons.ttf"
+    ],
+    "woff": [
+      "/fonts/fa-brands-400.woff",
+      "/fonts/fa-regular-400.woff",
+      "/fonts/fa-solid-900.woff",
+      "/fonts/icons.woff"
+    ],
+    "woff2": [
+      "/fonts/fa-brands-400.woff2",
+      "/fonts/fa-regular-400.woff2",
+      "/fonts/fa-solid-900.woff2"
+    ]
+  }
+}

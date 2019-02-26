@@ -1,0 +1,25 @@
+{{ $base := $.Site.Params.imageBase }}
+{{ $bucket := $.Site.Params.imageBucket }}
+{{ $banners := .Scratch.Get "banners" }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--vconstrained" "itm-stage--hconstrained") }}
+
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="carousel slide carousel-fade itm-banner-container itm-banner-container--absolute itm-banner-container--dark itm-banner-container--extrainfo" data-ride="carousel">
+      <div class="carousel-inner">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+            {{ if $element.photos }}
+               {{ $image := index .photos 0 }}
+               {{ $banner := dict "image" (dict "path" (print $bucket `/` $image.path) "base" $base) "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText }}
+               {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
+            {{ end }}
+         {{ end }}
+      </div>
+      <ol class="carousel-indicators">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+         <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+         {{ end }}
+      </ol>
+   </div>
+   {{ partial "widget-container" . }}
+</div>

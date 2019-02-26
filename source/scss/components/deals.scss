@@ -1,0 +1,83 @@
+.listItem-deal {
+   .deal-includes {
+       &>p {
+           margin-bottom: 0;
+       }
+       ul {
+           margin-bottom: 1rem;
+       }
+   }
+   .deal-conditions {
+       margin-top: 1rem;
+       margin-bottom: 1rem;
+   }
+   .dropdown-menu {
+       padding-right: 1rem;
+   }
+   .discount-amount {
+     font-size: 130%;
+     position: relative;
+     top: 10px;
+     margin-left: -25px;
+     margin-bottom: 0;
+     padding: 0.5em 1em;
+     display: inline-block;
+     box-shadow: 1px 1px 2px #000;
+     background-color: $promo-bgcolor;
+     color: $promo-txtcolor;
+     &:after{
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: 0;
+        top: 100%;
+        border-right: 10px solid darken($promo-bgcolor, 15);
+        border-bottom: 8px solid transparent;
+     }
+   }
+   .listItem-pic{
+     min-height: 129px !important;
+     height: 194px;
+     @media (min-width: 768px) {
+        height: 129px;  
+     }
+     @media (min-width: 992px) {
+        height: 174px;  
+     }
+     @media (min-width: 1200px) {
+        height: 208px;  
+     }
+     @media (max-width: 767px){
+        background-size: contain;
+        background-repeat: no-repeat;
+     }
+  }
+  .listItem-pic--empty:before{
+     content: "\F02B";
+     font-family: FontAwesome;
+     text-align: center;
+     display: block;
+     color: #aaa;
+     position: absolute;
+     top: 0;
+     left: 0;
+     width: 100%;
+     font-size: 140px;
+     @media (min-width: 768px) {
+        font-size: 90px;  
+     }
+     @media (min-width: 992px) {
+        font-size: 125px;  
+     }
+     @media (min-width: 1200px) {
+        font-size: 150px;  
+     }
+  }
+  .itm-timer-badge{
+     padding: 0.5em 1em;
+     font-weight: normal;
+     font-size: unset;
+     background-color: #f7d676;
+  }
+}

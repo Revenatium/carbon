@@ -1,0 +1,19 @@
+{{ define "main" }}
+   {{ .Scratch.Set "widgetLocation" "top" }}
+   {{ .Scratch.Set "banners" "" }}
+   {{ if and .Params.showBanners .Site.Params.bannersURL }}
+      {{.Scratch.Set "banners" (getJSON .Site.Params.bannersURL) }}
+   {{ end }}
+   {{ if ne (len (.Scratch.Get "banners")) 0 }}   
+      {{ partial "main-banner-carousel" . }}
+   {{ else if isset .Params "slider" }}
+      {{ partial "main-image-carousel" . }}
+   {{ else if isset .Params `featured_image` }}
+      {{ partial "main-image-single" . }}
+   {{ else }}
+      {{ partial "main-text" . }}
+   {{ end }}
+   <section class="itm-body">
+      {{ .Content }}
+   </section>
+{{ end }}

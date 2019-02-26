@@ -1,0 +1,70 @@
+.widget-container{
+   position: relative;
+   z-index: 1;
+}
+.itm-widget-container-vertical{
+   @media (min-width: 768px){
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+   }
+   @media(min-width: 992px){
+      padding-top: 4rem;
+      padding-bottom: 3rem;
+   }
+   @media(min-width: 1200px){
+      padding-top: 5rem;
+      padding-bottom: 4rem;
+   }
+   .widget-container{
+      @media (min-width: 768px){
+         background-color: rgba(255, 255, 255, 0.8) !important;
+      }
+      .itm-booker{
+         min-height: 193px;
+      }
+   }
+}
+
+.itm-stage--vconstrained 
+.itm-widget-container-horizontal,
+.itm-stage--hconstrained 
+.itm-widget-container-horizontal
+{
+   @media (min-width: 768px) {
+      background-color: rgba(0,0,0,0.45);
+      position: absolute;
+      bottom: 0rem;
+      left: 0;
+      right: 0;
+   }
+}
+
+.itm-widget-container-horizontal{
+   .widget-container{
+      @media (min-width: 768px){
+         background-color: transparent;
+         border: none
+      }
+      .card-body{
+         @media (min-width: 768px){
+            padding-left: 0;
+            padding-right: 0;
+         }
+      }
+      .itm-booker{
+         min-height: 128px;
+         @media (max-width: 767px){
+            min-height: 193px;
+         }
+      }
+   }
+}
+.sidebar-widget{
+   will-change: min-height;
+   .card{
+      min-height: 271px;
+      transform: translate(0, 0); /* For browsers don't support translate3d. */
+      transform: translate3d(0, 0, 0);
+      will-change: position, transform;
+   }
+}

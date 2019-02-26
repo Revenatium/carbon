@@ -1,0 +1,131 @@
+.listItem {
+   margin-bottom: 2rem;
+   background-color: $listItem-bgcolor;
+   color: $listItem-color;
+   @extend .no-gutters;
+
+   .listItem-pic {
+      position: relative;
+      background-size: cover;
+      background-color: #eee;
+      background-position: center center;
+      min-height: 194px !important;
+   }
+
+   .listItem-info {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      
+      .badge{
+         white-space: normal !important;
+      }
+
+      .listItem-subtitle{
+         color: #999;
+         font-size: 65%;
+         font-weight: normal;
+      }
+
+      .listItem-shortDesc {
+         margin: 0.5rem 0;
+      }
+
+      .listItem-actions {
+         margin-top: 0.5rem;
+      }
+
+      .listItem-data {
+         font-size: 90%;
+         color: #888;
+         margin: 0.5rem 0;
+      
+         &>div {
+            display: inline-block;
+            margin-right: 1em;
+         }
+      }
+   }
+   .listItem-rates{
+      padding-top: 15px;
+      padding-bottom: 15px;
+   }
+
+   .listItem-details {
+      text-align: center;
+      border: 1px solid #f9f9f9;
+      background-color: #fff;
+
+      &>div {
+        padding: 20px;
+      }
+   }
+}
+
+@media (max-width: 767px) {
+   .listItem-rates .btn {
+       display: block;
+       width: 100%;
+   }
+   .listItem-rates small {
+       text-align: center;
+       margin-bottom: 0;
+   }
+}
+.listItem-rates-amount {
+   text-transform: uppercase;
+   font-size: 22px;
+   white-space: nowrap;
+}
+
+.listItem-prePromotional-amount {
+   text-decoration: line-through;
+}
+
+/*Pra uso en listados*/
+.list--fullpage{
+   .listItem-pic {
+      @extend .col-md-4;
+   }
+   .listItem-info {
+      @extend .col-md-5;
+   }
+   .listItem-info--full {
+      @extend .col-md-8;
+   }
+   .listItem-rates {
+      @extend .col-md-3;
+   }
+   .listItem-details {
+      @extend .col-md-12;
+   }
+}
+
+/*Para uso como card*/
+.list--fluid {
+   .listItem {
+      width: 100%;
+      .listItem-info {
+         width: 100%;
+         padding: 20px;
+         .btn-primary {
+            display: block;
+         }
+      }
+
+      .listItem-pic {
+         padding: 0 15px;
+         width: 100%;
+         height: 194px;
+         @media (min-width: 768px) {
+            height: 152px;  
+         }
+         @media (min-width: 992px) {
+            height: 208px;  
+         }
+         @media (min-width: 1200px) {
+            height: 250px;  
+         }
+      }
+   }
+}
+

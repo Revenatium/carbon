@@ -1,0 +1,49 @@
+.navbar{
+   background-color: $navbar-bgcolor;
+   .navbar-nav{
+      .nav-link {
+         background-color: $navbar-item-bgcolor;
+         color: $navbar-item-color;
+         &:focus, 
+    	   &:hover {
+            background-color: $navbar-item-hover-bgcolor;
+            color: $navbar-item-hover-color;
+         }
+      }
+      .active {
+         .nav-link {
+            background-color: $navbar-item-active-bgcolor;
+            color: $navbar-item-active-color;
+            &:after {
+               display: block;
+               content: "";
+               border-bottom: 3px solid $navbar-item-active-color;
+               padding-top: 5px;
+           }
+         }
+      }
+   }
+   .navbar-brand {
+      min-height: 55px;
+      z-index: 1;
+      img{
+         max-height: 45px;
+      }
+   }
+   .navbar-toggler {
+      border-color: $navbar-item-color;
+      color: $navbar-item-color;
+
+      &:hover,
+      &:focus {
+          background-color: $navbar-item-hover-bgcolor;
+          color: $navbar-item-hover-color;
+      }
+  }
+}
+.is-sticky{
+   .navbar{
+      z-index: 2 !important;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+   }
+}

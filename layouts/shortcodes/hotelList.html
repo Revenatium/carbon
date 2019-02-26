@@ -1,0 +1,39 @@
+{{ $many := 20 }}
+{{ $containerType := "list--fullpage"}}
+{{ with .Get "items" }}
+   {{ $many = . }}
+{{ end }}
+{{ with .Get "isFluid" }}
+   {{ $containerType = "list--fluid"}}
+{{ end }}
+<div class="{{ $containerType }}">
+{{ range first $many (where .Site.RegularPages.ByWeight "Section" "==" "hotels") }}
+   {{ $currentHotelPage := . }}
+   {{ $destination := (dict "name" .Params.zone) }}
+   {{ $photos := slice (dict "base" .Params.featured_image.base "path" .Params.featured_image.path )}}
+   
+   {{ $customScratch := newScratch }}
+   {{ $customScratch.Add "hotel" (dict "url" .URL "id" .Params.id "name" .Title "description" .Description "destination" $destination "photos" $photos) }}
+   
+   {{ if $.Site.Params.hotelsURL }}
+      {{ $hotels := getJSON $.Site.Params.hotelsURL }}
+      {{ range $hotels }}
+         {{ if eq (int .id) $currentHotelPage.Params.id }}
+            {{ $photosScratch := newScratch }}
+            {{ $photosScratch.Set "photos" slice}}
+            {{ range .photos }}
+               {{ $photosScratch.Add "photos" (dict "base" $.Site.Params.imageBase "path" (print $.Site.Params.imageBucket `/` .path)) }}
+            {{ end }}
+
+            {{ $customScratch.SetInMap "hotel" "photos" ($photosScratch.Get "photos") }}            
+            {{ $customScratch.SetInMap "hotel" "description" .description }}
+            {{ $customScratch.SetInMap "hotel" "destination" .destination }}
+            {{ $customScratch.SetInMap "hotel" "lowestRateDetail" .lowestRateDetail }}
+         {{ end }}
+      {{ end }}
+   {{ end }}
+   
+   {{ partial "hotel" (dict "hotel" ($customScratch.Get "hotel") "bookingEngineURL" $.Site.Params.bookingEngineURL "bookingEngineRoomsUrlSufix" $.Site.Params.bookingEngineRoomsUrlSufix "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+{{ end }}
+</div>
+
