@@ -126,5 +126,17 @@
    {
       "id": "promotionFinished",
       "translation": "Promotion ended"
+   },
+   {
+      "id": "viewDetails",
+      "translation": "View details"
+   },
+   {
+      "id": "priceNote",
+      "translation": "Per room per night. Taxes not included."
+   },
+   {
+      "id": "ratesStartingAt",
+      "translation": "Rates starting at"
    }
 ]

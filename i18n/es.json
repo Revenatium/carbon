@@ -126,5 +126,17 @@
    {
       "id": "promotionFinished",
       "translation": "Promoción finalizada"
+   },
+   {
+      "id": "viewDetails",
+      "translation": "Ver detalles"
+   },
+   {
+      "id": "priceNote",
+      "translation": "Precio por habitación por noche. Impuestos no incluidos."
+   },
+   {
+      "id": "ratesStartingAt",
+      "translation": "Tarifas desde"
    }
 ]
