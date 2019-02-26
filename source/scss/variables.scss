@@ -1,40 +1,40 @@
-$body-color:                  #484848;
-$light-color:                 #fff;
-$light-bgcolor:               #f8f9fa;
-$dark-color:                  rgba(0, 0, 0, 0.9);
-$dark-bgcolor:                #343a40;
+$body-color:                  #484848 !default;
+$light-color:                 #fff !default;
+$light-bgcolor:               #f8f9fa !default;
+$dark-color:                  rgba(0, 0, 0, 0.9) !default;
+$dark-bgcolor:                #343a40 !default;
 
-$brand-color:                 #ef8caa;
-$brand-color-secondary:       $light-bgcolor;
+$brand-color:                 #ef8caa !default;
+$brand-color-secondary:       $light-bgcolor !default;
 
-$footer-bgcolor:              $brand-color-secondary;
-$footer-txtcolor:             $dark-color;
-$footer-linkcolor:            $brand-color;
+$footer-bgcolor:              $brand-color-secondary !default;
+$footer-txtcolor:             $dark-color !default;
+$footer-linkcolor:            $brand-color !default;
 
 $top-bar-bgcolor:             $dark-bgcolor;
-$top-bar-txtcolor:            change-color($light-color, $alpha: 0.8);
-$top-bar-linkcolor:           change-color($light-color, $alpha: 0.8);
+$top-bar-txtcolor:            change-color($light-color, $alpha: 0.8) !default;
+$top-bar-linkcolor:           change-color($light-color, $alpha: 0.8) !default;
 
-$navbar-bgcolor:              $light-bgcolor;
-$navbar-item-color:           $brand-color;
-$navbar-item-bgcolor:         transparent;
-$navbar-item-hover-color:     lighten($brand-color, 10%);
-$navbar-item-hover-bgcolor:   transparent;
-$navbar-item-active-color:    $brand-color;
-$navbar-item-active-bgcolor:  transparent;
+$navbar-bgcolor:              $light-bgcolor !default;
+$navbar-item-color:           $brand-color !default;
+$navbar-item-bgcolor:         transparent !default;
+$navbar-item-hover-color:     lighten($brand-color, 10%) !default;
+$navbar-item-hover-bgcolor:   transparent !default;
+$navbar-item-active-color:    $brand-color !default;
+$navbar-item-active-bgcolor:  transparent !default;
 
-$stage-bgcolor:               darken($light-bgcolor, 5%);
-$stage-color:                 $dark-color;
+$stage-bgcolor:               darken($light-bgcolor, 5%) !default;
+$stage-color:                 $dark-color !default;
 
-$promo-bgcolor:               rgb(212, 40, 40);
-$promo-txtcolor:              $light-color;
+$promo-bgcolor:               rgb(212, 40, 40) !default;
+$promo-txtcolor:              $light-color !default;
 
-$listItem-bgcolor:            $light-bgcolor;
-$listItem-color:              $dark-color;
+$listItem-bgcolor:            $light-bgcolor !default;
+$listItem-color:              $dark-color !default;
 
-$custom-font-path:            "../../static/fonts";
-$itm-font-version:            1;
-$fa-font-path:                "../../node_modules/@fortawesome/fontawesome-free/webfonts";
-$fa-css-prefix:               fax;
+$custom-font-path:            "../../static/fonts" !default;
+$itm-font-version:            1 !default;
+$fa-font-path:                "../../node_modules/@fortawesome/fontawesome-free/webfonts" !default;
+$fa-css-prefix:               fax !default;
 
 
