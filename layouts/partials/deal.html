@@ -38,7 +38,7 @@
             <blockquote>{{ .description | markdownify }}</blockquote>
             {{ end }}
             {{ if .lastValidDate }}
-            <div class="badge badge-warning itm-timer-badge d-none"><i class="fas fax-clock-o fax-lg mr-2" ></i>{{ i18n "hurryUp"}} <span class="font-weight-bold" data-countdown="{{.lastValidDate}}"></span></div>
+            <div class="badge badge-warning itm-timer-badge d-none"><i class="far fax-clock mr-2" ></i>{{ i18n "hurryUp"}} <span class="font-weight-bold" data-countdown="{{.lastValidDate}}"></span></div>
             {{ end }}
             <ul class="list-unstyled">
                {{ range .importantDates }}
