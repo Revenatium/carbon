@@ -1,7 +1,7 @@
 {
   "main": {
-    "css": "/build.css",
-    "js": "/build.js"
+    "css": "/theme-build.css",
+    "js": "/theme-build.js"
   },
   "": {
     "eot": [

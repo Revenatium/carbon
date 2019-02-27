@@ -15,7 +15,7 @@ module.exports =  {
    output: {
       path: path.join(__dirname, "static"),
       publicPath: "/",
-      filename: "build.js"
+      filename: "theme-build.js"
    },
 
    module: {
@@ -77,7 +77,7 @@ module.exports =  {
       }),
 
       new WebpackShellPlugin({
-         onBuildEnd: ['cp ./static/build.css ./layouts/partials/build.css']
+         onBuildEnd: ['cp ./static/theme-build.css ./layouts/partials/build.css']
       })
    ],
 
@@ -86,7 +86,7 @@ module.exports =  {
         new TerserPlugin(),
   
         new MiniCssExtractPlugin({
-          filename: "build.css"
+          filename: "theme-build.css"
         }),
   
         new OptimizeCSSAssetsPlugin({})
