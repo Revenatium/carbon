@@ -138,5 +138,9 @@
    {
       "id": "ratesStartingAt",
       "translation": "Rates starting at"
+   },
+   {
+      "id": "enterDates",
+      "translation": "Enter dates"
    }
 ]

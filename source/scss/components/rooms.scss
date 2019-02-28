@@ -1,0 +1,10 @@
+.list-amenities{
+   li{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      &:hover{
+         overflow: visible;
+      }
+   }
+}

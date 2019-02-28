@@ -138,5 +138,9 @@
    {
       "id": "ratesStartingAt",
       "translation": "Tarifas desde"
+   },
+   {
+      "id": "enterDates",
+      "translation": "Ingresar fechas"
    }
 ]

@@ -10,6 +10,15 @@
       background-color: #eee;
       background-position: center center;
       min-height: 194px !important;
+      a.photo-gallery-thumb-item{
+         position: absolute;
+         bottom: 0;
+         right: 0;
+         i{
+            color: #FFF;
+            margin: 0.5rem;
+         }
+      }
    }
 
    .listItem-info {
@@ -27,6 +36,7 @@
       }
 
       .listItem-shortDesc {
+         font-size: 90%;
          margin: 0.5rem 0;
       }
 
@@ -35,13 +45,16 @@
       }
 
       .listItem-data {
-         font-size: 90%;
+         font-size: 80%;
          color: #888;
          margin: 0.5rem 0;
-      
+         i {
+            min-width: 1rem;
+         }
          &>div {
-            display: inline-block;
-            margin-right: 1em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
          }
       }
    }
