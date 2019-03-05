@@ -1,23 +1,36 @@
 {{ $ := .main }}
 {{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
-{{ $bannerScratch := newScratch }}
-{{ $bannerScratch.Add "classes" (slice "itm-banner-item") }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "itm-banner-item") }}
 {{ if .isCarousel }}
-   {{ $bannerScratch.Add "classes" (slice "carousel-item") }}
+   {{ $customScratch.Add "classes" (slice "carousel-item") }}
 {{ end }}
 {{ if .active }}
-   {{ $bannerScratch.Add "classes" (slice "active") }}
+   {{ $customScratch.Add "classes" (slice "active") }}
+{{ end }}
+
+{{ $isVertical := $.Site.Params.widgetVertical }}
+{{ $customScratch.Add "infoClasses" (slice "col-12") }}
+
+{{ if eq $.Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq $.Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if $isVertical }}
+   {{ $customScratch.Add "infoClasses" (slice "col-sm-9" "col-md-6") }}
 {{ end }}
 
 {{ with .banner }}
 
 {{ if .image }}
    <div 
-      class="{{ delimit ($bannerScratch.Get `classes`) ` ` }}"
+      class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
       style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
       <div class="container itm-banner-info-container">
          <div class="row">
-            <div class="col-12 col-sm-9 col-md-6">
+            <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
                <div class="itm-banner-info">
                {{ if .labelText }}
                   <div class="badge badge-primary text-uppercase d-none d-md-inline-block">{{ .labelText | markdownify }}</div>

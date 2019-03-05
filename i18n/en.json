@@ -120,6 +120,10 @@
       "translation": "rooms"
    },
    {
+      "id": "roomsNextUri",
+      "translation": "rooms-next"
+   },
+   {
       "id": "hurryUp",
       "translation": "Hurry up, ends in:"
    },
@@ -142,5 +146,33 @@
    {
       "id": "enterDates",
       "translation": "Enter dates"
+   },
+   {
+      "id": "monday",
+      "translation": "Monday"
+   },
+   {
+      "id": "tuesday",
+      "translation": "Tuesday"
+   },
+   {
+      "id": "wednesday",
+      "translation": "Wednesday"
+   },
+   {
+      "id": "thursday",
+      "translation": "Thursday"
+   },
+   {
+      "id": "friday",
+      "translation": "Friday"
+   },
+   {
+      "id": "saturday",
+      "translation": "Saturday"
+   },
+   {
+      "id": "sunday",
+      "translation": "Sunday"
    }
 ]

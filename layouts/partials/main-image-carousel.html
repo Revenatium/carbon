@@ -6,11 +6,25 @@
 {{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
 {{ end }}
 
+{{ $isVertical := .Site.Params.widgetVertical }}
+{{ $customScratch.Add "infoClasses" (slice "col-12") }}
+
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if $isVertical }}
+   {{ $customScratch.Add "infoClasses" (slice "col-sm-9" "col-md-6") }}
+{{ end }}
+
+
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="carousel slide carousel-fade itm-banner-container itm-banner-container--absolute itm-banner-container--dark" data-ride="carousel">
          <div class="container itm-banner-info-container itm-info-container--standalone">
             <div class="row">
-               <div class="col-12 col-sm-9 col-md-6">
+               <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
                   <div class="itm-banner-info">
                      <h1>{{ .Title }}</h1>
                      {{ with .Description | markdownify }}<p class="lead">{{ . }}</p>{{ end }}

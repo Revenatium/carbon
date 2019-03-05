@@ -1,5 +1,5 @@
-{{ $base := $.Site.Params.imageBase }}
-{{ $bucket := $.Site.Params.imageBucket }}
+{{ $base := .Site.Params.imageBase }}
+{{ $bucket := .Site.Params.imageBucket }}
 {{ $banners := .Scratch.Get "banners" }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--vconstrained" "itm-stage--hconstrained") }}

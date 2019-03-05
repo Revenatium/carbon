@@ -1,6 +1,7 @@
 {{ if .Site.Params.roomsURL }}
    {{ $many := 20 }}
-   {{ $containerType := "list--fullpage"}}
+   {{ $containerType := "list--fullpage" }}
+   {{ $listType := "regular" }}
    {{ with .Get "items" }}
       {{ $many = . }}
    {{ end }}
@@ -8,9 +9,16 @@
       {{ $containerType = "list--fluid"}}
    {{ end }}
    {{ $rooms := getJSON .Site.Params.roomsURL }}
+   {{ with .Get "showComplete" }}
+      {{ $listType = "complete"}}
+   {{ end }}
    <div class="{{ $containerType }}">
    {{ range first $many (where (sort $rooms "id" "desc") "isActive" true) }}
-      {{ partial "room" (dict "room" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+      {{ if eq $listType "complete" }}
+         {{ partial "room-complete" (dict "room" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) "main" $}}
+      {{ else }}
+         {{ partial "room" (dict "room" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+      {{ end }}
    {{ end }}
    </div>
 {{ end }}

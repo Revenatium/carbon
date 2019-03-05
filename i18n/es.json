@@ -120,6 +120,10 @@
       "translation": "habitaciones"
    },
    {
+      "id": "roomsNextUri",
+      "translation": "habitaciones-proximo"
+   },
+   {
       "id": "hurryUp",
       "translation": "Apúrate, quedan:"
    },
@@ -142,5 +146,33 @@
    {
       "id": "enterDates",
       "translation": "Ingresar fechas"
+   },
+   {
+      "id": "monday",
+      "translation": "Lunes"
+   },
+   {
+      "id": "tuesday",
+      "translation": "Martes"
+   },
+   {
+      "id": "wednesday",
+      "translation": "Miercoles"
+   },
+   {
+      "id": "thursday",
+      "translation": "Jueves"
+   },
+   {
+      "id": "friday",
+      "translation": "Viernes"
+   },
+   {
+      "id": "saturday",
+      "translation": "Sabado"
+   },
+   {
+      "id": "sunday",
+      "translation": "Domingo"
    }
 ]

@@ -1,5 +1,5 @@
 .photo-gallery {
-   a {
+   a, .pg-item {
        display: block;
        float: left;
        border: 2px solid #fff;
@@ -32,7 +32,7 @@
 
 .has-3 {
    .photo-gallery {
-       a {
+       a, .pg-item {
            width: 33.3333%;
        }
        a:first-child {
@@ -43,9 +43,37 @@
 
 .has-4 {
    .photo-gallery {
-       a,
+       a, .pg-item,
        a:first-child {
            width: 50%;
       }
+   }
+}
+.itm-photo-gallery{
+   a, .pg-item{
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 2px solid #fff;
+      background-color: #efefef;
+      position: relative;
+   }
+   img{
+      width: 100%;
+   }
+   .gallery-count {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+      color: #FFF;
+      font-size: 200%;
+      line-height: 125pt;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
    }
 }

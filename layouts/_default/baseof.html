@@ -2,10 +2,23 @@
 <html lang="{{ .Lang }}">
 
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-   <base href="{{ if getenv "CONTEXT" }}{{ cond (eq "production" (getenv "CONTEXT")) (getenv "URL") (getenv "DEPLOY_PRIME_URL") }}{{ else }}{{ $.Site.BaseURL }}{{ end }}">
-   <title>{{ $.Site.Title }}</title>
+   {{ partial "head-meta.html" . }}
+
+   {{ block "schema-dot-org" . }}
+   <!-- schema.org metadata differs for Nodes and Pages -->
+   {{ end }}
+
+   <link rel="canonical" href="{{ .Permalink }}">
+   {{ if .Site.Params.bookingEngineURL }}
+   <link rel="prefetch" href="{{ .Site.Params.bookingEngineURL }}">
+   {{ end }}
+
+   {{ if .Params.meta_title }}
+      <title>{{ .Params.meta_title }}</title>
+   {{ else }}
+      <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+   {{ end }}
+
    {{ $stylesheet := .Site.Data.webpack.main }}
    {{ if and .IsHome (eq (getenv "CONTEXT") "production") }}
    <style>{{ partial "build.css" | safeCSS }}</style>
@@ -17,16 +30,27 @@
    <link href="{{ relURL . }}" rel="stylesheet">
       {{ end }}
    {{ end }}
+
+   {{ template "_internal/google_analytics_async.html" . }}
+      
+   {{ partial "googleTagManagerHeader.html" . }}
+
+   {{ partial "head-custom.html" . }}
 </head>
 
 <body>
+   {{ partial "googleTagManagerBody.html" . }}
+
    {{ block "header" . }}{{ partial "header" . }}{{end}}
+
    <main>
    {{ block "main" . }}{{end}}
    </main>
+
    <section class="sticky-bottom d-block d-lg-none">
       {{ partial "sticky-bottom" . }}
    </section>
+   
    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>

@@ -18,7 +18,8 @@
                display: block;
                content: "";
                border-bottom: 3px solid $navbar-item-active-color;
-               padding-top: 5px;
+               padding-top: 3px;
+               margin-bottom: -6px;
            }
          }
       }

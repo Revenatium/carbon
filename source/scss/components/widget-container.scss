@@ -65,3 +65,15 @@
       min-height: 271px;
    }
 }
+.w-outer-container{
+   transition: background-color .3s;
+}
+.is-sticky{
+   .widget-sticky{
+      background-color: $light-bgcolor;
+      width: 100% !important;
+      left: 0;
+      right: 0;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+   }
+}
