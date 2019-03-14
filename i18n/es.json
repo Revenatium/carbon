@@ -174,5 +174,13 @@
    {
       "id": "sunday",
       "translation": "Domingo"
+   },
+   {
+      "id": "bookingDates",
+      "translation": "Fechas de reservación"
+   },
+   {
+      "id": "travelDates",
+      "translation": "Fechas de viaje"
    }
 ]

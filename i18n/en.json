@@ -174,5 +174,13 @@
    {
       "id": "sunday",
       "translation": "Sunday"
+   },
+   {
+      "id": "bookingDates",
+      "translation": "Booking dates"
+   },
+   {
+      "id": "travelDates",
+      "translation": "Travel dates"
    }
 ]

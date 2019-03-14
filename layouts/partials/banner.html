@@ -24,6 +24,20 @@
 
 {{ with .banner }}
 
+{{ $actionLink := $bookingEngineUrl }}
+{{ if .promotion }}
+   {{ $showHotel := $.Site.Params.promotionsShowHotel }}
+   {{ $lastValidDate := time .promotion.lastValidDate }}
+   {{ $startDate := dateFormat "2006-01-02" ($lastValidDate.AddDate 0 0 -2) }}
+   {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastValidDate "?r[0].adults=2&r[0].children=0" }}
+   {{ $query := delimit $params "" }}
+   {{ if and $showHotel .hotel }}
+      {{ $actionLink = print $bookingEngineUrl "#/s/" .hotel.id ($query | safeURL) }}
+   {{ else }}
+      {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
+   {{ end }}
+{{ end }}
+
 {{ if .image }}
    <div 
       class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
@@ -42,13 +56,13 @@
                   <p class="lead">{{ .subTitle | markdownify }}</p>
                {{ end }}
                {{ if .actionText }}
-                  <a href="{{ $bookingEngineUrl }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+                  <a href="{{ $actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
                {{ end}}
                </div>
             </div>
          {{ if .actionText }}
             <div class="col-12 d-block d-md-none itm-banner-extra-info">
-               <a href="{{ $bookingEngineUrl }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
+               <a href="{{ $actionLink }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
             </div>
          {{end}}
          </div>

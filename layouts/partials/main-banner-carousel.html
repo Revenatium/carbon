@@ -10,7 +10,7 @@
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ if $element.photos }}
                {{ $image := index .photos 0 }}
-               {{ $banner := dict "image" (dict "path" (print $bucket `/` $image.path) "base" $base) "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText }}
+               {{ $banner := dict "image" (dict "path" (print $bucket `/` $image.path) "base" $base) "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion }}
                {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
             {{ end }}
          {{ end }}

@@ -40,11 +40,6 @@
             {{ if .lastValidDate }}
             <div class="badge badge-warning itm-timer-badge d-none"><i class="far fax-clock mr-2" ></i>{{ i18n "hurryUp"}} <span class="font-weight-bold" data-countdown="{{.lastValidDate}}"></span></div>
             {{ end }}
-            <ul class="list-unstyled">
-               {{ range .importantDates }}
-                  <li>{{ . }}</li>
-               {{ end }}
-            </ul>
             <p><strong>{{ i18n "dealIncludes"}}</strong></p>
             <ul>
                {{ range .includesDescription }}
@@ -59,6 +54,22 @@
                      {{ range .termsAndConditions}}
                      <li>{{ . }}</li>
                      {{ end }}
+                     <li>
+                        {{ i18n "bookingDates" }}:
+                        <ul>
+                           {{ range .bookingWindowPeriods }}
+                           <li>{{ .description | humanize }}</li>
+                           {{ end }}
+                        </ul>
+                     </li>
+                     <li>
+                        {{ i18n "travelDates" }}:
+                        <ul>
+                           {{ range .travelWindowPeriods }}
+                           <li>{{ .description | humanize }}</li>
+                           {{ end }}
+                        </ul>
+                     </li>
                   </ul>
                </div>
             </div>
