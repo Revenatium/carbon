@@ -3,7 +3,7 @@
 {{ $len := (len $items) }}
 <div>
    {{ with .Get "showTitle" }}
-   <h2>{{ i18n "gallery"}}</h2>
+   <h2>{{ i18n "photoGallery"}}</h2>
    {{ end }}
    {{ .Inner }}
    <div class="clearfix photo-gallery-container has-{{$len}}">

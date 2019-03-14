@@ -19,7 +19,9 @@
 {{ else }}
    {{ $customScratch.Add "containerClasses" (slice "itm-widget-container-horizontal") }}
    {{ $customScratch.Add "widgetClasses" (slice "itm-booker-horizontal") }}
-   {{ $customScratch.Add "columnClasses" (slice "col-lg-9" ) }}
+   {{ if .Site.Params.centerWidget }}
+      {{ $customScratch.Add "columnClasses" (slice "col-lg-9" ) }}
+   {{ end }}
 {{ end }}
 
 {{ if and (eq .Site.Params.stickyWidget true) (ne $isVertical true) }}

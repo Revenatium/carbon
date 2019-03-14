@@ -19,10 +19,10 @@
       {{ end}}
       <div class="listItem-data">
          {{ if .capacity }}
-         <div class="room-data-pax"><i class="fa fa-user mr-1"></i>{{ .capacity }}</div>
+         <div class="room-data-pax"><i class="fas fax-user mr-1"></i>{{ .capacity }}</div>
          {{ end }}
          {{ if .bedding }}
-         <div class="room-data-bed"><i class="fa fa-bed mr-1"></i>{{ .bedding }}</div>
+         <div class="room-data-bed"><i class="fas fax-bed mr-1"></i>{{ .bedding }}</div>
          {{ end }}
       </div>
       {{ if .description }}
@@ -70,7 +70,7 @@
          <h2 class="text-center">Comodidades</h2>
          <ul class="list-unstyled row text-left">
             {{ range $amenity := .amenities }}
-            <li class="col-sm-4"><i class="fa fa-check"></i>&nbsp;{{ $amenity.name }}</li>
+            <li class="col-sm-4"><i class="fas fax-check"></i>&nbsp;{{ $amenity.name }}</li>
             {{ end}}
          </ul>
       </div>

@@ -8,10 +8,10 @@ $brand-color:                 #ef8caa !default;
 $brand-color-secondary:       $light-bgcolor !default;
 
 $footer-bgcolor:              $brand-color-secondary !default;
-$footer-txtcolor:             $dark-color !default;
+$footer-txtcolor:             lighten($dark-color, 50%) !default;
 $footer-linkcolor:            $brand-color !default;
 
-$top-bar-bgcolor:             $dark-bgcolor;
+$top-bar-bgcolor:             $dark-bgcolor !default;
 $top-bar-txtcolor:            change-color($light-color, $alpha: 0.8) !default;
 $top-bar-linkcolor:           change-color($light-color, $alpha: 0.8) !default;
 
@@ -31,6 +31,9 @@ $promo-txtcolor:              $light-color !default;
 
 $listItem-bgcolor:            $light-bgcolor !default;
 $listItem-color:              $dark-color !default;
+
+$widget-horizontal-bgColor:   transparent !default;// rgba(0,0,0,0.45) !default;
+$widget-vertical-bgColor:     rgba(255, 255, 255, 0.8) !default;
 
 $custom-font-path:            "../../static/fonts" !default;
 $itm-font-version:            1 !default;
