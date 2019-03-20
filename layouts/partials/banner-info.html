@@ -1,0 +1,34 @@
+{{ $ := .main }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "itm-banner-info") }}
+
+{{ $isVertical := $.Site.Params.widgetVertical }}
+
+{{ if eq $.Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq $.Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if and (not $isVertical) (ne $.Params.hideBooker true) }}
+   {{ $customScratch.Add "classes" (slice "itm-banner-info--extended") }}
+{{ end }}
+
+{{ if .customClass }}
+   {{ $customScratch.Add "classes" (slice .customClass) }}
+{{ end }}
+
+<div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+   {{ if .labelText }}
+      <div class="badge badge-primary text-uppercase d-none d-md-inline-block">{{ .labelText | markdownify }}</div>
+   {{ end }}
+   {{ if .title }}
+      <h1>{{.title | markdownify}}</h1>
+   {{ end }}
+   {{ if .subTitle }}
+      <p class="lead">{{ .subTitle | markdownify }}</p>
+   {{ end }}
+   {{ if .actionText }}
+      <a href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+   {{ end}}
+</div>

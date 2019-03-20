@@ -5,6 +5,10 @@
    @media (min-width: 768px){
       background-color: $stage-bgcolor;
    }
+
+   &.itm-stage--solid{
+      background-color: $stage-bgcolor;
+   }
    
    &.itm-stage--hconstrained{
       background-color: #FFF;
@@ -17,6 +21,7 @@
       }
       @media(min-width: 992px){
          max-width: 1024px;
+         min-height: 420px;
       }
       @media(min-width: 1200px){
          max-width: 1280px;

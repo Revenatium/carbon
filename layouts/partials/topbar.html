@@ -1,12 +1,13 @@
 <div class="itm-header-top">
    <div class="container clearfix">
+      {{ if ne .Site.Params.logoSize "large" }}
       <div class="float-left itm-header-top-contact">
          <ul class="list-inline mb-0">
             {{ with .Site.Params.hotelPhone }}<li class="list-inline-item"><i class="fas fax-phone mr-2"></i>{{.}}</li>{{ end }}
             {{ with .Site.Params.hotelEmail }}<li class="list-inline-item"><a href="#"><i class="fas fax-envelope mr-2"></i>{{.}}</a></li>{{ end }}
          </ul>
       </div>
-      
+      {{ end }}
       <div class="float-right itm-header-top-lang">
          {{ if .IsTranslated }}
          <div class="dropdown pr-2">

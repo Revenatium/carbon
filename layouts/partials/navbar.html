@@ -1,6 +1,11 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "brandClasses" (slice "navbar-brand") }}
+{{ if eq .Site.Params.logoSize "large" }}
+{{ $customScratch.Add "brandClasses" (slice "navbar-brand--large") }}
+{{ end}}
 <nav class="navbar navbar-expand-lg {{ if and (eq .Site.Params.stickyHeader true) (ne .Site.Params.stickyWidget true) }} navbar-sticky {{ end }}">
    <div class="container">
-      <a class="navbar-brand" href="{{ .Site.BaseURL | absLangURL }}">
+      <a class="{{ delimit ($customScratch.Get `brandClasses`) ` ` }}" href="{{ .Site.BaseURL | absLangURL }}">
          {{ if (and .Site.Params.logoBase .Site.Params.logoPath)}}
             <picture>
                <source media="(max-width: 320px)" srcset="{{ .Site.Params.logoBase }}q_auto,w_150,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />

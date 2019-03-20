@@ -42,31 +42,20 @@
    <div 
       class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
       style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
-      <div class="container itm-banner-info-container">
+      {{ if (or .title .subTitle) }}
+      <div class="container itm-banner-info-container itm-banner-info-container--dark">
          <div class="row">
             <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
-               <div class="itm-banner-info">
-               {{ if .labelText }}
-                  <div class="badge badge-primary text-uppercase d-none d-md-inline-block">{{ .labelText | markdownify }}</div>
-               {{ end }}
-               {{ if .title }}
-                  <h1>{{.title | markdownify}}</h1>
-               {{ end }}
-               {{ if .subTitle }}
-                  <p class="lead">{{ .subTitle | markdownify }}</p>
-               {{ end }}
-               {{ if .actionText }}
-                  <a href="{{ $actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
-               {{ end}}
-               </div>
+               {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "main" $) }}
             </div>
-         {{ if .actionText }}
+            {{ if .actionText }}
             <div class="col-12 d-block d-md-none itm-banner-extra-info">
                <a href="{{ $actionLink }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
             </div>
-         {{end}}
+            {{end}}
          </div>
       </div>
+      {{ end }}
    </div>
 {{ end }}
 

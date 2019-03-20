@@ -22,9 +22,10 @@ $navbar-item-hover-color:     lighten($brand-color, 10%) !default;
 $navbar-item-hover-bgcolor:   transparent !default;
 $navbar-item-active-color:    $brand-color !default;
 $navbar-item-active-bgcolor:  transparent !default;
+$navbar-brand-bgcolor:        $dark-bgcolor !default;
 
-$stage-bgcolor:               darken($light-bgcolor, 5%) !default;
-$stage-color:                 $dark-color !default;
+$stage-bgcolor:               $light-bgcolor !default;
+$stage-color:                 $light-color !default;
 
 $promo-bgcolor:               rgb(212, 40, 40) !default;
 $promo-txtcolor:              $light-color !default;
@@ -34,6 +35,7 @@ $listItem-color:              $dark-color !default;
 
 $widget-horizontal-bgColor:   transparent !default;// rgba(0,0,0,0.45) !default;
 $widget-vertical-bgColor:     rgba(255, 255, 255, 0.8) !default;
+$widget-button-bgColor:       $brand-color !default;
 
 $custom-font-path:            "../../static/fonts" !default;
 $itm-font-version:            1 !default;

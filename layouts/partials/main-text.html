@@ -1,20 +1,43 @@
 {{ $customScratch := newScratch }}
-{{ $customScratch.Add "classes" (slice "itm-banner-container") }}
-{{ $customScratch.Add "stageClasses" (slice "itm-stage") }}
-{{ if and (ne .Params.hideBooker true) (eq .Site.Params.widgetVertical true) }}
-   {{ $customScratch.Add "classes" (slice "itm-banner-container--nobgimage") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--solid") }}
+{{ $customScratch.Add "infoColumnClasses" (slice "col-12") }}
+
+{{ $isVertical := .Site.Params.widgetVertical }}
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if $isVertical }}
+   {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-8") }}
 {{ end }}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
-      <div class="container itm-banner-info-container">
-         {{ if ne .Params.hideTitle true }}
-            <div class="itm-banner-info">
-               <h1>{{ .Title | markdownify }}</h1>
-               {{ with .Description | markdownify }}<p class="lead">{{ . }}</p>{{ end }}
+   <div class="container">
+      <div class="row itm-banner-info-container">
+         <div class="{{ delimit ($customScratch.Get `infoColumnClasses`) ` ` }}">
+            {{ if ne .Params.hideBooker true }}
+               {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "main" $) }}
+            {{ else }}
+            <div class="my-3 itm-simple-info">
+               {{ if .Title }}
+                  <h1>{{.Title | markdownify}}</h1>
+               {{ end }}
+               {{ if .Description }}
+                  <p class="lead">{{ .Description | markdownify }}</p>
+               {{ end }}
             </div>
-         {{ end }}
+            {{ end }}
+         </div>
+         {{ if $isVertical }}
+         <div class="col-12 col-md-6 col-lg-4">
+            {{ partial "widget-card" . }}              
+         </div>
+         {{end}}
       </div>
    </div>
+   {{ if not $isVertical }}
    {{ partial "widget-container" . }}
+   {{ end }}
 </div>

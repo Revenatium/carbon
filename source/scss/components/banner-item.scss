@@ -4,27 +4,6 @@
    background-size: cover;
 }
 
-.itm-banner-info-container{
-   padding-top: 1rem;
-   padding-bottom: 0.5rem;
-}
-
-.itm-banner-info {
-   text-align: left;
-   color: $stage-color;
-   h1{
-      font-size: 1.5rem;
-   }
-   @media(max-width: 575px){
-      h1{
-         font-size: 1.25rem;
-      }
-      p{
-         line-height: 1.25rem;
-      }
-   }
-}
-
 .itm-banner-extra-info {  
    @media (max-width: 767px){
       position: absolute;
@@ -41,53 +20,5 @@
       text-align: right;
       background-color: $brand-color-secondary;
       padding: 8px 15px;
-   }
-}
-
-.itm-banner-container--absolute{
-   .itm-banner-info-container{
-      padding-top: 0;
-      padding-bottom: 0;
-      
-      @media(max-width: 767px){
-         position: absolute;
-         bottom: 2rem;
-         left: 0;
-         right: 0;
-      }
-      &.itm-info-container--standalone{
-         .itm-banner-info{
-            position: relative;
-            z-index: 1;
-         }
-      }
-   }
-   .itm-banner-info {
-      @media (max-width:767px){
-         p{
-            margin-bottom: 0;
-         }
-      }
-      @media(min-width: 768px){
-         padding-top: 2rem;
-         h1{
-            font-size: 2.25rem;
-         }
-      }
-      @media(min-width: 992px){
-         padding-top: 4rem;
-      }
-      @media(min-width: 1200px){
-         padding-top: 5rem;
-      }
-   }
-}
-
-.itm-banner-container--dark{
-   .itm-banner-info{
-      color: $light-color;
-      h1 {
-         text-shadow: 0 1px 1px rgba(0,0,0,0.3);
-      }
    }
 }

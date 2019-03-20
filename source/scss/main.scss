@@ -1,2 +1,30 @@
 @import 'variables';
-@import 'theme';
+// selectively import components we need from font-awesome
+// see: node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss
+@import 'vendor/fontawesome';
+
+// selectively import components we need from bootstrap
+// see: node_modules/bootstrap/scss/bootstrap.scss
+@import 'vendor/bootstrap';
+
+@import 'components/icons';
+@import 'components/topbar';
+@import 'components/navbar';
+@import 'components/stage';
+@import 'components/banner-item';
+@import 'components/banner-container';
+@import 'components/banner-info';
+@import 'components/widget-container';
+@import 'components/widget-card';
+@import 'components/magnific-popup';
+@import 'components/photo-gallery';
+@import 'components/list-item';
+@import 'components/deals';
+@import 'components/rooms';
+@import 'components/interstitial';
+@import 'components/icon-amenity';
+@import 'components/home-amenity';
+@import 'components/map';
+@import 'components/form';
+@import 'components/sticky-bottom';
+@import 'components/footer';

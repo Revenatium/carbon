@@ -1,6 +1,10 @@
 .navbar{
    background-color: $navbar-bgcolor;
    .navbar-nav{
+      @media (min-width: 992px){
+      margin-top: 8px;
+      margin-bottom: 7px;
+      }
       .nav-link {
          background-color: $navbar-item-bgcolor;
          color: $navbar-item-color;
@@ -40,11 +44,25 @@
           background-color: $navbar-item-hover-bgcolor;
           color: $navbar-item-hover-color;
       }
-  }
+   }
+   .navbar-brand--large {
+      @media (min-width: 992px){
+         position: absolute;
+         top: -37px;
+         background-color: $navbar-brand-bgcolor;
+         img {
+            max-height: 98px;
+            padding: 8px;
+         }
+      }
+   }
 }
 .is-sticky{
    .navbar{
       z-index: 2 !important;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
+   }
+   .navbar-brand--large {
+      top: 0px;
    }
 }

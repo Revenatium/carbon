@@ -5,7 +5,7 @@
 {{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--vconstrained" "itm-stage--hconstrained") }}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="carousel slide carousel-fade itm-banner-container itm-banner-container--absolute itm-banner-container--dark itm-banner-container--extrainfo" data-ride="carousel">
+   <div id="itm-ap-slider" class="carousel slide carousel-fade itm-banner-container itm-banner-container--aspectRatio itm-banner-container--extrainfo" data-ride="carousel">
       <div class="carousel-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ if $element.photos }}

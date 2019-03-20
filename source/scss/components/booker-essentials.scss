@@ -1,0 +1,70 @@
+@mixin booker-nav() {
+   .itm-booker {
+      .nav {
+         background-color: transparent;
+         border-color: transparent;
+         > li > a {
+            padding: 5px;
+            margin-left: 5px;
+         }
+         > li > a:hover{
+            border-color: lighten($brand-color, 10%);
+            background-color: transparent;
+         }
+         > li.active > a {
+            border-color: $brand-color;
+            background-color: transparent;
+         }
+      }
+      .itm-btn-primary {
+         background-color: $widget-button-bgColor;
+         border-color: $widget-button-bgColor;
+      }
+   }
+}
+@mixin booker-nav-text($color, $shadow: null) {
+   .itm-booker {
+      .nav {
+         > li > a {
+            color: rgba($color,.75);
+            @if $shadow {
+            text-shadow: 0 1px 2px rgba($shadow, 0.4);
+            }@else{
+            text-shadow: none;
+            }
+         }
+         > li > a:hover {
+            color: rgba($color,1);
+            border-bottom-color: lighten($brand-color, 10%);
+         }
+         > li.active > a {
+            color: rgba($color,1);
+            cursor: default;
+         }
+      }
+      .itm-promotion-code-modal-link span{
+         color: $color;
+      }
+   }
+}
+
+.itm-widget-card {
+   @include booker-nav();
+}
+
+.itm-widget-card--horizontal{
+   @media(min-width: 768px){
+      @include booker-nav-text(#FFF,#000);
+   }
+}
+
+.itm-widget-card--transparent {
+   @media(max-width: 767px){
+      @include booker-nav-text(#FFF,#000);
+   }
+}
+.itm-stage--solid{
+   .itm-widget-card--transparent{
+      @include booker-nav-text(#000);
+   }
+}

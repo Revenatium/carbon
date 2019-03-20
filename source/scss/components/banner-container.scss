@@ -1,19 +1,19 @@
 .itm-banner-container{
-   &.itm-banner-container--absolute{
-      position: relative;
-      margin: 0 auto 1rem;
-      height: 200px;
-      @media (min-width: 576px){
-         height: 270px;
-      }
-   }
-   &.itm-banner-container--extrainfo{
-      @media (max-width: 575px){
-         margin-bottom: 65px;
-      }
-   }
+  
    &.itm-banner-container--absolute,
    &.itm-banner-container--nobgimage{
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+   }
+   &.itm-banner-container--aspectRatio{
+      position: relative;
+      margin: 0 auto 1rem;
+      height: 270px;
+      
       @media (min-width: 768px){
          position: absolute;
          top: 0;
@@ -21,6 +21,14 @@
          right: 0;
          height: 100%;
          width: 100%;
+      }
+      @media (max-width: 575px){
+         height: 200px;         
+      }
+   }
+   &.itm-banner-container--extrainfo{
+      @media (max-width: 575px){
+         margin-bottom: 65px;
       }
    }
 
