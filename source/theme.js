@@ -18,9 +18,10 @@ $(document).ready(function ($) {
    });
    let stickySidebar = null;
    window.applyStickyHeader = function () {
+      $('.itm-widget-container').removeAttr('style');
       if (window.innerWidth >= 768) {
          $('.navbar-sticky').sticky({ topSpacing: 0 });
-         // $('.widget-sticky').sticky({ topSpacing:0, zIndex: 100 });
+         $('.widget-sticky').sticky({ topSpacing:0, zIndex: 100 });
       }
 
       let sidebarWidget = document.getElementById('sidebar-widget');
@@ -86,12 +87,14 @@ $(document).ready(function ($) {
 
    $(window).resize(function () {
       $('.navbar-sticky').unstick();
-      // $('.widget-sticky').unstick();
+      $('.widget-sticky').unstick();
 
       if (stickySidebar) {
          stickySidebar.destroy();
       }
-      window.applyStickyHeader();
+      setTimeout(function(){
+         window.applyStickyHeader();
+      }, 0)
    });
 
    $(document).on('scroll', function() { 
