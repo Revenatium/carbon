@@ -31,7 +31,7 @@ module.exports =  {
             options: {
                name: '[name].[ext]',
                outputPath: "fonts/",
-               publicPath: "fonts/",
+               publicPath: "/fonts/",
             }
          },
 
