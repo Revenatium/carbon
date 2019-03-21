@@ -63,8 +63,8 @@
       @include booker-nav-text(#FFF,#000);
    }
 }
-.itm-stage--solid, .is-sticky{
-   .itm-widget-card--transparent{
-      @include booker-nav-text(#000);
-   }
+.itm-stage--solid .itm-widget-card--transparent, 
+.is-sticky .itm-widget-card--transparent,
+.is-sticky .itm-widget-card--horizontal{
+   @include booker-nav-text(#000);
 }
