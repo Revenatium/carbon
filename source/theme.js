@@ -98,12 +98,14 @@ $(document).ready(function ($) {
    });
 
    $(document).on('scroll', function() { 
-      let cardBottom = $('.itm-widget-card').offset().top + $('.itm-widget-card').outerHeight();
-      if(cardBottom < $(document).scrollTop()){ 
-         $('.sticky-bottom').css('maxHeight', 200);
-      }else{
-         $('.sticky-bottom').css('maxHeight', 0); 
-      } 
+      if($('.itm-widget-card').length > 0){
+         let cardBottom = $('.itm-widget-card').offset().top + $('.itm-widget-card').outerHeight();
+         if(cardBottom < $(document).scrollTop()){ 
+            $('.sticky-bottom').css('maxHeight', 200);
+         }else{
+            $('.sticky-bottom').css('maxHeight', 0); 
+         } 
+      }
    });
 
    window.applyStickyHeader();

@@ -24,6 +24,9 @@
    {{ $customScratch.Add "cardClasses" (slice "itm-widget-card--horizontal") }}
 {{ end }}
 
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+
+{{ if and (ne .Params.hideBooker true) (eq $widgetLocation "top") }}
 <div class="{{ delimit ($customScratch.Get `cardClasses`) ` ` }}">
    <div class="card-body">
       <!-- <h5 class="card-title d-md-none d-block">{{ i18n "bookNow"}}</h5> -->
@@ -31,3 +34,4 @@
       </div>
    </div>
 </div>
+{{ end }}
