@@ -1,5 +1,5 @@
 {{ $customScratch := newScratch }}
-{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--hconstrained") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage") }}
 {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container") }}
 
 {{ $customScratch.Add "infoColumnClasses" (slice "col-12") }}
@@ -8,6 +8,9 @@
    {{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
    {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--aspectRatio") }}
    {{ $customScratch.Add "infoColumnClasses" (slice "d-none" "d-md-block") }}
+   {{ if ne .Params.bannerFullWidth true }}
+      {{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
+   {{ end }}
 {{ else }}
    {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
 {{ end }}

@@ -2,7 +2,10 @@
 {{ $bucket := .Site.Params.imageBucket }}
 {{ $banners := .Scratch.Get "banners" }}
 {{ $customScratch := newScratch }}
-{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--vconstrained" "itm-stage--hconstrained") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--vconstrained") }}
+{{ if ne .Params.bannerFullWidth true }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
+{{ end }}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="carousel slide carousel-fade itm-banner-container itm-banner-container--aspectRatio itm-banner-container--extrainfo" data-ride="carousel">

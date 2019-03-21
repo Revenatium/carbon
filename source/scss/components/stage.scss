@@ -3,11 +3,16 @@
    margin-bottom: 2rem;
    position: relative;
    @media (min-width: 768px){
+      min-height: 360px; /* para conservar tamaño mínimo en w horizontal */
       background-color: $stage-bgcolor;
+   }
+   @media (min-width: 992px){
+      min-height: 420px;
    }
 
    &.itm-stage--solid{
       background-color: $stage-bgcolor;
+      min-height: 0;
    }
    
    &.itm-stage--hconstrained{
@@ -17,11 +22,9 @@
       }
       @media (min-width: 768px){
          max-width: 768px;
-         min-height: 360px; /* para conservar tamaño mínimo en w horizontal */
       }
       @media(min-width: 992px){
          max-width: 1024px;
-         min-height: 420px;
       }
       @media(min-width: 1200px){
          max-width: 1280px;
