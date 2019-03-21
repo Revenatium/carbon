@@ -4,7 +4,7 @@
    <div class="row">
       <div class="col-sm-8">
       <form method="POST" action="thank-you" netlify name="contact" class="contact-form" novalidate="">
-         <input type="hidden" name="site" value="{{ .Site.BaseURL }}"/>
+         <input type="hidden" name="site" value="{{ .Site.Params.BookingEngineURL  }}"/>
          <input type="hidden" name="account" value="{{ .Site.Params.Account }}"/>		
             <div class="row">
                <div class="col-sm-6">
