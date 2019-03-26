@@ -67,7 +67,7 @@
    .itm-simple-info,
    .itm-banner-info{
       color: $light-color;
-      h1 {
+      h1, .lead {
          text-shadow: 0 1px 1px rgba(0,0,0,0.3);
       }
    }

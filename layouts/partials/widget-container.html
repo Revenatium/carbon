@@ -12,7 +12,7 @@
 {{ end }}
 
 {{ if $isVertical }}
-   {{ $customScratch.Add "columnClasses" (slice "col-md-6" "col-lg-4" "offset-md-6" "offset-lg-8") }}
+   {{ $customScratch.Add "columnClasses" (slice "col-md-6" "col-lg-5" "col-xl-4" "offset-md-6" "offset-lg-7" "offset-xl-8") }}
 {{ else }}
    {{ $customScratch.Add "containerClasses" (slice "itm-widget-container--bottom") }}
    {{ if .Site.Params.centerWidget }}
