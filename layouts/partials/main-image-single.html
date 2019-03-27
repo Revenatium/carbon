@@ -1,3 +1,4 @@
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage") }}
 {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container") }}
@@ -22,7 +23,7 @@
    {{ $isVertical = false }}
 {{ end }}
 
-{{ if $isVertical }}
+{{ if and $isVertical (eq $widgetLocation "top") }}
    {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
 {{ end }}
 
@@ -34,7 +35,9 @@
    <div class="container itm-banner-info-container itm-banner-info-container--dark d-md-none">
       <div class="row">
          <div class="col-12">
+            {{ if ne .Params.hideTitle true }}
             {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "customClass" "my-0" "main" $) }}
+            {{ end }}
          </div>
       </div>
    </div>
@@ -43,7 +46,9 @@
    <div class="container itm-banner-info-container itm-banner-info-container--dark">
       <div class="row">
          <div class="{{ delimit ($customScratch.Get `infoColumnClasses`) ` ` }}">
+            {{ if ne .Params.hideTitle true }}
             {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "main" $) }}
+            {{ end }}
          </div>
          {{ if $isVertical }}
          <div class="col-12 col-md-6 col-lg-5 col-xl-4">
