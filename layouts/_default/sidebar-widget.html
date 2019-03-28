@@ -2,7 +2,15 @@
    {{ .Scratch.Set "widgetLocation" "side" }}
    {{ .Scratch.Set "banners" "" }}
    {{ if and .Params.showBanners .Site.Params.bannersURL }}
-      {{.Scratch.Set "banners" (getJSON .Site.Params.bannersURL) }}
+      {{ .Scratch.Set "banners" (getJSON .Site.Params.bannersURL) }}
+   {{ else if .Params.slider_txt }}
+      {{ $customScratch := newScratch }}
+      {{ range .Params.slider_txt.pics }}
+         {{ $photos := (slice (dict "bannerImage" (dict "path" .path "base" $.Params.slider_txt.base ))) }}
+         {{ $banner := (dict "isActive" true "title" .title "subTitle" .subTitle "photos" $photos) }}
+         {{ $customScratch.Add "sliderBanners" (slice $banner) }}
+      {{ end }}
+      {{ .Scratch.Set "banners" ($customScratch.Get "sliderBanners") }}
    {{ end }}
    {{ if ne (len (.Scratch.Get "banners")) 0 }}   
       {{ partial "main-banner-carousel" . }}

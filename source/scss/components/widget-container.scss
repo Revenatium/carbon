@@ -8,6 +8,12 @@
    }
 }
 
+.itm-widget-container--margin{
+   @media (max-width: 767px) {
+      padding-top: 200px;
+   }
+}
+
 .sidebar-widget{
    will-change: min-height;
    .card{

@@ -2,18 +2,30 @@
 {{ $bucket := .Site.Params.imageBucket }}
 {{ $banners := .Scratch.Get "banners" }}
 {{ $customScratch := newScratch }}
-{{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--vconstrained") }}
-{{ if ne .Params.bannerFullWidth true }}
-{{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage" ) }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "carousel" "slide" "carousel-fade" "itm-banner-container" "itm-banner-container--extrainfo") }}
+
+{{ if eq .Params.keepAspectRatio true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
+   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--aspectRatio") }}
+   {{ if ne .Params.bannerFullWidth true }}
+      {{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
+   {{ end }}
+{{ else }}
+   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
 {{ end }}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="carousel slide carousel-fade itm-banner-container itm-banner-container--aspectRatio itm-banner-container--extrainfo" data-ride="carousel">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
       <div class="carousel-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ if $element.photos }}
                {{ $image := index .photos 0 }}
-               {{ $banner := dict "image" (dict "path" (print $bucket `/` $image.path) "base" $base) "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion }}
+               {{ $bannerImage := (dict "path" (print $bucket `/` $image.path) "base" $base) }}
+               {{ if $image.bannerImage }}
+                  {{ $bannerImage = $image.bannerImage }}
+               {{ end }}
+               {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion }}
                {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
             {{ end }}
          {{ end }}
