@@ -64,7 +64,7 @@
 
    .listItem-details {
       text-align: center;
-      border: 1px solid #f9f9f9;
+      border: 1px solid $listItem-bgcolor;
       background-color: #fff;
 
       &>div {

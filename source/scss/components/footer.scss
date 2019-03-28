@@ -11,4 +11,10 @@
    @media (max-width:768px){
       margin-bottom: 70px;
    }
+   .list-inline.itm-footer-menu{
+      .list-inline-item:not(:last-child) {
+         border-right: 1px solid rgba($footer-txtcolor, 0.9);
+         padding-right: 1rem;
+      }
+   }
 }

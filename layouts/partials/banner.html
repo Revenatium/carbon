@@ -20,7 +20,18 @@
 
 {{ if $isVertical }}
    {{ $customScratch.Add "infoClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
+{{ else }}
+   {{ $customScratch.Add "infoClasses" (slice "col-md-12") }}
 {{ end }}
+
+
+{{ if eq $.Params.keepAspectRatio true }}
+   {{ $customScratch.Add "infoClasses" (slice "col-sm-9" ) }}
+   {{ $customScratch.Add "extraInfoClasses" (slice "col-12" "d-block" "d-md-none" "itm-banner-extra-info") }}
+{{ else }}
+   {{ $customScratch.Add "extraInfoClasses" (slice "d-none" ) }}
+{{ end }}
+
 
 {{ with .banner }}
 
@@ -49,7 +60,7 @@
                {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "main" $) }}
             </div>
             {{ if .actionText }}
-            <div class="col-12 d-block d-md-none itm-banner-extra-info">
+            <div class="{{ delimit ($customScratch.Get `extraInfoClasses`) ` ` }}">
                <a href="{{ $actionLink }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
             </div>
             {{end}}

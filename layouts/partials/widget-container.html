@@ -24,7 +24,7 @@
    {{ $customScratch.Add "outerClasses" (slice "widget-sticky") }}
 {{ end }}
 
-{{ if and (ne .Params.keepAspectRatio true) (ne (len (.Scratch.Get "banners")) 0) }}
+{{ if and (ne .Params.keepAspectRatio true) (.Scratch.Get "banners") }}
    {{ $customScratch.Add "containerClasses" (slice "itm-widget-container--margin") }}
 {{ end }}
 
