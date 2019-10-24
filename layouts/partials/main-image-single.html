@@ -27,6 +27,16 @@
    {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
 {{ end }}
 
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--fullscreen") }}
+{{ end }}
+{{ if eq .Params.bannerFullscreenTheme "light" }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--light") }}
+{{ end }}
+{{ if eq .Params.bannerFullscreenTheme "dark" }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--dark") }}
+{{ end }}
+
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
    {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) }}
@@ -60,4 +70,14 @@
    {{ if not $isVertical }}
    {{ partial "widget-container" . }}
    {{ end }}
+
+   {{ if eq .Params.showScrollButton true }}
+   <a href="#content" class="scroll-button d-none d-md-inline-block">
+      <span class="fa fa-chevron-down"></span>
+   </a>
+   {{ end }}
 </div>
+
+{{ if eq .Params.showScrollButton true }}
+<div id="content"></div>
+{{ end }}

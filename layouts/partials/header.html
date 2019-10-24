@@ -1,4 +1,16 @@
-<header>
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "headerClasses" (slice "itm-header") }}
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "headerClasses" (slice "itm-header--fullscreen") }}
+{{ end }}
+{{ if eq .Params.topbarTransparent true }}
+   {{ $customScratch.Add "headerClasses" (slice "itm-header--topbar-transparent") }}
+{{ end }}
+{{ if eq .Params.navbarTransparent true }}
+   {{ $customScratch.Add "headerClasses" (slice "itm-header--navbar-transparent") }}
+{{ end }}
+
+<header class="{{ delimit ($customScratch.Get `headerClasses`) ` ` }}">
    <!--TOP-->
    {{ partial "topbar" . }}
    <!--NAVBAR-->

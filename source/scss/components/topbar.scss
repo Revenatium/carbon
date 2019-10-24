@@ -31,3 +31,24 @@
       }
    } 
 }
+
+.itm-header--topbar-transparent {
+   .itm-header-top {
+      background-color: transparent;
+   }
+}
+
+.itm-header--navbar-transparent {
+   .navbar {
+      background-color: transparent;
+  }
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing,
+  .is-sticky .navbar {
+      background-color:$navbar-bgcolor;
+  }
+  .navbar-collapse.show,
+  .navbar-collapse.collapsing {
+     padding: 20px;
+  }
+}

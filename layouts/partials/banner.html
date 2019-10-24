@@ -1,5 +1,6 @@
 {{ $ := .main }}
 {{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
+{{ $video := $.Params.featured_video }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "classes" (slice "itm-banner-item") }}
 {{ if .isCarousel }}
@@ -53,6 +54,13 @@
    <div 
       class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
       style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
+      {{ if $video }}
+      <div class="itm-video-background">
+         <div class="itm-video-foreground">
+           <iframe src="https://www.youtube.com/embed/{{$video}}?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist={{$video}}" frameborder="0" allowfullscreen></iframe>
+         </div>
+      </div>
+      {{ end }}
       {{ if (or .title .subTitle) }}
       <div class="container itm-banner-info-container itm-banner-info-container--dark">
          <div class="row">

@@ -15,6 +15,16 @@
    {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
 {{ end }}
 
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--fullscreen") }}
+{{ end }}
+{{ if eq .Params.bannerFullscreenTheme "light" }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--light") }}
+{{ end }}
+{{ if eq .Params.bannerFullscreenTheme "dark" }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--dark") }}
+{{ end }}
+
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
       <div class="carousel-inner">

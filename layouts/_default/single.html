@@ -17,8 +17,8 @@
       {{ partial "main-banner-carousel" . }}
    {{ else if isset .Params "slider" }}
       {{ partial "main-image-carousel" . }}
-   {{ else if isset .Params `featured_image` }}
-      {{ partial "main-image-single" . }}
+   {{ else if (or (isset .Params "featured_image") (isset .Params "featured_video")) }}
+         {{ partial "main-image-single" . }}
    {{ else }}
       {{ partial "main-text" . }}
    {{ end }}
