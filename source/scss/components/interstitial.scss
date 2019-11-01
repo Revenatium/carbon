@@ -6,13 +6,17 @@
     background-position: center;
     background-size: cover;
     position: relative;
-
+    
   &>.container {
     position: relative;
+    &>.lead {
+      margin-bottom: 1rem;
+    }
   }
 
   &.interstitial--dark,
   &.interstitial--light {
+    padding-bottom: 8rem;
     .btn {
       text-shadow: none;
     }
