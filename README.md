@@ -141,12 +141,12 @@ Genera un link con una imagen de fondo, un titulo y una descripción.
 {{< /homeAmenity >}}
 ```
 
-**homeDeal (sin parámetros)**
+**dealList (items, isFluid)**
 
-Muestra la promoción más reciente.
+Muestra la lista de promociones. Se puede especificar el número de items a mostrar para, por ejemplo, mostrar solo la promoción más reciente en el home:
 
 ```md
-{{< homeDeal >}}
+{{< dealList items="1" isFluid="true" >}}
 ```
 
 **pageSection (title, imgBase, imgPath, btnText, btnUrl, bgColor, [inner])**
