@@ -178,7 +178,7 @@ imgPath="/assets/hotelflamingos/hotel1.jpg" >}}
 
 Muestra un elemento que incluye un título, descripción y un botón. 
 
-También se puede configurar para que tenga una imagen de fondo usando los parámetros `bgImgBase` y `bgImgPath` para la url de la imagen de fondo. 
+También se puede configurar para que tenga una imagen de fondo usando los parámetros `bgImgBase` y `bgImgPath`. 
 
 Para que tenga esquinas redondeadas se especifica `roundCorners` como `true`.  
 
@@ -224,6 +224,14 @@ En el sitio se utilizan varios parámetros para su correcto funcionamiento y mos
 
 ## Parámetros para las páginas
 
+### Widget
+Por default el widget se muestra siempre en el encabezado de cada página. Para ocultarlo se usa el parámetro `hideBooker`.
+```md
+hideBooker: true
+```
+
+### Encabezado
+
 Para mostrar una imagen o video en el encabezado de la página se puede utilizar alguno de los siguientes parámetros:
 
 * Imagen:
@@ -245,13 +253,14 @@ featured_video: "-xAXYDfoDEU"
 ```md
 showBanners: true
 ```
+**Modo _full screen_**
 
-* Mostrar la imagen, slider o video en _full screen_:
+Para mostrar la imagen, slider o video en pantalla completa:
 ```md
 bannerFullScreen: true
 ```
 
-Se pueden controlar otras características:
+Además, se pueden controlar otras características:
 - `topbarTransparent` para mostrar el barra superior con fondo transparente
 - `navbarTransparent` para mostrar el menú con fondo transparente
 - `bannerFullscreenTheme` con valores 'dark' o 'light' agrega un degradado sobre la imagen para mejorar la legibilidad del texto
