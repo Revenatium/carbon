@@ -182,5 +182,13 @@
    {
       "id": "travelDates",
       "translation": "Travel dates"
+   },
+   {
+      "id": "temporarySuspended",
+      "translation": "Website temporarily suspended"
+   },
+   {
+      "id": "temporarySuspendedDescription",
+      "translation": "Sorry, the page you asked for is suspended"
    }
 ]

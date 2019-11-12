@@ -37,7 +37,7 @@
 
    {{ partial "head-custom.html" . }}
 </head>
-
+{{ if ne .Site.Params.suspended true }}
 <body>
    {{ partial "googleTagManagerBody.html" . }}
 
@@ -65,5 +65,10 @@
       {{ end }}
    {{ end }}
 </body>
+{{ else }}
+<body>
+   {{ partial "suspended.html" . }}
+</body>
+{{ end }}
 
 </html>

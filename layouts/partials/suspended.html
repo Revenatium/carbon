@@ -1,0 +1,32 @@
+<header>
+   <nav class="navbar navbar-expand-lg">
+      <div class="container">
+         <a class="navbar-brand" href="{{ .Site.BaseURL | absLangURL }}">
+         {{ if (and .Site.Params.logoBase .Site.Params.logoPath)}}
+            <picture>
+               <source media="(max-width: 320px)" srcset="{{ .Site.Params.logoBase }}q_auto,w_150,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
+               <source media="(max-width: 425px)" srcset="{{ .Site.Params.logoBase }}q_auto,w_180,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
+               <img src="{{ .Site.Params.logoBase }}q_auto,h_45,dpr_2.0/{{ .Site.Params.logoPath }}" />
+            </picture>
+         {{ else if .Site.Params.logoURL }}
+            <img src="{{ .Site.Params.logoURL }}" alt="{{ .Site.Title | safeHTML }}">
+         {{ else }}
+            {{ .Site.Title | safeHTML }}
+         {{ end }}
+         </a>
+      </div>   
+   </nav>
+</header>
+<main>
+   <div class="container">
+      <div class="row">
+         <div class="col-12">
+            <div class="text-center text-muted pt-5 pb-5">
+               <h1><span class="fa fa-exclamation-circle"></span></h1>
+               <h2>{{ i18n "temporarySuspended" }}</h2>
+               <p>{{ i18n "temporarySuspendedDescription" }}</p>
+            </div>
+         </div>
+      </div>
+   </div>
+</main>  

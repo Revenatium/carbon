@@ -41,9 +41,9 @@
 .#{$fa-css-prefix}-minus:before { content: fa-content($fa-var-minus); }
 .#{$fa-css-prefix}-building:before { content: fa-content($fa-var-building); }
 .#{$fa-css-prefix}-whatsapp:before { content: fa-content($fa-var-whatsapp); }
+.#{$fa-css-prefix}-exclamation-circle:before { content: fa-content($fa-var-exclamation-circle); }
 
 @import 'node_modules/@fortawesome/fontawesome-free/scss/screen-reader';
-
 @import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
 @import 'node_modules/@fortawesome/fontawesome-free/scss/regular';
 
