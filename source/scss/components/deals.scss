@@ -55,7 +55,8 @@
   }
   .listItem-pic--empty:before{
      content: "\F02B";
-     font-family: FontAwesome;
+     font-family: 'Font Awesome 5 Free';
+     font-weight: 900;
      text-align: center;
      display: block;
      color: #aaa;
