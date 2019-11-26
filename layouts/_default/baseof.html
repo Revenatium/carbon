@@ -64,6 +64,9 @@
       <script async src="{{.}}"></script>
       {{ end }}
    {{ end }}
+   {{ with .Site.Params.loyaltyURL }}
+      <script async src="{{.}}"></script>
+   {{ end }}
 </body>
 {{ else }}
 <body>
