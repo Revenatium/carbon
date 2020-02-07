@@ -43,15 +43,15 @@
          overflow: visible;
       }
    }
-
+   .carousel-indicators{
+      z-index: 1 !important;
+      margin-bottom: 0;
+   }
    @media(max-width: 767px){
       background-color: $stage-bgcolor;
       margin-bottom: 1rem;
       .carousel-inner {
          overflow: visible;
-      }
-      .carousel-indicators{
-         margin-bottom: 0.25rem;
       }
    }
 }

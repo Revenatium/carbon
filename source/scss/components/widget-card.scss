@@ -1,11 +1,12 @@
 
 .itm-widget-card{
    position: relative;
-   z-index: 1;
+   z-index: 2;
    @media(max-width: 767px){
       background-color: transparent;
       border: none;
       margin-bottom: 1rem;
+      z-index: 1;
    }
 }
 .itm-widget-card--vertical{
@@ -28,8 +29,7 @@
       background-color: transparent;
       border: none;
       .card-body{
-         padding-left: 0;
-         padding-right: 0;
+         padding: 0;
       }
    }
    @media (max-width: 767px){
