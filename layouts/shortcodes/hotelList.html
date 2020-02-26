@@ -6,8 +6,13 @@
 {{ with .Get "isFluid" }}
    {{ $containerType = "list--fluid"}}
 {{ end }}
+{{ $zone := "" }}
+{{ with .Get "zone" }}
+   {{ $zone = . }}
+{{ end }}
 <div class="{{ $containerType }}">
 {{ range first $many (where .Site.RegularPages.ByWeight "Section" "==" "hotels") }}
+   {{ if or (eq $zone "") (eq $zone .Params.zone)}}
    {{ $currentHotelPage := . }}
    {{ $destination := (dict "name" .Params.zone) }}
    {{ $photos := slice (dict "base" .Params.featured_image.base "path" .Params.featured_image.path )}}
@@ -34,6 +39,7 @@
    {{ end }}
    
    {{ partial "hotel" (dict "hotel" ($customScratch.Get "hotel") "bookingEngineURL" $.Site.Params.bookingEngineURL "bookingEngineRoomsUrlSufix" $.Site.Params.bookingEngineRoomsUrlSufix "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+   {{ end }}
 {{ end }}
 </div>
 
