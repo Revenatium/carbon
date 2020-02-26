@@ -19,6 +19,13 @@
 {{ end }}
 
 <div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+   {{ with .promotion}}
+      {{ if .lastValidDate }}
+         <div>
+            <span class="badge badge-warning itm-timer-badge d-none"><i class="far fax-clock mr-2" ></i>{{ i18n "hurryUp"}} <span class="font-weight-bold" data-countdown="{{.lastValidDate}}"></span></span>
+         </div>
+      {{ end }}
+   {{ end }}
    {{ if .labelText }}
       <div class="badge badge-primary text-uppercase d-none d-md-inline-block">{{ .labelText | markdownify }}</div>
    {{ end }}

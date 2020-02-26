@@ -8,7 +8,11 @@
    {{ with .Get "isFluid" }}
       {{ $containerType = "list--fluid"}}
    {{ end }}
-   {{ $rooms := getJSON .Site.Params.roomsURL }}
+   {{ $hotelId := "" }}
+   {{ with .Get "hotelId" }}
+      {{ $hotelId = . }}
+   {{ end }}
+   {{ $rooms := getJSON (replace .Site.Params.roomsURL "{hotelId}" $hotelId) }}
    {{ with .Get "showComplete" }}
       {{ $listType = "complete"}}
    {{ end }}

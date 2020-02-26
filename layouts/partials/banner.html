@@ -66,7 +66,7 @@
       <div class="container itm-banner-info-container itm-banner-info-container--dark">
          <div class="row">
             <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
-               {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "main" $) }}
+               {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "main" $) }}
             </div>
             {{ if .actionText }}
             <div class="{{ delimit ($customScratch.Get `extraInfoClasses`) ` ` }}">

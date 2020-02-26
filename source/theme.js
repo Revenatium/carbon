@@ -6,6 +6,7 @@ import 'bootstrap/js/dist/carousel';
 import 'bootstrap/js/dist/tab';
 import 'jquery-countdown';
 import 'sticky-sidebar';
+import moment from 'moment-timezone';
 import './addons/jquery.sticky';
 import './addons/jquery.magnific-popup';
 import './addons/jquery.validate';
@@ -76,7 +77,8 @@ $(document).ready(function ($) {
    $('[data-countdown]').each(function () {
       var $this = $(this);
       var finalDate = $(this).data('countdown');
-      $this.countdown(finalDate, function (event) {
+      var date = moment.tz(finalDate, 'Mexico/General').add(1, 'days');
+      $this.countdown(date.toDate(), function (event) {
          var totalHours = event.offset.totalDays * 24 + event.offset.hours;
          if (!event.elapsed && totalHours <= 72) {
             $this.html(event.strftime(totalHours + 'h %Mm %Ss'));
