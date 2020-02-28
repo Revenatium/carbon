@@ -30,7 +30,7 @@
 <div class="{{ delimit ($customScratch.Get `cardClasses`) ` ` }}">
    <div class="card-body">
       <!-- <h5 class="card-title d-md-none d-block">{{ i18n "bookNow"}}</h5> -->
-      <div id="rvm-booker-container" class="{{ delimit ($customScratch.Get `widgetClasses`) ` ` }}">
+      <div id="rvm-booker-container" {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }} class="{{ delimit ($customScratch.Get `widgetClasses`) ` ` }}">
       </div>
    </div>
 </div>
