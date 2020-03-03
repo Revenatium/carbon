@@ -190,5 +190,9 @@
    {
       "id": "temporarySuspendedDescription",
       "translation": "Lo sentimos, la página que solicitaste está suspendida en este momento"
+   },
+   {
+      "id": "promotionStarts",
+      "translation": "La promoción comienza en:"
    }
 ]

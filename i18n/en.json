@@ -190,5 +190,9 @@
    {
       "id": "temporarySuspendedDescription",
       "translation": "Sorry, the page you asked for is suspended"
+   },
+   {
+      "id": "promotionStarts",
+      "translation": "Promotions starts in:"
    }
 ]

@@ -2,6 +2,7 @@
    .deal-includes {
        &>p {
            margin-bottom: 0;
+           margin-top: 1rem;
        }
        ul {
            margin-bottom: 1rem;
@@ -79,6 +80,8 @@
      padding: 0.5em 1em;
      font-weight: normal;
      font-size: unset;
-     background-color: #f7d676;
+     &.badge-warning{
+      background-color: #f7d676;
+     }
   }
 }

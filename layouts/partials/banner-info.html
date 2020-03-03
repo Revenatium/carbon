@@ -20,9 +20,20 @@
 
 <div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
    {{ with .promotion}}
-      {{ if .lastValidDate }}
+      {{ if and .lastValidDate .showBeforeFinish }}
          <div>
-            <span class="badge badge-warning itm-timer-badge d-none"><i class="far fax-clock mr-2" ></i>{{ i18n "hurryUp"}} <span class="font-weight-bold" data-countdown="{{.lastValidDate}}"></span></span>
+            <span class="badge badge-warning itm-timer-badge d-none">
+               <i class="far fax-clock mr-2" ></i>
+               {{ i18n "hurryUp"}}
+               <span class="font-weight-bold" data-countdown="{{.lastValidDate}}" data-includelastday="true"></span>
+            </span>
+         </div>
+      {{ end }}
+      {{ if and .firstValidDate .showBeforeStart }}
+         <div class="badge badge-success itm-timer-badge d-none">
+            <i class="far fax-clock mr-2" ></i>
+            {{ i18n "promotionStarts"}}
+            <span class="font-weight-bold" data-countdown="{{.firstValidDate}}"></span>
          </div>
       {{ end }}
    {{ end }}

@@ -77,7 +77,12 @@ $(document).ready(function ($) {
    $('[data-countdown]').each(function () {
       var $this = $(this);
       var finalDate = $(this).data('countdown');
-      var date = moment.tz(finalDate, 'Mexico/General').add(1, 'days');
+      var includeLastDay = $(this).data('includelastday');
+      var date = moment.tz(finalDate, 'Mexico/General');
+      
+      if(includeLastDay){
+         date.add(1, 'days');
+      }
       $this.countdown(date.toDate(), function (event) {
          var totalHours = event.offset.totalDays * 24 + event.offset.hours;
          if (!event.elapsed && totalHours <= 72) {
