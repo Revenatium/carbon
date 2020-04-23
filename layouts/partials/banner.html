@@ -58,8 +58,9 @@
       {{ if $video }}
       <div class="itm-video-background">
          <div class="itm-video-foreground">
-           <iframe src="https://www.youtube.com/embed/{{$video}}?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist={{$video}}" frameborder="0" allowfullscreen></iframe>
-         </div>
+            <video autoplay="" muted="" loop="" class="itm-video">
+               <source src="{{$video}}" type="video/mp4">
+            </video>         </div>
       </div>
       {{ end }}
       {{ if (or .title .subTitle) }}
