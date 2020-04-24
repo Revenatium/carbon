@@ -58,9 +58,10 @@
       {{ if $video }}
       <div class="itm-video-background">
          <div class="itm-video-foreground">
-            <video autoplay="" muted="" loop="" class="itm-video">
+            <video playsinline autoplay loop muted class="itm-video">
                <source src="{{$video}}" type="video/mp4">
-            </video>         </div>
+            </video>
+         </div>
       </div>
       {{ end }}
       {{ if (or .title .subTitle) }}
