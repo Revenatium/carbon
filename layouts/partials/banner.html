@@ -39,9 +39,9 @@
 {{ $actionLink := $bookingEngineUrl }}
 {{ if .promotion }}
    {{ $showHotel := $.Site.Params.promotionsShowHotel }}
-   {{ $lastValidDate := time .promotion.lastValidDate }}
-   {{ $startDate := dateFormat "2006-01-02" ($lastValidDate.AddDate 0 0 -2) }}
-   {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastValidDate "?r[0].adults=2&r[0].children=0" }}
+   {{ $lastTravelDate := time .promotion.lastTravelWindowDate }}
+   {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
+   {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" $lastTravelDate "?r[0].adults=2&r[0].children=0" }}
    {{ $query := delimit $params "" }}
    {{ if and $showHotel .promotion.hotel }}
       {{ $actionLink = print $bookingEngineUrl "#/s/" .promotion.hotel.id ($query | safeURL) }}

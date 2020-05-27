@@ -4,8 +4,8 @@
 {{ $showHotel := .showHotel}}
 
 {{ with .deal}}
-{{ $lastValidDate := time .lastTravelWindowDate }}
-{{ $startDate := dateFormat "2006-01-02" ($lastValidDate.AddDate 0 0 -2) }}
+{{ $lastTravelDate := time .lastTravelWindowDate }}
+{{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
 <div class="row listItem listItem-deal">
    {{if .photos }}
    {{ $image := index .photos 0 }}
@@ -87,7 +87,7 @@
          </div>
       </div>
       <div class="listItem-actions">
-         {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .lastValidDate "?r[0].adults=2&r[0].children=0" }}
+         {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" $lastTravelDate "?r[0].adults=2&r[0].children=0" }}
          {{ $query := delimit $params "" }}
          {{ if and $showHotel .hotel }}
          <a href="{{ $bookingEngineURL }}#/s/{{ .hotel.id }}{{ $query | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
