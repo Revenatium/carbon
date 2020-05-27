@@ -4,7 +4,7 @@
 {{ $showHotel := .showHotel}}
 
 {{ with .deal}}
-{{ $lastValidDate := time .lastValidDate }}
+{{ $lastValidDate := time .lastTravelWindowDate }}
 {{ $startDate := dateFormat "2006-01-02" ($lastValidDate.AddDate 0 0 -2) }}
 <div class="row listItem listItem-deal">
    {{if .photos }}
