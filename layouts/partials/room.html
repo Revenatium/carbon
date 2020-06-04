@@ -67,7 +67,7 @@
          </div>
       </div>
       <div class="room-amenities">
-         <h2 class="text-center">Comodidades</h2>
+         <h2 class="text-center">{{ i18n "amenities"}}</h2>
          <ul class="list-unstyled row text-left">
             {{ range $amenity := .amenities }}
             <li class="col-sm-4"><i class="fas fax-check"></i>&nbsp;{{ $amenity.name }}</li>
