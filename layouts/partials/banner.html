@@ -59,7 +59,9 @@
       <div class="itm-video-background">
          <div class="itm-video-foreground">
             <video playsinline autoplay loop muted class="itm-video">
-               <source src="{{$video}}" type="video/mp4">
+               <source src="{{ print $video.base `upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $video.path `.mp4` }}" type="video/mp4; codecs=hvc1">
+               <source src="{{ print $video.base `upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $video.path `.webm` }}" type="video/webm; codecs=vp9">
+               <source src="{{ print $video.base `upload/c_limit,q_auto,w_1280/` $video.path `.mp4` }}" type="video/mp4">
             </video>
          </div>
       </div>
