@@ -1,0 +1,26 @@
+{{ if .Site.Params.servicesURL }}
+   {{ $many := 20 }}
+   {{ $containerType := "list--fullpage" }}
+   {{ $listType := "regular" }}
+   {{ with .Get "items" }}
+      {{ $many = . }}
+   {{ end }}
+   {{ with .Get "isFluid" }}
+      {{ $containerType = "list--fluid"}}
+   {{ end }}
+   {{ $hotelId := "" }}
+   {{ with .Get "hotelId" }}
+      {{ $hotelId = . }}
+   {{ end }}
+   {{ $rooms := getJSON (replace .Site.Params.servicesURL "{hotelId}" $hotelId) }}
+   {{ with .Get "showComplete" }}
+      {{ $listType = "complete"}}
+   {{ end }}
+   <div class="{{ $containerType }}">
+      <div>
+      {{ range first $many (where $rooms "isActive" true) }}
+            {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+      {{ end }}
+      </div>
+   </div>
+{{ end }}

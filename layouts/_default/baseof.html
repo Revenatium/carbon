@@ -69,6 +69,11 @@
    {{ with .Site.Params.loyaltyURL }}
       <script async src="{{.}}"></script>
    {{ end }}
+   {{ if eq .Params.widgetBooker true }}
+      {{ with .Site.Params.servicesWidgetURL }}
+         <script async src="{{.}}"></script>
+      {{ end }}
+   {{ end }}
 </body>
 {{ else }}
 <body>
