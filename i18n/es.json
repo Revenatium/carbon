@@ -194,5 +194,21 @@
    {
       "id": "promotionStarts",
       "translation": "La promoción comienza en:"
+   },
+   {
+      "id": "prices",
+      "translation": "Precios"
+   },
+   {
+      "id": "perPerson",
+      "translation": "Por persona"
+   },
+   {
+      "id": "adults",
+      "translation": "Adultos"
+   },
+   {
+      "id": "minors",
+      "translation": "Menores"
    }
 ]

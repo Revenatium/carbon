@@ -12,13 +12,13 @@
    {{ with .Get "hotelId" }}
       {{ $hotelId = . }}
    {{ end }}
-   {{ $rooms := getJSON (replace .Site.Params.servicesURL "{hotelId}" $hotelId) }}
+   {{ $items := getJSON (replace .Site.Params.servicesURL "{hotelId}" $hotelId) }}
    {{ with .Get "showComplete" }}
       {{ $listType = "complete"}}
    {{ end }}
    <div class="{{ $containerType }}">
       <div>
-      {{ range first $many (where $rooms "isActive" true) }}
+      {{ range where (where $items "isActive" true) "isStandalone" true }}
             {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
       {{ end }}
       </div>

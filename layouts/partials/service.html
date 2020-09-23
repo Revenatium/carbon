@@ -2,14 +2,29 @@
 {{ $bucket := .imageBucket }}
 
 {{ with .service}}
-<div class="row listItem">
-   <div class="col col-xs-12">
-      {{ with .name }}
-         <h2 class="listItem-title">{{ . | markdownify }}</h2>
-      {{ end }}
-      {{ with .description }}
-         <p class="listItem-description">{{ . | markdownify }}</p>
-      {{ end }}
+   <div class="row">
+      <div class="col col-xs-12">
+         {{ with .title }}
+            <h2 class="listItem-title">{{ . | markdownify }}</h2>
+         {{ end }}
+         {{ with .description }}
+            <p class="listItem-description">{{ . | markdownify }}</p>
+         {{ end }}
+      </div>
    </div>
-</div>
+   {{ $chargeType := .chargeType }}
+   {{ range .variations }}
+      <div>
+         <h4>{{.name}}</h4>
+         <p>{{.description}}</p>
+         <h5>{{ i18n "prices"}}</h5>
+         {{ if eq $chargeType "PERSON_PRICE" }}
+            <strong>{{ i18n "perPerson" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+         {{ else }}
+            <strong>{{ i18n "adults" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+            <strong>{{ i18n "minors" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceChild "- . ," }} {{ .ratePrice.currency }}
+         {{end}}
+      </div>
+      <br/>
+   {{ end }}
 {{ end }}
