@@ -1,8 +1,12 @@
 {{ define "main" }}
    {{ .Scratch.Set "widgetLocation" "side" }}
    {{ .Scratch.Set "banners" "" }}
+   {{ .Scratch.Set "services" "" }}
    {{ if and .Params.showBanners .Site.Params.bannersURL }}
       {{ .Scratch.Set "banners" (getJSON .Site.Params.bannersURL) }}
+   {{ end }}
+   {{ if and .Params.showServices .Site.Params.servicesURL }}
+      {{ .Scratch.Set "services" (getJSON .Site.Params.servicesURL) }}
    {{ end }}
    {{ if and .Params.slider_txt (eq (len (.Scratch.Get "banners")) 0) }}
       {{ $customScratch := newScratch }}
@@ -15,6 +19,8 @@
    {{ end }}
    {{ if ne (len (.Scratch.Get "banners")) 0 }}   
       {{ partial "main-banner-carousel" . }}
+   {{ else if ne (len (.Scratch.Get "services")) 0 }}
+      {{ partial "main-services-carousel" . }}  
    {{ else if isset .Params "slider" }}
       {{ partial "main-image-carousel" . }}
    {{ else if isset .Params `featured_image` }}

@@ -19,7 +19,7 @@
    <div class="{{ $containerType }}">
       <div>
       {{ range where (where $items "isActive" true) "isStandalone" true }}
-            {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+         {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
       {{ end }}
       </div>
    </div>

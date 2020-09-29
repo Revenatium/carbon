@@ -1,5 +1,4 @@
 {{ $base := .imageBase }}
-{{ $bucket := .imageBucket }}
 
 {{ with .service}}
    <div class="row">
@@ -14,17 +13,37 @@
    </div>
    {{ $chargeType := .chargeType }}
    {{ range .variations }}
-      <div>
-         <h4>{{.name}}</h4>
-         <p>{{.description}}</p>
-         <h5>{{ i18n "prices"}}</h5>
-         {{ if eq $chargeType "PERSON_PRICE" }}
-            <strong>{{ i18n "perPerson" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+      <div class="row listItem listItem-room">
+         {{if .photos }}
+            {{ $image := index .photos 0 }}
+            {{ $segments := split $image.basePath "/"}}
+            {{ $lastIndex := sub (len $segments) 2 }}
+            {{ $bucket := index $segments $lastIndex }}
+         <div class="listItem-pic" style="background-image: url( {{ print $base "f_auto,h_400,c_fill/" $bucket "/" $image.path }})">
+         </div>
          {{ else }}
-            <strong>{{ i18n "adults" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
-            <strong>{{ i18n "minors" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceChild "- . ," }} {{ .ratePrice.currency }}
-         {{end}}
+         <div class="listItem-pic listItem-pic--empty">
+         </div>
+         {{ end}}
+         <div class="listItem-info listItem-info--full">
+            <h2 class="listItem-title">{{.name}}</h2>
+            <div class="listItem-shortDesc">
+               <p>{{.description}}</p>
+               <h5>{{ i18n "prices"}}</h5>
+               {{ if eq $chargeType "PERSON_PRICE" }}
+                  <strong>{{ i18n "perPerson" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+               {{ else }}
+                  <strong>{{ i18n "adults" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+                  <strong>{{ i18n "minors" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceChild "- . ," }} {{ .ratePrice.currency }}
+               {{end}}
+            </div>
+         </div>
       </div>
-      <br/>
    {{ end }}
+   <h2>{{i18n "dealTerms"}}</h2>
+   <ul>
+      {{ range .restrictions }}
+      <li>{{ . | markdownify }}</li>
+      {{ end}}
+   </ul>
 {{ end }}
