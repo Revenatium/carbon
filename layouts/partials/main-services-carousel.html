@@ -2,7 +2,7 @@
 {{ $services := .Scratch.Get "services" }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage" ) }}
-{{ $customScratch.Add "bannerContainerClasses" (slice "carousel" "slide" "carousel-fade" "itm-banner-container" "itm-banner-container--extrainfo") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "carousel" "slide" "carousel-fade" "itm-banner-container" ) }}
 
 {{ if eq .Params.keepAspectRatio true }}
    {{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
@@ -11,7 +11,7 @@
       {{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
    {{ end }}
 {{ else }}
-   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
+   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absoluteFixed") }}
 {{ end }}
 
 {{ if eq .Params.bannerFullScreen true }}

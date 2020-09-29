@@ -31,6 +31,21 @@
          margin-bottom: 65px;
       }
    }
+   &.itm-banner-container--absoluteFixed{
+      position: relative;
+      height: 270px;
+      @media (min-width: 768px){
+         position: absolute;
+         top: 0;
+         left: 0;
+         right: 0;
+         height: 100%;
+         width: 100%;
+      }
+      @media (max-width: 575px){
+         height: 200px;         
+      }
+   }
 
    .carousel-inner {
       position: absolute;
