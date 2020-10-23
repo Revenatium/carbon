@@ -244,9 +244,9 @@ featured_image: {base: "https://res.cloudinary.com/itermotus/", path: "assets/jo
 slider: {base: "https://res.cloudinary.com/itermotus/", pics: "assets/jonathonhotel/img/common/jonathon-hotel-general-fachada.jpg,assets/jonathonhotel/img/common/jonathon-hotel-general-exterior.jpg,assets/jonathonhotel/img/common/jonathon-hotel-general-terraza-vista-teatro.jpg"}
 ```
 
-* Video (se coloca el ID de un video de YouTube):
+* Video (se coloca la url del video omitiendo la extensión):
 ```md
-featured_video: "-xAXYDfoDEU"
+featured_video: {base: "https://res.cloudinary.com/itermotus/video/", path: "assets/granhotelconcordia/img/videos/hotel-video"}
 ```
 
 * Slider con los banners creados en la Extranet:

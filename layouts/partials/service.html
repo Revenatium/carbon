@@ -11,11 +11,19 @@
          {{ end }}
       </div>
    </div>
+   {{ $mainPhotos := .photos}}
    {{ $chargeType := .chargeType }}
    {{ range .variations }}
       <div class="row listItem listItem-room">
          {{if .photos }}
             {{ $image := index .photos 0 }}
+            {{ $segments := split $image.basePath "/"}}
+            {{ $lastIndex := sub (len $segments) 2 }}
+            {{ $bucket := index $segments $lastIndex }}
+         <div class="listItem-pic" style="background-image: url( {{ print $base "f_auto,h_400,c_fill/" $bucket "/" $image.path }})">
+         </div>
+         {{ else if $mainPhotos}}
+            {{ $image := index $mainPhotos 0 }}
             {{ $segments := split $image.basePath "/"}}
             {{ $lastIndex := sub (len $segments) 2 }}
             {{ $bucket := index $segments $lastIndex }}
