@@ -25,6 +25,17 @@
       min-height: 271px;
    }
 }
+.sidebar-widget-container{
+   min-height: 370px;
+}
+.sidebar-widget--service{
+   will-change: min-height;
+   .sidebar-widget-loading{
+      border: 1px solid #ddd;
+      border-radius: .25rem;
+      height: 271px;
+   }
+}
 .w-outer-container{
    transition: background-color .3s;
 }
@@ -36,4 +47,7 @@
       right: 0;
       box-shadow: 0 0 5px rgba(0,0,0,0.3);
    }
+}
+.itm-index-sub-zero{
+   z-index: -1;
 }
