@@ -1,5 +1,7 @@
 {{ if .Site.Params.servicesURL }}
    {{ $many := 20 }}
+   {{ $type := "" }}
+   {{ $serviceId := 0 }}
    {{ $containerType := "list--fullpage" }}
    {{ $listType := "regular" }}
    {{ with .Get "items" }}
@@ -16,10 +18,23 @@
    {{ with .Get "showComplete" }}
       {{ $listType = "complete"}}
    {{ end }}
+   {{ with $.Page.Params.serviceId }}
+      {{ $serviceId = . }}
+   {{ end }}
    <div class="{{ $containerType }}">
       <div>
-      {{ range where (where $items "isActive" true) "isStandalone" true }}
-         {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+      {{ with $.Page.Params.serviceType }}
+         {{ range where (where $items "isActive" true) "addonType" $.Page.Params.serviceType }}
+            {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
+               {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+            {{ end }}
+         {{ end }}
+      {{ else }}
+         {{ range where $items "isActive" true }}
+            {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
+               {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+            {{ end }}
+         {{ end }}
       {{ end }}
       </div>
    </div>
