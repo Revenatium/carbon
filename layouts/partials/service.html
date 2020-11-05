@@ -2,7 +2,7 @@
 
 {{ with .service}}
    <div class="row">
-      <div class="col col-xs-12">
+      <div class="col">
          {{ with .title }}
             <h2 class="listItem-title">{{ . | markdownify }}</h2>
          {{ end }}
@@ -48,10 +48,16 @@
          </div>
       </div>
    {{ end }}
-   <h2>{{i18n "dealTerms"}}</h2>
-   <ul>
-      {{ range .restrictions }}
-      <li>{{ . | markdownify }}</li>
-      {{ end}}
-   </ul>
+   {{ with .restrictions }}
+      <div class="row">
+         <div class="col">
+            <h3>{{i18n "dealTerms"}}</h3>
+            <ul>
+               {{ range . }}
+               <li>{{ . | markdownify }}</li>
+               {{ end}}
+            </ul>
+         </div>
+      </div>
+   {{ end }}
 {{ end }}

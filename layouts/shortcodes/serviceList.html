@@ -22,20 +22,22 @@
       {{ $serviceId = . }}
    {{ end }}
    <div class="{{ $containerType }}">
-      <div>
       {{ with $.Page.Params.serviceType }}
          {{ range where (where $items "isActive" true) "addonType" $.Page.Params.serviceType }}
             {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
-               {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+               <div class="listOuterItem">
+                  {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+               </div>
             {{ end }}
          {{ end }}
       {{ else }}
          {{ range where $items "isActive" true }}
             {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
-               {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+               <div class="listOuterItem">
+                  {{ partial "service" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $) }}
+               </div>
             {{ end }}
          {{ end }}
       {{ end }}
-      </div>
    </div>
 {{ end }}
