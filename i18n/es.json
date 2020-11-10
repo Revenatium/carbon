@@ -210,5 +210,13 @@
    {
       "id": "minors",
       "translation": "Menores"
+   },
+   {
+      "id": "viewDirections",
+      "translation": "Cómo llegar"
+   },
+   {
+      "id": "streetView",
+      "translation": "Vista de calle"
    }
 ]

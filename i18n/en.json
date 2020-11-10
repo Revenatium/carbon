@@ -210,5 +210,13 @@
    {
       "id": "minors",
       "translation": "Minors"
+   },
+   {
+      "id": "viewDirections",
+      "translation": "View directions"
+   },
+   {
+      "id": "streetView",
+      "translation": "Street view"
    }
 ]
