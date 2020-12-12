@@ -46,7 +46,7 @@
    {{ if .subTitle }}
       <p class="lead">{{ .subTitle | markdownify }}</p>
    {{ end }}
-   {{ if .actionText }}
+   {{ if .showButton }}
       <a href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
    {{ end}}
 </div>

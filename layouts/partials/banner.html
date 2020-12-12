@@ -25,7 +25,6 @@
    {{ $customScratch.Add "infoClasses" (slice "col-md-12") }}
 {{ end }}
 
-
 {{ if eq $.Params.keepAspectRatio true }}
    {{ $customScratch.Add "infoClasses" (slice "col-sm-9" ) }}
    {{ $customScratch.Add "extraInfoClasses" (slice "col-12" "d-block" "d-md-none" "itm-banner-extra-info") }}
@@ -33,22 +32,24 @@
    {{ $customScratch.Add "extraInfoClasses" (slice "d-none" ) }}
 {{ end }}
 
-
 {{ with .banner }}
 
 {{ $actionLink := $bookingEngineUrl }}
-{{ if .promotion }}
-   {{ $showHotel := $.Site.Params.promotionsShowHotel }}
-   {{ $lastTravelDate := time .promotion.lastTravelWindowDate }}
-   {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
-   {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastTravelWindowDate "?r[0].adults=2&r[0].children=0" }}
-   {{ $query := delimit $params "" }}
-   {{ if and $showHotel .promotion.hotel }}
-      {{ $actionLink = print $bookingEngineUrl "#/s/" .promotion.hotel.id ($query | safeURL) }}
-   {{ else }}
-      {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
+{{ if eq .showButton true }}
+   {{ if and (eq .isPromotion true) .promotion }}
+      {{ $showHotel := $.Site.Params.promotionsShowHotel }}
+      {{ $lastTravelDate := time .promotion.lastTravelWindowDate }}
+      {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
+      {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastTravelWindowDate "?r[0].adults=2&r[0].children=0" }}
+      {{ $query := delimit $params "" }}
+      {{ if and $showHotel .promotion.hotel }}
+         {{ $actionLink = print $bookingEngineUrl "#/s/" .promotion.hotel.id ($query | safeURL) }}
+      {{ else }}
+         {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
+      {{ end }}
+   {{ else if and (eq .isPromotion false) .buttonUrl }}
+      {{ $actionLink = (.buttonUrl | safeURL)}}
    {{ end }}
-
 {{ end }}
 
 {{ if .image }}
@@ -70,9 +71,9 @@
       <div class="container itm-banner-info-container itm-banner-info-container--dark">
          <div class="row">
             <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
-               {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "main" $) }}
+               {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "showButton" .showButton "main" $) }}
             </div>
-            {{ if .actionText }}
+            {{ if eq .showButton true }}
             <div class="{{ delimit ($customScratch.Get `extraInfoClasses`) ` ` }}">
                <a href="{{ $actionLink }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
             </div>

@@ -35,7 +35,7 @@
                {{ if $image.bannerImage }}
                   {{ $bannerImage = $image.bannerImage }}
                {{ end }}
-               {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion }}
+               {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton }}
                {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
             {{ end }}
          {{ end }}
