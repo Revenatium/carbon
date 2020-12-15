@@ -47,6 +47,10 @@
       <p class="lead">{{ .subTitle | markdownify }}</p>
    {{ end }}
    {{ if .showButton }}
-      <a href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+      {{ if eq .isButtonUrlExternal true }}
+         <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+      {{ else }}
+         <a href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+      {{ end }}
    {{ end}}
 </div>
