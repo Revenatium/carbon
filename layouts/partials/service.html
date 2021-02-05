@@ -41,8 +41,12 @@
                {{ if eq $chargeType "PERSON_PRICE" }}
                   <strong>{{ i18n "perPerson" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
                {{ else }}
-                  <strong>{{ i18n "adults" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
-                  <strong>{{ i18n "minors" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceChild "- . ," }} {{ .ratePrice.currency }}
+                  {{ if not (and (gt .ratePrice.priceAdult -0.5) (lt .ratePrice.priceAdult 0.5)) }}
+                     <strong>{{ i18n "adults" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+                  {{ end }}
+                  {{ if not (and (gt .ratePrice.priceChild -0.5) (lt .ratePrice.priceChild 0.5)) }}
+                     <strong>{{ i18n "minors" }}:</strong> ${{ lang.NumFmt 0 .ratePrice.priceChild "- . ," }} {{ .ratePrice.currency }}
+                  {{ end }}
                {{end}}
             </div>
          </div>
