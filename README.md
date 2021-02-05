@@ -1,57 +1,49 @@
 # carbon
 Hugo Template
 
-### Cómo instalar?
-Primero debo crear un sitio de Hugo
+### Cómo usar?
+Primero debo posicionar mi consola en la carpeta donde voy a trabajar, por ejemplo:
 ```sh
-hugo new site my-hugo-site
+cd /Users/mi-usuario/mis-proyectos
 ```
-Dentro de la carpeta del nuevo sitio, inicio git e instalo el tema como un submódulo dentro de la carpeta "themes"
+y clonar el sitio de ejemplo, 
 ```sh
-cd my-hugo-site
-git init
-git submodule add https://github.com/Revenatium/carbon.git themes/carbon
+git clone https://github.com/Revenatium/hugo-site-example-c.git
 ```
-Y finalmente modifico el config.toml para que use el nuevo tema
+esto me creará una nueva carpeta llamada ´hugo-site-example-c´ dentro del directorio donde estoy ubicado, ahora le cambio el nombre a dicha carpeta:
 ```sh
-echo 'theme = "carbon"' >> config.toml
+mv hugo-site-example-c el-nombre-de-mi-nuevo-sitio
 ```
-Para ver en el navegador
+ya que le cambié el nombre me muevo dentro de esa carpeta:
 ```sh
-hugo server -D
+cd el-nombre-de-mi-nuevo-sitio
 ```
-## Si haces checkout del sitio y este ya contiene el submodulo del tema.
-```sh
-git submodule update --init --recursive
-```
-**A partir de ahora ya puedo comenzar a agregar contenido al sitio**
 
-### Home
-Para crear una página principal o home debo ejecutar el siguiente comando
+El sitio que clonamos ya trae el submodulo del tema (en esta caso 'carbon') instalado, lo único que tenemos que hacer es inicializarlo:
 ```sh
-hugo new _index.es.md
+git submodule update --init
 ```
-El cual generará un archivo _index.es.md en el que ya puedo comenzar a agregar contenido, por ejemplo:
+Ahora necesitamos cambiar el origen de git al nuevo repositorio donde vamos a subir los cambios específicos del nuevo sitio, este lo creamos en github como un repositorio vacio:
+![Image of Yaktocat](repo-create.png)
 
-```md
---
-title: My Hotel
-description: Vacaciones de lujo en Puerto Aventuras
-date: 2017-08-03T13:32:23-05:00
-draft: true
----
-<div class="row mb-4">
-   <div class="col-sm-12 text-center">
-   <h4>Comodidades</h4>
-   <p>Nuestros condominios constan de una a dos recamaras, todos se encentran totalmente equipados con cocineta y funcionales sercivios, servicio de limpuieza, caja de seguridad y personal multilingue.<p>
-   </div>
-</div>
-```
-### Secciones / Páginas
-Para agregar una nueva página al sitio simplemente debo crearlas al igual que la home:
+copiamos la url del nuevo repositorio:
+![Image of Yaktocat](repo-name.png)
+
+y la asignamos a nuestro sitio (es importante la palabra 'origin'):
 ```sh
-hugo new condominios.es.md
+git remote set-url origin https://github.com/mi-usuario/el-nombre-de-mi-nuevo-sitio.git
 ```
+
+Para correr por primera vez mi sitio debo hacer:
+```sh
+yarn
+yarn build
+yarn start
+```
+
+es importante hacer el yarn build por que genera los estilos base.
+
+**A partir de ahora ya puedo comenzar a agregar contenido al nuevo sitio**
 
 ### Habitaciones
 Utiliza el shortcode {{< roomList >}} para mostrar la lista de habitaciones.

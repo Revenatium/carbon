@@ -218,5 +218,37 @@
    {
       "id": "streetView",
       "translation": "Street view"
+   },
+   {
+      "id": "event_type",
+      "translation": "Event type"
+   },
+   {
+      "id": "event_date",
+      "translation": "Event date"
+   },
+   {
+      "id": "event_rooms",
+      "translation": "Rooms"
+   },
+   {
+      "id": "assistants",
+      "translation": "Assistants"
+   },
+   {
+      "id": "wedding",
+      "translation": "Wedding"
+   },
+   {
+      "id": "business",
+      "translation": "Business"
+   },
+   {
+      "id": "birthday",
+      "translation": "Birthday"
+   },
+   {
+      "id": "other",
+      "translation": "Other"
    }
 ]
