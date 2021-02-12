@@ -92,6 +92,47 @@ $(document).ready(function ($) {
       });
    });
 
+
+   $('[data-schedule-start]').each(function () {
+      var $this = $(this);
+      var startDate = $(this).data('start-date');
+      var endDate = $(this).data('end-date');
+      var start = $(this).data('schedule-start');
+      var end = $(this).data('schedule-end');
+      var timezone = $(this).data('timezone');
+
+      const startCountdown = ($el, today) => {
+         if(today.isBetween(moment.tz(startDate, timezone), moment.tz(endDate, timezone))){
+            var date = moment.tz(`${today.format('YYYY-MM-DD')} ${start}`, 'YYYY-MM-DD hh:mm a', timezone);
+            var isEndHour = false;
+            if(!today.isSameOrBefore(date)){
+               date = moment.tz(`${today.format('YYYY-MM-DD')} ${end}`, 'YYYY-MM-DD hh:mm a', timezone);
+               $el.parent().find('.itm-time-badge-end').removeClass('d-none');
+               $el.parent().find('.itm-time-badge-start').addClass('d-none');
+               isEndHour = true;
+            }else{
+               $el.parent().find('.itm-time-badge-start').removeClass('d-none');
+               $el.parent().find('.itm-time-badge-end').addClass('d-none');
+            }
+            $el.countdown(date.toDate(), function (event) {
+               var totalHours = event.offset.totalDays * 24 + event.offset.hours;
+               if (!event.elapsed && totalHours <= 72) {
+                  $el.html(event.strftime(totalHours + 'h %Mm %Ss'));
+                  $el.parent().removeClass('d-none');
+               }else if(event.elapsed && !isEndHour){
+                  var $parent = $el.parent();
+                  $el.remove();
+                  var $newEl = $(`<span class="font-weight-bold" data-schedule-start="${start}" data-schedule-end="${end}" data-start-date="${startDate}" data-end-date="${endDate}" data-timezone="${timezone}"></span>`);
+                  $parent.append($newEl);
+                  startCountdown($newEl, moment().tz(timezone));
+               }
+            });
+         }
+      }
+      startCountdown($this, moment().tz(timezone));
+   });
+
+
    $(window).resize(function () {
       $('.navbar-sticky').unstick();
       $('.widget-sticky').unstick();

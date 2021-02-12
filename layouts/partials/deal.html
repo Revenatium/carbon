@@ -51,6 +51,22 @@
                <span class="font-weight-bold" data-countdown="{{.firstValidDate}}"></span>
             </div>
             {{ end }}
+            {{ range .bookingWindowPeriods}}
+               {{ if and .startSchedule .endSchedule}}
+               <div class="badge badge-warning itm-timer-badge d-none">
+                  <i class="far fax-clock mr-2" ></i>
+                  <span class="itm-time-badge-start d-none">{{ i18n "promotionStarts"}}</span>
+                  <span class="itm-time-badge-end d-none">{{ i18n "hurryUp"}}</span>
+                  <span class="font-weight-bold"
+                     data-schedule-start="{{.startSchedule}}"
+                     data-schedule-end="{{.endSchedule}}"
+                     data-start-date="{{.startDate}}"
+                     data-end-date="{{.endDate}}"
+                     data-timezone="{{.timeZone}}"
+                  ></span>
+               </div>
+               {{ end}}
+            {{ end }}
             <p><strong>{{ i18n "dealIncludes"}}</strong></p>
             <ul>
                {{ range .includesDescription }}
