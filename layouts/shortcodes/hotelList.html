@@ -10,6 +10,7 @@
 {{ with .Get "zone" }}
    {{ $zone = . }}
 {{ end }}
+{{ $hotels := getJSON $.Site.Params.hotelsURL }}
 <div class="{{ $containerType }}">
 {{ range first $many (where .Site.RegularPages.ByWeight "Section" "==" "hotels") }}
    {{ if or (eq $zone "") (eq $zone .Params.zone)}}
@@ -21,7 +22,6 @@
    {{ $customScratch.Add "hotel" (dict "url" .URL "id" .Params.id "name" .Title "description" .Description "destination" $destination "photos" $photos) }}
    
    {{ if $.Site.Params.hotelsURL }}
-      {{ $hotels := getJSON $.Site.Params.hotelsURL }}
       {{ range $hotels }}
          {{ if eq (int .id) $currentHotelPage.Params.id }}
             {{ $photosScratch := newScratch }}
