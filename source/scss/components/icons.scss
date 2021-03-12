@@ -24,7 +24,17 @@
    /* Better Font Rendering =========== */
    -webkit-font-smoothing: antialiased;
    -moz-osx-font-smoothing: grayscale;
- }
+}
+
+.icon-chevron-down:before {
+  content: "\e914";
+}
+.icon-accessibility:before {
+  content: "\e912";
+}
+.icon-smoke-free:before {
+  content: "\e913";
+}
 .icon-lotus:before {
   content: "\e911";
 }
@@ -192,7 +202,4 @@
 }
 .icon-wifi:before {
   content: "\f159";
-}
-.icon-chevron-down:before {
-  content: "\f078";
 }
