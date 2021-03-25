@@ -10,7 +10,8 @@
 {{ with .Get "zone" }}
    {{ $zone = . }}
 {{ end }}
-{{ $hotels := getJSON $.Site.Params.hotelsURL }}
+{{ if and $.Site.Params.api $.Site.Params.api.hotels }}
+{{ $hotels := getJSON $.Site.Params.api.hotels.name }}
 <div class="{{ $containerType }}">
 {{ range first $many (where .Site.RegularPages.ByWeight "Section" "==" "hotels") }}
    {{ if or (eq $zone "") (eq $zone .Params.zone)}}
@@ -42,4 +43,5 @@
    {{ end }}
 {{ end }}
 </div>
+{{ end }}
 

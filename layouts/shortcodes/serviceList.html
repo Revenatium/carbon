@@ -1,4 +1,4 @@
-{{ if .Site.Params.servicesURL }}
+{{ if and .Site.Params.api .Site.Params.api.services }}
    {{ $many := 20 }}
    {{ $type := "" }}
    {{ $serviceId := 0 }}
@@ -14,7 +14,7 @@
    {{ with .Get "hotelId" }}
       {{ $hotelId = . }}
    {{ end }}
-   {{ $items := getJSON (replace .Site.Params.servicesURL "{hotelId}" $hotelId) }}
+   {{ $items := getJSON (replace .Site.Params.api.services.name "{hotelId}" $hotelId) }}
    {{ with .Get "showComplete" }}
       {{ $listType = "complete"}}
    {{ end }}

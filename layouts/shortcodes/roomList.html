@@ -1,4 +1,4 @@
-{{ if .Site.Params.roomsURL }}
+{{ if and .Site.Params.api .Site.Params.api.rooms.url }}
    {{ $many := 20 }}
    {{ $containerType := "list--fullpage" }}
    {{ $listType := "regular" }}
@@ -12,7 +12,7 @@
    {{ with .Get "hotelId" }}
       {{ $hotelId = . }}
    {{ end }}
-   {{ $rooms := getJSON (replace .Site.Params.roomsURL "{hotelId}" $hotelId) }}
+   {{ $rooms := getJSON (replace .Site.Params.api.rooms.name "{hotelId}" $hotelId) }}
    {{ with .Get "showComplete" }}
       {{ $listType = "complete"}}
    {{ end }}

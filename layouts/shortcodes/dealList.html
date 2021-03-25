@@ -7,10 +7,12 @@
    {{ with .Get "isFluid" }}
       {{ $containerType = "list--fluid"}}
    {{ end }}
-   {{ $deals := getJSON .Site.Params.promotionsURL }}
-   <div class="{{ $containerType }}">
-   {{ range first $many (where $deals "isActive" true) }}
-      {{ partial "deal" (dict "deal" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "showHotel" $.Site.Params.promotionsShowHotel) }}
+   {{ if and .Site.Params.api .Site.Params.api.promotions }}
+      {{ $deals := getJSON .Site.Params.api.promotions.name }}
+      <div class="{{ $containerType }}">
+      {{ range first $many (where $deals "isActive" true) }}
+         {{ partial "deal" (dict "deal" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "showHotel" $.Site.Params.promotionsShowHotel) }}
+      {{ end }}
+      </div>
    {{ end }}
-   </div>
 {{ end }}
