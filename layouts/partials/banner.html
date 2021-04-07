@@ -1,6 +1,7 @@
 {{ $ := .main }}
 {{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
 {{ $video := $.Params.featured_video }}
+{{ $disableOpacity := $.Params.disableBannerOpacity }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "classes" (slice "itm-banner-item") }}
 {{ if .isCarousel }}
@@ -55,7 +56,11 @@
 {{ if .image }}
    <div 
       class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
-      style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
+      {{ if eq $disableOpacity true }}
+         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,c_fill/` .image.path }})">
+      {{ else }}
+         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
+      {{ end }}
       {{ if $video }}
       <div class="itm-video-background">
          <div class="itm-video-foreground">
