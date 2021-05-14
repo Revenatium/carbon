@@ -85,7 +85,7 @@ $(document).ready(function ($) {
       }
       $this.countdown(date.toDate(), function (event) {
          var totalHours = event.offset.totalDays * 24 + event.offset.hours;
-         if (!event.elapsed && totalHours <= 72) {
+         if (!event.elapsed) {
             $this.html(event.strftime(totalHours + 'h %Mm %Ss'));
             $this.parent().removeClass('d-none');
          }
