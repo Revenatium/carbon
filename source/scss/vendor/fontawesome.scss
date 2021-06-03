@@ -42,6 +42,9 @@
 .#{$fa-css-prefix}-building:before { content: fa-content($fa-var-building); }
 .#{$fa-css-prefix}-whatsapp:before { content: fa-content($fa-var-whatsapp); }
 .#{$fa-css-prefix}-exclamation-circle:before { content: fa-content($fa-var-exclamation-circle); }
+.#{$fa-css-prefix}-check:before { content: fa-content($fa-var-check); }
+.#{$fa-css-prefix}-info-circle { content: fa-content($fa-var-info-circle); }
+.#{$fa-css-prefix}-check-circle { content: fa-content($fa-var-check-circle); }
 
 @import 'node_modules/@fortawesome/fontawesome-free/scss/screen-reader';
 @import 'node_modules/@fortawesome/fontawesome-free/scss/brands';

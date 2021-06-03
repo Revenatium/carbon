@@ -250,5 +250,41 @@
    {
       "id": "other",
       "translation": "Otro"
+   },
+   {
+      "id": "benefits.title",
+      "translation": "¡Reservar en nuestro sitio web te conviene más!"
+   },
+   {
+      "id": "benefits.flexible.cancellation",
+      "translation": "Políticas flexibles de cancelación"
+   },
+   {
+      "id": "benefits.best.price",
+      "translation": "Mejor precio garantizado"
+   },
+   {
+      "id": "benefits.msi",
+      "translation": "Hasta {{.Months}} meses sin intereses con tarjetas participantes"
+   },
+   {
+      "id": "benefits.all",
+      "translation": "Conoce todos los beneficios"
+   },
+   {
+      "id": "benefits.exclusive.offers",
+      "translation": "Promociones exclusivas"
+   },
+   {
+      "id": "benefits.no.hidden.charges",
+      "translation": "Sin cargos ocultos"
+   },
+   {
+      "id": "benefits.immediate.confirmation",
+      "translation": "Confirmación inmediata"
+   },
+   {
+      "id":"benefits.footer.title",
+      "translation": "Por que reservar en {{.Name}}"
    }
 ]
