@@ -1,8 +1,11 @@
 {{ $base := .Get "base" }}
 {{ $path := .Get "path" }}
+{{ $customImgHeight := .Get "imgHeight" }}
+{{ $imgHeight := (cond (ne $customImgHeight ``) $customImgHeight `400`) }}
+
 <div class="row listItem">
    {{ if and $base $path }}
-   <div class="listItem-pic" style="background-image: url({{ print $base `f_auto,h_400,c_fill/` $path }})"></div>
+   <div class="listItem-pic" style="background-image: url({{ print $base `f_auto,h_` $imgHeight `,c_fill/` $path }})"></div>
    {{ else }}
    <div class="listItem-pic listItem-pic--empty"></div>
    {{ end }}
