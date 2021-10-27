@@ -1,0 +1,28 @@
+{{ $galleryID := .Get "id" }}
+{{ $base := .Get "base" }}
+
+{{ if and .Site.Params.api .Site.Params.api.gallery.url }}
+<div>
+    {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryID) }}    
+    {{ $len := (len $gallery.photos) }}
+    {{ .Inner }}
+    <div class="clearfix photo-gallery-container has-{{$len}}">
+        <div class="photo-gallery">
+            {{ range $index, $element := $gallery.photos }}
+            <a href="{{ print $base `q_auto:low,f_auto,w_1200,h_800,c_fit/hotel/` $element.path }}" class="gallery-link{{if (gt $index 4)}} d-none{{end}}">
+                {{ if (eq $index 0) }}
+                   <img src="{{ print $base `q_auto:low,f_auto,w_600,h_430,c_fill/hotel/` $element.path }}" />
+                {{ else if (lt $index 5) }}
+                   <img src="{{ print $base `q_auto:low,f_auto,w_300,h_215,c_fill/hotel/` $element.path }}" />
+                {{ end }}
+                {{ if (eq $index 4) }}
+                   <span class="gallery-count">
+                   + {{ sub $len 5 }}
+                   </span>
+                {{ end }}
+                </a>
+           {{ end }}
+        </div>
+     </div>
+</div>
+{{ end }}

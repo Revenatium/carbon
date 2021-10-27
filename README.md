@@ -103,6 +103,17 @@ pics="assets/coralmaya/img/rooms/one-bedroom-cocineta.jpg,assets/coralmaya/img/r
 >}}
 ```
 
+**gallery (base, galeriId)**
+
+Genera una galería de imágenes. Recibe como parámetros la base de la URL (base) y el id de la galería, el layout se ajustará atuomáticamente basado en el número de fotos.
+
+```md
+{{< gallery 
+base="https://res.cloudinary.com/itermotus/" 
+id="113" 
+>}}
+```
+
 **circleAmenity (base, path, title, [inner])**
 
 Elemento que incluye una imagen recorada en círculo, un título y una descripción (inner)
@@ -212,6 +223,29 @@ En el sitio se utilizan varios parámetros para su correcto funcionamiento y mos
     [params.social.instagram]
       icon = "instagram"
       url = "https://www.instagram.com/HotelSoulBeach"
+```
+### Parámetros de galeria
+Para los llamados a las galerías, van dentro de los parametros de lenguaje
+
+`params` listado de ids de la galeria separados por comas [1,2,3]
+
+`hotelflamingos` el texto hotelflamingos dentro del url debe cambiarse por el nombre de la cuenta
+
+```toml
+[Languages]
+	[Languages.es]
+      [Languages.es.api.gallery]
+         name = "data/api.gallery-{galleryId}.json"
+         url = "https://api-core.revenatium.com/hotelflamingos/58728b69-0cd2-42a6-8d00-6d00841b9763/gallery/web?galleryId={galleryId}&locale=es-mx"
+         variable = "galleryId"
+         params = [113,3]
+      
+   [Languages.en]
+      [Languages.en.api.gallery]
+         name = "data/api.gallery-{galleryId}.json"
+         url = "https://api-core.revenatium.com/hotelflamingos/58728b69-0cd2-42a6-8d00-6d00841b9763/gallery/web?galleryId={galleryId}&locale=en-us"
+         variable = "galleryId"
+         params = [113,3]
 ```
 
 ## Parámetros para las páginas
