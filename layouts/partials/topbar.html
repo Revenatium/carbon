@@ -9,7 +9,14 @@
       </div>
       {{ end }}
       <div class="float-right itm-header-top-login">
-         <div class="itm-loyalty-widget"></div>
+         <div class="itm-loyalty-widget"
+            {{ if eq .Site.Params.defaultOpen false }}
+               data-default_open="false"
+            {{end}}
+            {{ if eq .Site.Params.saveClose false}}
+               data-save_close="false"
+            {{end}}
+         ></div>
       </div>
       <div class="float-right itm-header-top-lang">
          {{ if .IsTranslated }}
