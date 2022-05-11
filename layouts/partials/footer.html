@@ -1,8 +1,8 @@
 <footer class="itm-footer">
    <div class="container">
-      <ul class="list-inline itm-footer-menu">
+      <ul class="list-unstyled itm-footer-menu">
       {{ range .Site.Menus.footer }}
-         <li class="list-inline-item">
+         <li class="d-block d-md-inline py-3 px-4 py-md-1 px-md-2">
             <a  href="{{.URL | absURL }}">{{ .Name }}</a>
          </li>
       {{ end }}
