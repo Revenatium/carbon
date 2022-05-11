@@ -1,3 +1,16 @@
+{{ define "custom-headers" }}
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<style>
+   #g-recaptcha-response {
+    display: block !important;
+    position: absolute;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -999999;
+    opacity: 0;
+}
+</style>
+{{ end }}
 {{ define "main" }}
 {{ partial "main-text" . }}
 <div class="container"> 
@@ -5,7 +18,7 @@
       <div class="col-sm-8">
       <!--   {{ .Site.Params.ContactEmailURL }}   -->
          <!--   http://localhost:8088/test   -->
-      <form method="POST" action="{{ .Site.Params.ContactEmailURL }}" name="contact" class="contact-form" novalidate="">
+      <form method="POST" action="{{ .Site.Params.ContactEmailURL }}" name="contact" class="contact-form" novalidate="" id="contact-form">
          <input type="hidden" name="site" value="{{ .Site.Params.BookingEngineURL }}"/>
          <input type="hidden" name="tysite" value="{{ .Site.Params.ThankYouSite }}"/>
          <input type="hidden" name="account" value="{{ .Site.Params.Account }}"/>		
@@ -48,7 +61,16 @@
             <div class="row">
          <div class="col-sm-12">
             <div class="form-group">
-               <button type="submit" id="submitContactForm" class="btn btn-primary">{{ i18n "contactBtn"}}</button>
+               {{ if .Site.Params.captchaSiteKey }}
+               <div class="g-recaptcha" data-sitekey="{{ .Site.Params.captchaSiteKey}}"></div>
+               <br />
+               <br />
+               {{ end }}
+               <button
+                  type="submit"
+                  id="submitContactForm"
+                  class="btn btn-primary"
+               >{{ i18n "contactBtn"}}</button>
             </div>    
          </div>
          </div>
@@ -66,14 +88,20 @@
 </div>
 {{ .Content }}
 <script>
-window.formMessages = {
-   name: {{ i18n "nameEmptyErrorMsg" }},
-   comments: {{ i18n "commentsEmptyErrorMsg" }},
-   email: {
-      required: {{ i18n "emailEmptyErrorMsg" }},
-      email: {{ i18n "emailInvalidErrorMsg" }}
-    }
-};
-
+   window.onload = function() {
+      var $recaptcha = document.querySelector('#g-recaptcha-response');
+      if($recaptcha) {
+         $recaptcha.setAttribute("required", "required");
+      }
+   };
+   window.formMessages = {
+      name: {{ i18n "nameEmptyErrorMsg" }},
+      comments: {{ i18n "commentsEmptyErrorMsg" }},
+      email: {
+         required: {{ i18n "emailEmptyErrorMsg" }},
+         email: {{ i18n "emailInvalidErrorMsg" }}
+      },
+      ['g-recaptcha-response']: {{ i18n "verifyRobotMsg" }}
+   };
 </script>
 {{end}}

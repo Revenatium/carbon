@@ -250,5 +250,9 @@
    {
       "id": "other",
       "translation": "Other"
+   },
+   {
+      "id": "verifyRobotMsg",
+      "translation": "Verify you are not a robot"
    }
 ]

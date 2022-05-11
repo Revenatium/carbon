@@ -38,6 +38,7 @@
    {{ partial "googleTagManagerHeader.html" . }}
 
    {{ partial "head-custom.html" . }}
+   {{ block "custom-headers" . }}{{ end }}
 </head>
 {{ if ne .Site.Params.suspended true }}
 <body>
