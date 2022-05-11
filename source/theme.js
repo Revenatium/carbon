@@ -4,6 +4,8 @@ import 'bootstrap/js/dist/dropdown';
 import 'bootstrap/js/dist/collapse';
 import 'bootstrap/js/dist/carousel';
 import 'bootstrap/js/dist/tab';
+import 'bootstrap/js/dist/tooltip';
+import 'bootstrap/js/dist/popover';
 import 'jquery-countdown';
 import 'sticky-sidebar';
 import moment from 'moment-timezone';
@@ -155,6 +157,13 @@ $(document).ready(function ($) {
          } 
       }
    });
+   $('[data-toggle=popover]').popover({
+      html : true,
+      content: function() {
+          var content = $(this).attr('data-popover-content');
+          return $(content).children('.popover-body').html();
+      }
+  });
 
    window.applyStickyHeader();
 

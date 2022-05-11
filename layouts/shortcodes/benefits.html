@@ -1,0 +1,72 @@
+{{ $noticeType := ""}}
+{{ $months := "0" }}
+{{ with .Get "isNotice" }}
+{{ $noticeType = "itm-notice itm-notice-success"}}
+{{ end }}
+{{ with .Get "months" }}
+{{ $months = . }}
+{{ end }}
+<div class="media {{ $noticeType }}">
+    <div class="align-self-center mr-3">
+        <div class="text-success" style="width: 28px;height: 28px" }}>
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+                <path
+                    d="M288 130.54V112h16c8.84 0 16-7.16 16-16V80c0-8.84-7.16-16-16-16h-96c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16h16v18.54C115.49 146.11 32 239.18 32 352h448c0-112.82-83.49-205.89-192-221.46zM496 384H16c-8.84 0-16 7.16-16 16v32c0 8.84 7.16 16 16 16h480c8.84 0 16-7.16 16-16v-32c0-8.84-7.16-16-16-16z" />
+            </svg>
+        </div>
+    </div>
+    <div class="media-body">
+        <div class="text-success">
+            <strong>
+                {{ i18n "benefits.title" }}
+            </strong>
+        </div>
+        <ul class="list-inline" style="margin: 0;">
+            {{ if and (ne $months "0") (ne $months "1")}}
+            <li class="list-inline-item">
+                <i class="fas fax-check itm-notice-check"></i>{{ i18n "benefits.msi" (dict "Count" 25 "Months"
+                $months)}}
+            </li>
+            {{ end }}
+            <li class="list-inline-item">
+                <i class="fas fax-check itm-notice-check"></i>{{ i18n "benefits.flexible.cancellation" }}
+            </li>
+            <li class="list-inline-item">
+                <i class="fas fax-check itm-notice-check"></i>{{ i18n "benefits.best.price" }}
+            </li>
+            <li class="list-inline-item">
+                <i class="fas fax-info-circle itm-notice-check"></i>
+                <span data-toggle="popover" data-placement="bottom" data-popover-content="#itm-all-benefits" data-trigger="focus" tabindex="0">{{ i18n "benefits.all" }}</span>
+                <div id="itm-all-benefits" style="display:none">
+                    <div class="popover-body">
+                        <div class="itm-benefits-list-container">
+                            <ul class="fa-ul itm-benefits-list-all-detail">
+                                {{ if and (ne $months "0") (ne $months "1")}}
+                                <li>
+                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.msi" (dict "Count" 25 "Months"
+                                    $months)}}
+                                </li>
+                                {{ end }}
+                                <li>
+                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.flexible.cancellation" }}
+                                </li>
+                                <li>
+                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.best.price" }}
+                                </li>
+                                <li>
+                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.exclusive.offers" }}
+                                </li>
+                                <li>
+                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.no.hidden.charges" }}
+                                </li>
+                                <li>
+                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.immediate.confirmation" }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -4,12 +4,19 @@
       <div class="float-left itm-header-top-contact">
          <ul class="list-inline mb-0">
             {{ with .Site.Params.hotelPhone }}<li class="list-inline-item"><i class="fas fax-phone mr-2"></i>{{.}}</li>{{ end }}
-            {{ with .Site.Params.hotelEmail }}<li class="list-inline-item"><a href="#"><i class="fas fax-envelope mr-2"></i>{{.}}</a></li>{{ end }}
+            {{ with .Site.Params.hotelEmail }}<li class="list-inline-item"><a href="mailto:{{.}}"><i class="fas fax-envelope mr-2"></i>{{.}}</a></li>{{ end }}
          </ul>
       </div>
       {{ end }}
       <div class="float-right itm-header-top-login">
-         <div class="itm-loyalty-widget"></div>
+         <div class="itm-loyalty-widget"
+            {{ if eq .Site.Params.defaultOpen false }}
+               data-default_open="false"
+            {{end}}
+            {{ if eq .Site.Params.saveClose false}}
+               data-save_close="false"
+            {{end}}
+         ></div>
       </div>
       <div class="float-right itm-header-top-lang">
          {{ if .IsTranslated }}

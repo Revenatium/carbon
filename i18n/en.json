@@ -254,5 +254,41 @@
    {
       "id": "verifyRobotMsg",
       "translation": "Verify you are not a robot"
+   },
+   {
+      "id": "benefits.title",
+      "translation": "Booking with us has benefits!"
+   },
+   {
+      "id": "benefits.flexible.cancellation",
+      "translation": "Flexible cancellation policies"
+   },
+   {
+      "id": "benefits.best.price",
+      "translation": "Best price guaranteed"
+   },
+   {
+      "id": "benefits.msi",
+      "translation": "Up to {{.Months}} months without interest with selected cards"
+   },
+   {
+      "id": "benefits.all",
+      "translation": "See all benefits"
+   },
+   {
+      "id": "benefits.exclusive.offers",
+      "translation": "Exclusive offers"
+   },
+   {
+      "id": "benefits.no.hidden.charges",
+      "translation": "No hidden charges"
+   },
+   {
+      "id": "benefits.immediate.confirmation",
+      "translation": "Immediate confirmation"
+   },
+   {
+      "id":"benefits.footer.title",
+      "translation": "Reasons to book in {{.Name}}"
    }
 ]
