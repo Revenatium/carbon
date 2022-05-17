@@ -12,7 +12,7 @@
       <div class="col-8">
          {{ range $element := first 1 $items }}
          <a href="{{ print $base "f_auto,w_1200,h_800,c_fit/" $bucket "/" $element.path }}" class="gallery-link">
-            <img src="{{ print $base "f_auto,w_600,h_430,c_fill/" $bucket "/" $element.path }}" />
+            <img src="{{ print $base "f_auto,w_600,h_430,c_fill/" $bucket "/" $element.path }}" loading="lazy" />
          </a>
          {{ end }}
       </div>
@@ -21,7 +21,7 @@
             {{ range $index, $element := after 1 $items }}
             <div class="col-12 h-50 {{ if gt $index 1 }}d-none{{ end }}">
                <a href="{{ print $base "f_auto,w_1200,h_800,c_fit/" $bucket "/" $element.path }}" class="gallery-link">
-                  <img src="{{ print $base "f_auto,w_300,h_215,c_fill/" $bucket "/" $element.path }}" />
+                  <img src="{{ print $base "f_auto,w_300,h_215,c_fill/" $bucket "/" $element.path }}" loading="lazy" />
                   {{ if (eq $index 1) }}
                      <span class="gallery-count">
                      + {{ sub $len 3 }}

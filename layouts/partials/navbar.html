@@ -10,10 +10,10 @@
             <picture>
                <source media="(max-width: 320px)" srcset="{{ .Site.Params.logoBase }}f_auto,q_auto,w_150,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
                <source media="(max-width: 425px)" srcset="{{ .Site.Params.logoBase }}f_auto,q_auto,w_180,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
-               <img src="{{ .Site.Params.logoBase }}f_auto,q_auto,h_45,dpr_2.0/{{ .Site.Params.logoPath }}" />
+               <img src="{{ .Site.Params.logoBase }}f_auto,q_auto,h_45,dpr_2.0/{{ .Site.Params.logoPath }}" alt="{{ .Site.Title | safeHTML }}" loading="lazy" />
             </picture>
          {{ else if .Site.Params.logoURL }}
-            <img src="{{ .Site.Params.logoURL }}" alt="{{ .Site.Title | safeHTML }}">
+            <img src="{{ .Site.Params.logoURL }}" alt="{{ .Site.Title | safeHTML }}" loading="lazy">
          {{ else }}
             {{ .Site.Title | safeHTML }}
          {{ end }}
