@@ -1,12 +1,11 @@
 .home-amenity {
-   padding: 180px 20px 20px 20px;
-   margin-bottom: 20px;
-   position: relative;
-   background-position: center;
-   background-size: cover;
-   color: #fff;
-   text-decoration: none;
-   display: block;
+    display: grid;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+    height: 320px;
+    margin-bottom: 30px;
+    color:#fff;
 
    &:hover {
        text-decoration: none;
@@ -28,10 +27,19 @@
        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 );
    }
 
-   h5, p {
-       position: relative;
-   }
-   p {
-       margin-bottom: 0;
-   }
+   .amenity-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+    }
+
+    p:last-child {
+        margin-bottom: 0;
+    }
+
+    .amenity-img {
+        height: 100%;
+    }
 }

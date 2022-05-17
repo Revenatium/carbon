@@ -1,7 +1,14 @@
 {{ $base := .Get "base" }}
 {{ $path := .Get "path" }}
-<a class="home-amenity" href="{{.Get `url`}}" style="background-image: url({{print $base `f_auto,w_600,h_400,c_fill/` $path }})">
-   <div class="amenity-container">
+<a class="home-amenity" href="{{.Get `url`}}">
+    <img class="amenity-img" alt="{{.Get "title"}}" loading="lazy" 
+        src="{{print $base `f_auto,w_635,h_320,c_fill/` $path }}"
+        srcset="{{print $base `f_auto,w_635,h_320,c_fill/` $path }} 635w,
+             {{print $base `f_auto,w_445,h_320,c_fill/` $path }} 445w,
+             {{print $base `f_auto,w_395,h_320,c_fill/` $path }} 395w,
+             {{print $base `f_auto,w_270,h_320,c_fill/` $path }} 270w"
+        sizes="(max-width: 575px) 100vw, (max-width: 768px) 58vw, 635px">
+    <div class="amenity-container">
         <h5>{{.Get "title"}}</h5>
         <p>{{ .Inner }}</p>
     </div>
