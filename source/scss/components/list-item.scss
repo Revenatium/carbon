@@ -10,6 +10,7 @@
       background-color: #eee;
       background-position: center center;
       min-height: 194px !important;
+      padding: 0;
       a.photo-gallery-thumb-item{
          position: absolute;
          bottom: 0;
@@ -18,6 +19,11 @@
             color: #FFF;
             margin: 0.5rem;
          }
+      }
+      img {
+         object-fit: cover;
+         width: 100%;
+         height: 100%;
       }
    }
 

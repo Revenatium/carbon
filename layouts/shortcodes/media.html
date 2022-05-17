@@ -2,10 +2,20 @@
 {{ $path := .Get "path" }}
 {{ $customImgHeight := .Get "imgHeight" }}
 {{ $imgHeight := (cond (ne $customImgHeight ``) $customImgHeight `400`) }}
+{{ $imgHeightNum := (float $imgHeight) }}
+{{ $imgWidth := mul $imgHeightNum 1.5}}
+{{ $imgWidthSmall := div $imgWidth 2}}
+{{ $imgHeightSmall := div $imgHeightNum 2}}
 
 <div class="row listItem">
    {{ if and $base $path }}
-   <div class="listItem-pic" style="background-image: url({{ print $base `f_auto,h_` $imgHeight `,c_fill/` $path }})"></div>
+   <div class="listItem-pic" style="background-image: url({{ print $base `f_auto,w_` $imgWidth `,h_` $imgHeight `,c_fill/` $path }})">
+      <img class="amenity-img" alt="{{.Get "title"}}" loading="lazy" 
+        src="{{ print $base `f_auto,w_`$imgWidth`,h_`$imgHeight`,c_fill/` $path }}"
+        srcset="{{ print $base `f_auto,w_`$imgWidth`,h_`$imgHeight`,c_fill/` $path }} {{ print $imgWidth `w` }},
+                {{ print $base `f_auto,w_`$imgWidthSmall`,h_`$imgHeightSmall`,c_fill/` $path }} {{ print $imgWidthSmall `w` }}"
+        sizes="(max-width: 767px) 100vw, 33vw">
+   </div>
    {{ else }}
    <div class="listItem-pic listItem-pic--empty"></div>
    {{ end }}
