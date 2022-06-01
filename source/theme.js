@@ -10,8 +10,9 @@ import 'jquery-countdown';
 import 'sticky-sidebar';
 import moment from 'moment-timezone';
 import './addons/jquery.sticky';
-import './addons/jquery.magnific-popup';
 import './addons/jquery.validate';
+
+import {showMagnificGallery} from "./magnific";
 
 $(document).ready(function ($) {
    $.extend(true, $.magnificPopup.defaults, {
@@ -40,14 +41,14 @@ $(document).ready(function ($) {
    });
 
    $('.photo-gallery').each(function () {
-      $(this).magnificPopup({
+      showMagnificGallery($(this),{
          delegate: 'a',
          type: 'image',
          gallery: { enabled: true }
       });
    });
    $('.itm-photo-gallery').each(function () {
-      $(this).magnificPopup({
+      showMagnificGallery($(this),{
          delegate: 'a',
          type: 'image',
          gallery: { enabled: true }
@@ -55,7 +56,7 @@ $(document).ready(function ($) {
    });
 
    $('.video-link').each(function () {
-      $(this).magnificPopup({
+      showMagnificGallery($(this),{
          disableOn: 700,
          type: 'iframe',
          mainClass: 'mfp-fade',
