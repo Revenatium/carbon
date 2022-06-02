@@ -1,85 +1,76 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ .Lang }}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    {{ if .Params.meta_title }}
+    <title>{{ .Params.meta_title }}</title>
+    {{ else }}
+    <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
+    {{ end }} {{ if .Site.Params.bookingEngineURL }}
+    <link rel="prefetch" href="{{ .Site.Params.bookingEngineURL }}" />
+    {{ end }}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com/" />
+    <link rel="dns-prefetch" href="https://assets.revenatium.com" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://res.cloudinary.com" />
+    <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
 
-<head>
-   {{ partial "head-meta.html" . }}
+    {{ $stylesheet := .Site.Data.webpack.main }} {{ if and .IsHome (eq (getenv "CONTEXT") "production") }}
+    <style>
+      {{ partial "build.css" | safeCSS }}
+    </style>
+    {{ with $stylesheet.css }}
+    <link rel="preload" as="style" href="{{ relURL . }}" />
+    <link rel="prefetch" href="{{ relURL . }}" rel="stylesheet" />
+    {{ end}} {{ else }} {{ with $stylesheet.css }}
+    <link rel="preload" as="style" href="{{ relURL . }}" />
+    <link href="{{ relURL . }}" rel="stylesheet" />
+    {{ end }} {{ end }} {{ if ne .Params.hideBooker true }} {{ with .Site.Params.bookerURL }}
+    <link rel="preload" as="script" href="{{ . }}" />
+    {{ end }} {{ end }}
 
-   {{ block "schema-dot-org" . }}
-   <!-- schema.org metadata differs for Nodes and Pages -->
-   {{ end }}
+    <link rel="preload" as="script" href="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" />
+    <link rel="preload" as="image" href="{{ .Site.Params.faviconURL }}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{ .Site.Params.faviconURL }}" />
+    {{ if .Site.Params.canonicalUrl }}
+    <link rel="canonical" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
+    {{ else }}
+    <link rel="canonical" href="{{ .RelPermalink }}" />
+    {{ end }}
 
-   <link rel="canonical" href="{{ .Permalink }}">
-   {{ if .Site.Params.bookingEngineURL }}
-   <link rel="prefetch" href="{{ .Site.Params.bookingEngineURL }}">
-   {{ end }}
+    <link rel="shortcut icon" type="image/x-icon" href="{{ .Site.Params.faviconURL }}" />
+    {{ partial "head-meta.html" . }} {{ block "schema-dot-org" . }}
+    <!-- schema.org metadata differs for Nodes and Pages -->
+    {{ end }} {{ template "_internal/google_analytics_async.html" . }} {{ partial "googleTagManagerHeader.html" . }} {{
+    partial "head-custom.html" . }} {{ block "custom-headers" . }}{{ end }}
+  </head>
+  {{ if ne .Site.Params.suspended true }}
+  <body>
+    {{ partial "googleTagManagerBody.html" . }} {{ block "header" . }}{{ partial "header" . }}{{end}}
 
-   {{ if .Params.meta_title }}
-      <title>{{ .Params.meta_title }}</title>
-   {{ else }}
-      <title>{{ block "title" . }}{{ .Site.Title }}{{ end }}</title>
-   {{ end }}
+    <main>{{ block "main" . }}{{end}}</main>
 
-   <link rel="shortcut icon" type="image/x-icon" href="{{ .Site.Params.faviconURL }}">
+    <section class="sticky-bottom d-block d-lg-none">{{ partial "sticky-bottom" . }}</section>
 
-   {{ $stylesheet := .Site.Data.webpack.main }}
-   {{ if and .IsHome (eq (getenv "CONTEXT") "production") }}
-   <style>{{ partial "build.css" | safeCSS }}</style>
-      {{ with $stylesheet.css }}
-   <link rel="prefetch" href="{{ relURL . }}" rel="stylesheet">
-      {{ end}}
-   {{ else }}
-      {{ with $stylesheet.css }}
-   <link href="{{ relURL . }}" rel="stylesheet">
-      {{ end }}
-   {{ end }}
+    {{ block "footer" . }}{{ partial "footer" . }}{{end}}
 
-   {{ template "_internal/google_analytics_async.html" . }}
-      
-   {{ partial "googleTagManagerHeader.html" . }}
-
-   {{ partial "head-custom.html" . }}
-   {{ block "custom-headers" . }}{{ end }}
-</head>
-{{ if ne .Site.Params.suspended true }}
-<body>
-   {{ partial "googleTagManagerBody.html" . }}
-
-   {{ block "header" . }}{{ partial "header" . }}{{end}}
-
-   <main>
-   {{ block "main" . }}{{end}}
-   </main>
-
-   <section class="sticky-bottom d-block d-lg-none">
-      {{ partial "sticky-bottom" . }}
-   </section>
-   
-   {{ block "footer" . }}{{ partial "footer" . }}{{end}}
-
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   {{ $script := .Site.Data.webpack.main }}
-   {{ with $script.js }}
-   <script src="{{ relURL . }}"></script>
-   {{ end }}
-   
-   {{ if ne .Params.hideBooker true }}
-      {{ with .Site.Params.bookerURL }}
-      <script async src="{{.}}"></script>
-      {{ end }}
-   {{ end }}
-   {{ with .Site.Params.loyaltyURL }}
-      <script async src="{{.}}"></script>
-   {{ end }}
-   {{ if eq .Params.serviceBooker true }}
-      {{ with .Site.Params.servicesWidgetURL }}
-         <script async src="{{.}}"></script>
-      {{ end }}
-   {{ end }}
-</body>
-{{ else }}
-<body>
-   {{ partial "suspended.html" . }}
-</body>
-{{ end }}
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{ $script := .Site.Data.webpack.main }} {{ with $script.js }}
+    <script defer src="{{ relURL . }}"></script>
+    {{ end }} {{ if ne .Params.hideBooker true }} {{ with .Site.Params.bookerURL }}
+    <script defer src="{{.}}"></script>
+    {{ end }} {{ end }} {{ with .Site.Params.loyaltyURL }}
+    <script defer src="{{.}}"></script>
+    {{ end }} {{ if eq .Params.serviceBooker true }} {{ with .Site.Params.servicesWidgetURL }}
+    <script defer src="{{.}}"></script>
+    {{ end }} {{ end }}
+  </body>
+  {{ else }}
+  <body>
+    {{ partial "suspended.html" . }}
+  </body>
+  {{ end }}
 </html>
