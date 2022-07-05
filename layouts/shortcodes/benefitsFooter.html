@@ -6,6 +6,11 @@
 {{ with .Get "months" }}
 {{ $months = . }}
 {{ end }}
+{{ $benefits := getJSON $.Site.Params.api.benefits.name }}
+{{ $len := 1 }}
+{{ with $benefits }}
+    {{ $len = len . }}
+{{ end }}
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -16,20 +21,25 @@
         </div>
     </div>
     <div class="row itm-benefits-footer-body">
-        <div class="col-7">
+        <div class="col-6">
             <ul class="fa-ul">
                 {{ if and (ne $months "0") (ne $months "1")}}
                     <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.msi" (dict "Count" 25 "Months" $months)}}</li>
                 {{ end }}
-                <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.flexible.cancellation" }}</li>
-                <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.best.price"}}</li>
+                {{ with $benefits }}
+                    {{ range first (sub (div $len 2) 1) (sort . "order") }}
+                        <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{.text}}</li>
+                    {{ end }}
+                {{ end }}
             </ul>
         </div>
-        <div class="col-5">
+        <div class="col-6">
             <ul class="fa-ul">
-                <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.exclusive.offers"}}</li>
-                <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.no.hidden.charges"}}</li>
-                <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.immediate.confirmation"}}</li>
+                {{ with $benefits }}
+                    {{ range after (div $len 2) (sort . "order") }}
+                        <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{.text}}</li>
+                    {{ end }}
+                {{ end }}
             </ul>
         </div>
     </div>

@@ -6,6 +6,7 @@
 {{ with .Get "months" }}
 {{ $months = . }}
 {{ end }}
+{{ $benefits := getJSON $.Site.Params.api.benefits.name }}
 <div class="media {{ $noticeType }}">
     <div class="align-self-center mr-3">
         <div class="text-success" style="width: 28px;height: 28px" }}>
@@ -21,19 +22,20 @@
                 {{ i18n "benefits.title" }}
             </strong>
         </div>
-        <ul class="list-inline" style="margin: 0;">
+        <ul class="list-inline itm-main-benefits-list">
             {{ if and (ne $months "0") (ne $months "1")}}
             <li class="list-inline-item">
                 <i class="fas fax-check itm-notice-check"></i>{{ i18n "benefits.msi" (dict "Count" 25 "Months"
                 $months)}}
             </li>
             {{ end }}
-            <li class="list-inline-item">
-                <i class="fas fax-check itm-notice-check"></i>{{ i18n "benefits.flexible.cancellation" }}
-            </li>
-            <li class="list-inline-item">
-                <i class="fas fax-check itm-notice-check"></i>{{ i18n "benefits.best.price" }}
-            </li>
+            {{ with $benefits }}
+                {{ range first 2 (sort . "order") }}
+                    <li class="list-inline-item">
+                        <i class="fas fax-check itm-notice-check"></i>{{.text}}
+                    </li>
+                {{ end }}
+            {{ end }}
             <li class="list-inline-item">
                 <i class="fas fax-info-circle itm-notice-check"></i>
                 <span data-toggle="popover" data-placement="bottom" data-popover-content="#itm-all-benefits" data-trigger="focus" tabindex="0">{{ i18n "benefits.all" }}</span>
@@ -47,21 +49,13 @@
                                     $months)}}
                                 </li>
                                 {{ end }}
-                                <li>
-                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.flexible.cancellation" }}
-                                </li>
-                                <li>
-                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.best.price" }}
-                                </li>
-                                <li>
-                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.exclusive.offers" }}
-                                </li>
-                                <li>
-                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.no.hidden.charges" }}
-                                </li>
-                                <li>
-                                    <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{ i18n "benefits.immediate.confirmation" }}
-                                </li>
+                                {{ with $benefits }}
+                                    {{ range sort . "order" }}
+                                        <li>
+                                            <span class="fa-li"><i class="fas fax-check itm-notice-check"></i></span>{{.text}}
+                                        </li>
+                                    {{ end }}
+                                {{ end }}
                             </ul>
                         </div>
                     </div>
