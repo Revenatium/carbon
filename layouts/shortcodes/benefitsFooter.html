@@ -8,9 +8,14 @@
 {{ end }}
 {{ $benefits := getJSON $.Site.Params.api.benefits.name }}
 {{ $len := 1 }}
+{{ $half := 1 }}
 {{ with $benefits }}
     {{ $len = len . }}
+    {{ $half = math.Ceil (div $len 2.0)}}
 {{ end }}
+<div>
+    {{$len}}-{{$half}}
+</div>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -27,7 +32,7 @@
                     <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{ i18n "benefits.msi" (dict "Count" 25 "Months" $months)}}</li>
                 {{ end }}
                 {{ with $benefits }}
-                    {{ range first (sub (div $len 2) 1) (sort . "order") }}
+                    {{ range first (sub $half 1) (sort . "order") }}
                         <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{.text}}</li>
                     {{ end }}
                 {{ end }}
@@ -36,7 +41,7 @@
         <div class="col-6">
             <ul class="fa-ul">
                 {{ with $benefits }}
-                    {{ range after (div $len 2) (sort . "order") }}
+                    {{ range after (sub $half 1) (sort . "order") }}
                         <li><span class="fa-li"><i class="fas fax-check text-success"></i></span>{{.text}}</li>
                     {{ end }}
                 {{ end }}
