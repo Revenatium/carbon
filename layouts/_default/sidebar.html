@@ -34,7 +34,7 @@
                {{ if .Params.showServices }}
                   <div id="sidebar-widget" class="sidebar-widget--service">
                      <div class="sidebar-widget-container">
-                        <div class="itm-booker itm-booker--service" {{ if ge .Params.id 0 }} data-hotel="{{ .Params.id }}" {{ end }} {{if .Params.serviceType }} data-service-type="{{ .Params.serviceType }}" {{ end }} {{if .Params.serviceId }} data-service="{{ .Params.serviceId }}" {{ end }}>
+                        <div class="itm-booker itm-booker--service" data-only-show-form="SERVICES" {{ if ge .Params.id 0 }} data-hotel="{{ .Params.id }}" {{ end }} {{if .Params.serviceType }} data-service-type="{{ .Params.serviceType }}" {{ end }} {{if .Params.serviceId }} data-service="{{ .Params.serviceId }}" {{ end }}>
                            <div class="sidebar-widget-loading">
                            </div>
                         </div>
