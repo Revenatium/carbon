@@ -11,7 +11,7 @@
     <xhtml:link
                 rel="alternate"
                 hreflang="{{ .Language.Lang }}"
-                href="{{{ if .Site.Params.canonicalUrl }}{{ .Site.Params.canonicalUrl }}{{ .Permalink }}{{ else }}{{ .RelPermalink }}{{ end }}"
+                href="{{ if .Site.Params.canonicalUrl }}{{ .Site.Params.canonicalUrl }}{{ .Permalink }}{{ else }}{{ .RelPermalink }}{{ end }}"
                 />{{ end }}
     <xhtml:link
                 rel="alternate"
