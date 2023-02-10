@@ -34,6 +34,22 @@
     {{ else }}
     <link rel="canonical" href="{{ .RelPermalink }}" />
     {{ end }}
+    {{- if .IsTranslated -}}
+      {{ range .AllTranslations }}
+        {{ if .Site.Params.canonicalUrl }}
+        <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />      
+        {{ else }}
+        <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .RelPermalink }}" />
+        {{ end }}    
+      {{- end -}}
+      {{ range after 1 .AllTranslations }}
+        {{ if .Site.Params.canonicalUrl }}
+        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />  
+        {{ else }}
+        <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />      
+        {{ end }}            
+      {{- end -}}
+    {{ end }}
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ .Site.Params.faviconURL }}" />
     {{ partial "head-meta.html" . }} {{ block "schema-dot-org" . }}
