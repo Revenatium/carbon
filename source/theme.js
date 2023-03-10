@@ -6,6 +6,7 @@ import 'bootstrap/js/dist/carousel';
 import 'bootstrap/js/dist/tab';
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/popover';
+import 'bootstrap/js/dist/modal';
 import 'jquery-countdown';
 import 'sticky-sidebar';
 import moment from 'moment-timezone';
