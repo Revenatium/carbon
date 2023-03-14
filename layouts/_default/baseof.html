@@ -25,7 +25,7 @@
     {{ end}} {{ else }} {{ with $stylesheet.css }}
     <link rel="preload" as="style" href="{{ relURL . }}" />
     <link href="{{ relURL . }}" rel="stylesheet" />
-    {{ end }} {{ end }} {{ if ne .Params.hideBooker true }} {{ with .Site.Params.bookerURL }}
+    {{ end }} {{ end }} {{ if ne .Params.hideBookerForGood true }} {{ with .Site.Params.bookerURL }}
     <link rel="preload" as="script" href="{{ . }}" />
     {{ end }} {{ end }}
 
@@ -68,15 +68,22 @@
     {{ block "footer" . }}{{ partial "footer" . }}{{end}}
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{ $script := .Site.Data.webpack.main }} {{ with $script.js }}
+    {{ $script := .Site.Data.webpack.main }}
+    {{ with $script.js }}
     <script async src="{{ relURL . }}"></script>
-    {{ end }} {{ if ne .Params.hideBooker true }} {{ with .Site.Params.bookerURL }}
+    {{ end }}
+    {{ with .Site.Params.loyaltyURL }}
     <script async src="{{.}}"></script>
-    {{ end }} {{ end }} {{ with .Site.Params.loyaltyURL }}
+    {{ end }}
+    {{ if eq .Params.serviceBooker true }}
+      {{ with .Site.Params.servicesWidgetURL }}
     <script async src="{{.}}"></script>
-    {{ end }} {{ if eq .Params.serviceBooker true }} {{ with .Site.Params.servicesWidgetURL }}
-    <script async src="{{.}}"></script>
-    {{ end }} {{ end }}
+      {{ end }}
+   {{ else if ne .Params.hideBookerForGood true }}
+      {{ with .Site.Params.bookerURL }}
+   <script async src="{{.}}"></script>
+      {{ end }}
+   {{ end }}
   </body>
   {{ else }}
   <body>
