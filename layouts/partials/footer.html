@@ -1,4 +1,9 @@
 <footer class="itm-footer">
+   {{ if (eq .Params.hideBooker true) }}
+   <div class="container">
+      {{ partial "widget-footer" . }}
+   </div>
+   {{ end }}
    <div class="container">
       <ul class="list-unstyled itm-footer-menu">
       {{ range .Site.Menus.footer }}

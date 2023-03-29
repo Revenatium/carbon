@@ -9,3 +9,19 @@
    max-height: 0;
    transition: max-height 0.25s ease-out;
 }
+
+// Mobile buttons
+.sticky-bottom {
+   background-color: rgba(255,255,255,0.85);
+}
+.btn-book-mobile {
+   flex-grow: 1;
+    margin-right: 0.3rem;
+}
+.mobile-btns {
+   display: flex;
+   gap: 10px;
+   .btn-primary {
+      flex-grow: 2;
+   }
+}
