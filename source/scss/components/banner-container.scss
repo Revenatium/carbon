@@ -23,12 +23,12 @@
          width: 100%;
       }
       @media (max-width: 575px){
-         height: 200px;         
+         height: $banner-height;         
       }
    }
    &.itm-banner-container--extrainfo{
       @media (max-width: 575px){
-         margin-bottom: 65px;
+         //margin-bottom: 65px;
       }
    }
    &.itm-banner-container--absoluteFixed{
@@ -43,7 +43,7 @@
          width: 100%;
       }
       @media (max-width: 575px){
-         height: 200px;         
+         height: $banner-height;         
       }
    }
 

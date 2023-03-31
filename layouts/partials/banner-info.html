@@ -48,9 +48,9 @@
    {{ end }}
    {{ if .showButton }}
       {{ if eq .isButtonUrlExternal true }}
-         <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+         <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-success">{{ .actionText | markdownify }}</a>
       {{ else }}
-         <a href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
+         <a href="{{ .actionLink }}" class="btn btn-success">{{ .actionText | markdownify }}</a>
       {{ end }}
    {{ end}}
 </div>

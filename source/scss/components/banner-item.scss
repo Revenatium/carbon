@@ -26,10 +26,10 @@
 // Banner on mobile
 @media (max-width: 575px) {
    .itm-banner-container.itm-banner-container--aspectRatio {
-      height: 250px;
+      height: $banner-height;
       margin-bottom: 0;
    }
    .itm-stage:has(.itm-banner-item) {
-      min-height: 250px;
+      min-height: $banner-height;
    }
 }

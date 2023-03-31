@@ -73,20 +73,11 @@
       </div>
       {{ end }}
       {{ if (or .title .subTitle) }}
-      <div class="container itm-banner-info-container itm-banner-info-container--dark">
+      <div class="container itm-banner-info-container itm-banner-info-container--dark d-none">
          <div class="row">
             <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
                {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "showButton" .showButton "isButtonUrlExternal" .isButtonUrlExternal "main" $) }}
             </div>
-            {{ if eq .showButton true }}
-               <div class="{{ delimit ($customScratch.Get `extraInfoClasses`) ` ` }}">
-                  {{ if eq .isButtonUrlExternal true }}
-                     <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-success d-none d-md-inline-block">{{ .actionText | markdownify }}</a>
-                  {{ else }}
-                     <a href="{{ $actionLink }}" class="btn btn-success btn-sm">{{ .actionText | markdownify }}</a>
-                  {{ end }}
-               </div>
-            {{end}}
          </div>
       </div>
       {{ end }}
