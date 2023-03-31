@@ -73,7 +73,7 @@
       </div>
       {{ end }}
       {{ if (or .title .subTitle) }}
-      <div class="container itm-banner-info-container itm-banner-info-container--dark d-none">
+      <div class="container itm-banner-info-container itm-banner-info-container--dark">
          <div class="row">
             <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
                {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "showButton" .showButton "isButtonUrlExternal" .isButtonUrlExternal "main" $) }}
