@@ -2,6 +2,8 @@
 {{ $base := .imageBase }}
 {{ $bucket := .imageBucket }}
 {{ $bookingEngineURL := .bookingEngineURL }}
+{{ $hotelId := .hotelId }}
+{{ $showHotel := .showHotel }}
 
 {{ with .room}}
 <div class="row listItem listItem-room">
@@ -40,7 +42,11 @@
             {{ $cutoff = cond (isset $.Site.Params.RoomsNext "cutoff") $.Site.Params.RoomsNext.cutoff $cutoff }}
          {{ end }}
          {{ $query := slice (i18n "roomsNextUri") "/" (urlize (i18n $weekday)) "/" $nights "/" $cutoff "?ro=" .id }}
-         <a href="{{ $bookingEngineURL }}#/{{ delimit $query `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         {{ if and $showHotel $hotelId }}
+            <a href="{{ $bookingEngineURL }}#/{{ $hotelId }}/{{ delimit $query `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         {{ else }}
+            <a href="{{ $bookingEngineURL }}#/{{ delimit $query `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         {{ end }}
          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#room{{.id}}">{{ i18n "roomDetails"}}</button>
       </div>
    </div>
