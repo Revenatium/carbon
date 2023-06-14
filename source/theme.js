@@ -13,7 +13,7 @@ import moment from 'moment-timezone';
 import './addons/jquery.sticky';
 import './addons/jquery.validate';
 
-import {showMagnificGallery} from "./magnific";
+import { showMagnificGallery } from "./magnific";
 
 $(document).ready(function ($) {
    $.extend(true, $.magnificPopup.defaults, {
@@ -26,7 +26,7 @@ $(document).ready(function ($) {
       $('.itm-widget-container').removeAttr('style');
       if (window.innerWidth >= 768) {
          $('.navbar-sticky').sticky({ topSpacing: 0 });
-         $('.widget-sticky').sticky({ topSpacing:0, zIndex: 100 });
+         $('.widget-sticky').sticky({ topSpacing: 0, zIndex: 100 });
       }
 
       let sidebarWidget = document.getElementById('sidebar-widget');
@@ -42,14 +42,14 @@ $(document).ready(function ($) {
    });
 
    $('.photo-gallery').each(function () {
-      showMagnificGallery($(this),{
+      showMagnificGallery($(this), {
          delegate: 'a',
          type: 'image',
          gallery: { enabled: true }
       });
    });
    $('.itm-photo-gallery').each(function () {
-      showMagnificGallery($(this),{
+      showMagnificGallery($(this), {
          delegate: 'a',
          type: 'image',
          gallery: { enabled: true }
@@ -57,7 +57,7 @@ $(document).ready(function ($) {
    });
 
    $('.video-link').each(function () {
-      showMagnificGallery($(this),{
+      showMagnificGallery($(this), {
          disableOn: 700,
          type: 'iframe',
          mainClass: 'mfp-fade',
@@ -67,9 +67,9 @@ $(document).ready(function ($) {
       });
    });
 
-   $('.go-to-booker').click(function(){
+   $('.go-to-booker').click(function () {
       var bookerTop = $('.itm-widget-card').offset().top - $('.navbar-sticky').outerHeight() - 15;
-      $('html, body').animate({scrollTop: bookerTop }, 500);
+      $('html, body').animate({ scrollTop: bookerTop }, 500);
    });
 
    $('.carousel').carousel({ interval: 4000 });
@@ -83,8 +83,8 @@ $(document).ready(function ($) {
       var finalDate = $(this).data('countdown');
       var includeLastDay = $(this).data('includelastday');
       var date = moment.tz(finalDate, 'Mexico/General');
-      
-      if(includeLastDay){
+
+      if (includeLastDay) {
          date.add(1, 'days');
       }
       $this.countdown(date.toDate(), function (event) {
@@ -106,15 +106,15 @@ $(document).ready(function ($) {
       var timezone = $(this).data('timezone');
 
       const startCountdown = ($el, today) => {
-         if(today.isBetween(moment.tz(startDate, timezone), moment.tz(endDate, timezone))){
+         if (today.isBetween(moment.tz(startDate, timezone), moment.tz(endDate, timezone))) {
             var date = moment.tz(`${today.format('YYYY-MM-DD')} ${start}`, 'YYYY-MM-DD hh:mm a', timezone);
             var isEndHour = false;
-            if(!today.isSameOrBefore(date)){
+            if (!today.isSameOrBefore(date)) {
                date = moment.tz(`${today.format('YYYY-MM-DD')} ${end}`, 'YYYY-MM-DD hh:mm a', timezone);
                $el.parent().find('.itm-time-badge-end').removeClass('d-none');
                $el.parent().find('.itm-time-badge-start').addClass('d-none');
                isEndHour = true;
-            }else{
+            } else {
                $el.parent().find('.itm-time-badge-start').removeClass('d-none');
                $el.parent().find('.itm-time-badge-end').addClass('d-none');
             }
@@ -123,7 +123,7 @@ $(document).ready(function ($) {
                if (!event.elapsed && totalHours <= 72) {
                   $el.html(event.strftime(totalHours + 'h %Mm %Ss'));
                   $el.parent().removeClass('d-none');
-               }else if(event.elapsed && !isEndHour){
+               } else if (event.elapsed && !isEndHour) {
                   var $parent = $el.parent();
                   $el.remove();
                   var $newEl = $(`<span class="font-weight-bold" data-schedule-start="${start}" data-schedule-end="${end}" data-start-date="${startDate}" data-end-date="${endDate}" data-timezone="${timezone}"></span>`);
@@ -144,28 +144,89 @@ $(document).ready(function ($) {
       if (stickySidebar) {
          stickySidebar.destroy();
       }
-      setTimeout(function(){
+      setTimeout(function () {
          window.applyStickyHeader();
       }, 0)
    });
 
-   $(document).on('scroll', function() { 
-      if($('.itm-widget-card').length > 0){
+   $(document).on('scroll', function () {
+      if ($('.itm-widget-card').length > 0) {
          let cardBottom = $('.itm-widget-card').offset().top + $('.itm-widget-card').outerHeight();
-         if(cardBottom < $(document).scrollTop()){ 
+         if (cardBottom < $(document).scrollTop()) {
             $('.sticky-bottom').css('maxHeight', 200);
-         }else{
-            $('.sticky-bottom').css('maxHeight', 0); 
-         } 
+         } else {
+            $('.sticky-bottom').css('maxHeight', 0);
+         }
       }
    });
    $('[data-toggle=popover]').popover({
-      html : true,
-      content: function() {
-          var content = $(this).attr('data-popover-content');
-          return $(content).children('.popover-body').html();
+      html: true,
+      content: function () {
+         var content = $(this).attr('data-popover-content');
+         return $(content).children('.popover-body').html();
       }
-  });
+   });
+
+   function filterBy(categoryId, hotelId) {
+      $('.listItem-deal').each(function () {
+         let isHidden = false
+         if (categoryId) {
+            const myCategories = $(this).attr('data-categories').split(',');
+            if (myCategories && myCategories.indexOf(categoryId) >= 0) {
+               $(this).show();
+            } else {
+               $(this).hide();
+               isHidden = true
+            }
+         } else {
+            $(this).show();
+         }
+         if (!isHidden) {
+            if (hotelId) {
+               const myHotelId = $(this).attr('data-hotelId');
+               if (myHotelId && myHotelId === hotelId) {
+                  $(this).show();
+               } else {
+                  $(this).hide();
+               }
+            } else {
+               $(this).show();
+            }
+         }
+      });
+   }
+   $('.itm-cat-nav').on('click', function () {
+      $('.itm-cat-nav').removeClass('active');
+      $(this).addClass('active');
+      const categoryId = $(this).attr('data-categoryId');
+      const hotelId = $('#itm-promotions-hotel-selector').attr('data-hotelId');
+      filterBy(categoryId, hotelId);
+
+      // if (categoryId) {
+      //    $('.listItem-deal').each(function () {
+      //       const categories = $(this).attr('data-categories').split(',');
+      //       if (categories.indexOf(categoryId) >= 0) {
+      //          $(this).show();
+      //       } else {
+      //          $(this).hide();
+      //       }
+      //    })
+      // } else {
+      //    $('.listItem-deal').show()
+      // }
+   });
+
+   $('.itm-promotions-dropdown-item').on('click', function () {
+      const hotelId = $(this).attr('data-hotelId');
+      const categoryId = $('.itm-cat-nav.active').attr('data-categoryId');
+      filterBy(categoryId, hotelId);
+      if (hotelId) {
+         $('#itm-promotions-hotel-selector').attr('data-hotelId', hotelId);
+      } else {
+         $('#itm-promotions-hotel-selector').removeAttr('data-hotelId');
+      }
+      $('#hotel-filter-name').text($(this).text());
+   });
 
    window.applyStickyHeader();
 

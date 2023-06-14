@@ -1,0 +1,32 @@
+{{ $deals := .deals }}
+{{ $categories := slice }}
+{{ $allCategories := slice }}
+{{ $categoriesId := slice }}
+{{ $newCategoriesId := slice }}
+{{ range $deals }}
+   {{ range .categories }}
+      {{ $categoriesId =  $categoriesId | append .categoryPromotionId }}
+      {{ $allCategories =  $allCategories | append . }}
+   {{ end }}
+{{ end }}
+{{ $categoriesId := $categoriesId | uniq}}
+{{ range sort $allCategories "order" "asc" }}
+   {{ if and (in $categoriesId .categoryPromotionId) (not (in $newCategoriesId .categoryPromotionId)) }}
+      {{ $categories = $categories | append . }}
+      {{ $newCategoriesId = $newCategoriesId | append .categoryPromotionId}}
+   {{ end}}
+{{ end }}
+{{ if gt (len $categoriesId) 0 }}
+<div class="deal-categories-container">
+   <ul class="nav nav-tabs deal-categories-list">
+      <li class="nav-item">
+         <a class="itm-cat-nav nav-link active">{{ i18n "allPromotions"}}</a>
+      </li>
+      {{ range $index, $cat:= $categories }} 
+      <li class="nav-item">
+         <a class="itm-cat-nav nav-link" data-categoryId="{{ $cat.categoryPromotionId}}">{{$cat.text}}</a>
+      </li>
+      {{ end}}
+   </ul>
+</div>
+{{ end }}

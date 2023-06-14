@@ -288,7 +288,7 @@
       "translation": "Confirmación inmediata"
    },
    {
-      "id":"benefits.footer.title",
+      "id": "benefits.footer.title",
       "translation": "Por que reservar en {{.Name}}"
    },
    {
@@ -298,5 +298,17 @@
    {
       "id": "callUs",
       "translation": "Llámanos"
+   },
+   {
+      "id": "allPromotions",
+      "translation": "Todas"
+   },
+   {
+      "id": "allHotels",
+      "translation": "Todos"
+   },
+   {
+      "id": "hotel",
+      "translation": "Hotel"
    }
 ]

@@ -1,3 +1,10 @@
+.list--fluid{
+   .listItem-deal {
+      .discount-amount {
+         margin-left: -25px;
+      }
+   }   
+}
 .listItem-deal {
    .deal-includes {
        &>p {
@@ -19,7 +26,7 @@
      font-size: 130%;
      position: relative;
      top: 10px;
-     margin-left: -25px;
+     margin-left: -10px;
      margin-bottom: 0;
      padding: 0.5em 1em;
      display: inline-block;
@@ -84,4 +91,31 @@
       background-color: #f7d676;
      }
   }
+}
+.deal-categories-container {
+   background-color: $promo-navbar-bgcolor;
+   border-radius: 3px;
+   .deal-categories-list{
+      padding: 0.5rem;
+      padding-bottom: 0;
+      margin-bottom: 1.5rem;
+      border-bottom-left-radius: 3px;
+      border-bottom-right-radius: 3px;
+      a, a:hover, a:focus {
+         color: $promo-navbar-txtcolor;
+         cursor: pointer
+      }
+      a:not(.active):hover, a:not(.active):focus {
+         border-color: transparent;
+      }
+      a.active{
+         color: $dark-color;
+         background-color: $light-color;
+      }
+   }
+}
+.itm-promotions-dropdown{
+   .itm-promotions-dropdown-item{
+      cursor: pointer;
+   }
 }

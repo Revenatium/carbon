@@ -6,7 +6,15 @@
 {{ with .deal}}
 {{ $lastTravelDate := time .lastTravelWindowDate }}
 {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
-<div class="row listItem listItem-deal">
+{{ $categories := "" }}
+{{ range .categories }}
+{{ if eq $categories "" }}
+{{ $categories = print "" .categoryPromotionId }}
+{{ else }}
+{{ $categories = print  $categories "," .categoryPromotionId }}
+{{ end }}
+{{ end }}
+<div class="row listItem listItem-deal" data-categories="{{ $categories }}" data-hotelId={{.hotel.id}}>
    {{if .photos }}
    {{ $image := index .photos 0 }}
    <div class="listItem-pic" style="background-image: url( {{ print $base `f_auto,h_252,w_448,c_fill/` $bucket `/` $image.path }})">

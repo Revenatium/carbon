@@ -288,7 +288,7 @@
       "translation": "Immediate confirmation"
    },
    {
-      "id":"benefits.footer.title",
+      "id": "benefits.footer.title",
       "translation": "Reasons to book in {{.Name}}"
    },
    {
@@ -298,5 +298,17 @@
    {
       "id": "callUs",
       "translation": "Call us"
+   },
+   {
+      "id": "allPromotions",
+      "translation": "All"
+   },
+   {
+      "id": "allHotels",
+      "translation": "All"
+   },
+   {
+      "id": "hotel",
+      "translation": "Hotel"
    }
 ]
