@@ -195,25 +195,13 @@ $(document).ready(function ($) {
          }
       });
    }
+
    $('.itm-cat-nav').on('click', function () {
       $('.itm-cat-nav').removeClass('active');
       $(this).addClass('active');
       const categoryId = $(this).attr('data-categoryId');
       const hotelId = $('#itm-promotions-hotel-selector').attr('data-hotelId');
       filterBy(categoryId, hotelId);
-
-      // if (categoryId) {
-      //    $('.listItem-deal').each(function () {
-      //       const categories = $(this).attr('data-categories').split(',');
-      //       if (categories.indexOf(categoryId) >= 0) {
-      //          $(this).show();
-      //       } else {
-      //          $(this).hide();
-      //       }
-      //    })
-      // } else {
-      //    $('.listItem-deal').show()
-      // }
    });
 
    $('.itm-promotions-dropdown-item').on('click', function () {
