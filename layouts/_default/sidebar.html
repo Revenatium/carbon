@@ -27,6 +27,10 @@
    {{ else }}
       {{ partial "main-text" . }}
    {{ end }}
+   {{ $containerId := "itm-booker--services"}}
+   {{ if .Params.serviceBooker }}
+   {{ $containerId = "itm-booker--service"}}
+   {{ end }}
    <section class="itm-body">
       <div class="container">
          <div class="row">
@@ -34,7 +38,7 @@
                {{ if .Params.showServices }}
                   <div id="sidebar-widget" class="sidebar-widget--service">
                      <div class="sidebar-widget-container">
-                        <div class="itm-booker itm-booker--service" data-only-show-form="SERVICES" {{ if ge .Params.id 0 }} data-hotel="{{ .Params.id }}" {{ end }} {{if .Params.serviceType }} data-service-type="{{ .Params.serviceType }}" {{ end }} {{if .Params.serviceId }} data-service="{{ .Params.serviceId }}" {{ end }}>
+                        <div class="itm-booker {{ $containerId }}" data-only-show-form="SERVICES" {{ if ge .Params.id 0 }} data-hotel="{{ .Params.id }}" {{ end }} {{if .Params.serviceType }} data-service-type="{{ .Params.serviceType }}" {{ end }} {{if .Params.serviceId }} data-service="{{ .Params.serviceId }}" {{ end }}>
                            <div class="sidebar-widget-loading">
                            </div>
                         </div>
