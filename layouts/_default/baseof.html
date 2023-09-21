@@ -25,8 +25,6 @@
     {{ end}} {{ else }} {{ with $stylesheet.css }}
     <link rel="preload" as="style" href="{{ relURL . }}" />
     <link href="{{ relURL . }}" rel="stylesheet" />
-    {{ end }} {{ end }} {{ if ne .Params.hideBookerForGood true }} {{ with .Site.Params.bookerURL }}
-    <link rel="preload" as="script" href="{{ . }}" />
     {{ end }} {{ end }}
 
     {{ if .Site.Params.canonicalUrl }}
@@ -37,17 +35,17 @@
     {{- if .IsTranslated -}}
       {{ range .AllTranslations }}
         {{ if .Site.Params.canonicalUrl }}
-        <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />      
+        <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
         {{ else }}
         <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .RelPermalink }}" />
-        {{ end }}    
+        {{ end }}
       {{- end -}}
       {{ range after 1 .AllTranslations }}
         {{ if .Site.Params.canonicalUrl }}
-        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />  
+        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
         {{ else }}
-        <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />      
-        {{ end }}            
+        <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />
+        {{ end }}
       {{- end -}}
     {{ end }}
 
