@@ -41,9 +41,12 @@
     <div class="card-body">
         <div
             id="rvm-booker-container"
-            {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
-            {{if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
+            {{ if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
+            {{ if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
             class="{{ delimit ($customScratch.Get `widgetClasses`) ` ` }}"
+            {{ if $isVertical }} data-vertical="true" {{ end }}
+            {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
+            data-account="{{.Site.Params.account}}"
         >
         </div>
     </div>

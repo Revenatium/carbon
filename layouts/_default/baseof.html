@@ -15,19 +15,25 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
 
-    {{ $stylesheet := .Site.Data.webpack.main }} {{ if and .IsHome (eq (getenv "CONTEXT") "production") }}
+    {{ $stylesheet := .Site.Data.webpack.main }}
+    {{ if and .IsHome (eq (getenv "CONTEXT") "production") }}
     <style>
       {{ partial "build.css" | safeCSS }}
     </style>
+    {{ end }}
     {{ with $stylesheet.css }}
     <link rel="preload" as="style" href="{{ relURL . }}" />
     <link href="{{ relURL . }}" rel="stylesheet" />
-    {{ end}} {{ else }} {{ with $stylesheet.css }}
-    <link rel="preload" as="style" href="{{ relURL . }}" />
-    <link href="{{ relURL . }}" rel="stylesheet" />
-    {{ end }} {{ end }} {{ if ne .Params.hideBookerForGood true }} {{ with .Site.Params.bookerURL }}
+    {{ end}}
+    {{ if ne .Params.hideBookerForGood true }}
+      {{ if .Site.Params.newBookerURL }}
+    <link rel="preload" as="script" href='{{ replace .Site.Params.newBookerURL "[file]" "bundle.js"}}' />
+      {{ else }}
+         {{ with .Site.Params.bookerURL }}
     <link rel="preload" as="script" href="{{ . }}" />
-    {{ end }} {{ end }}
+         {{ end }}
+      {{ end }}
+    {{ end }}
 
     {{ if .Site.Params.canonicalUrl }}
     <link rel="canonical" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
@@ -37,21 +43,25 @@
     {{- if .IsTranslated -}}
       {{ range .AllTranslations }}
         {{ if .Site.Params.canonicalUrl }}
-        <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />      
+        <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
         {{ else }}
         <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .RelPermalink }}" />
-        {{ end }}    
+        {{ end }}
       {{- end -}}
       {{ range after 1 .AllTranslations }}
         {{ if .Site.Params.canonicalUrl }}
-        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />  
+        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
         {{ else }}
-        <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />      
-        {{ end }}            
+        <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />
+        {{ end }}
       {{- end -}}
     {{ end }}
 
     <link rel="shortcut icon" type="image/x-icon" href="{{ .Site.Params.faviconURL }}" />
+    {{ with .Site.Params.newBookerURL }}
+    <link rel="preload" as="style" href='{{ replace . "[file]" "bundle.css" }}' />
+    <link rel="stylesheet" href='{{ replace . "[file]" "bundle.css" }}' />
+    {{ end }}
     {{ partial "head-meta.html" . }} {{ block "schema-dot-org" . }}
     <!-- schema.org metadata differs for Nodes and Pages -->
     {{ end }} {{ template "_internal/google_analytics_async.html" . }} {{ partial "googleTagManagerHeader.html" . }} {{
@@ -80,8 +90,12 @@
     <script async src="{{.}}"></script>
       {{ end }}
    {{ else if ne .Params.hideBookerForGood true }}
-      {{ with .Site.Params.bookerURL }}
+      {{ if .Site.Params.newBookerURL }}
+    <script async src='{{ replace .Site.Params.newBookerURL "[file]" "bundle.js"}}'></script>
+      {{ else }}
+         {{ with .Site.Params.bookerURL }}
    <script async src="{{.}}"></script>
+         {{ end }}
       {{ end }}
    {{ end }}
   </body>
