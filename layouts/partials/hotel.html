@@ -45,9 +45,9 @@
             {{ if .lowestRateDetail }}
                {{ $startDate := time .lowestRateDetail.date }}
                {{ $endDate := dateFormat "2006-01-02" ($startDate.AddDate 0 0 +2) }}
-            <a href="{{ $bookingEngineURL }}#/s/{{ .id }}/{{ $bookingEngineRoomsUrlSufix }}/{{ .lowestRateDetail.date }}/{{ $endDate }}?r[0].adults=2&r[0].children=0" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+            <a href="{{ $bookingEngineURL }}{{ .id }}/rooms?checkIn={{ .lowestRateDetail.date }}&checkOut={{ $endDate }}?rooms[0].adults=2&rooms[0].children=0" class="btn btn-primary">{{ i18n "bookNow"}}</a>
             {{ else }}
-            <a href="{{ $bookingEngineURL }}#/s/{{ .id }}/{{ $bookingEngineRoomsUrlSufix }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+            <a href="{{ $bookingEngineURL }}{{ .id }}/rooms" class="btn btn-primary">{{ i18n "bookNow"}}</a>
             {{ end }}
          </div>
       </div>
