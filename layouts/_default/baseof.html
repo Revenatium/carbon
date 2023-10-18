@@ -57,6 +57,13 @@
     {{ partial "head-meta.html" . }} {{ block "schema-dot-org" . }}
 
     <script defer src="/~partytown/partytown.js"></script>
+    <script>
+      partytown = {
+        forward: [
+          "fbq", "dataLayer.push"
+        ],
+      }
+    </script>
     <!-- schema.org metadata differs for Nodes and Pages -->
     {{ end }} {{ template "_internal/google_analytics_async.html" . }} {{ partial "googleTagManagerHeader.html" . }} {{
     partial "head-custom.html" . }} {{ block "custom-headers" . }}{{ end }}
