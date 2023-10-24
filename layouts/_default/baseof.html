@@ -85,19 +85,15 @@
     {{ with .Site.Params.loyaltyURL }}
     <script async src="{{.}}"></script>
     {{ end }}
-    {{ if eq .Params.serviceBooker true }}
-      {{ with .Site.Params.servicesWidgetURL }}
-    <script async src="{{.}}"></script>
-      {{ end }}
-   {{ else if ne .Params.hideBookerForGood true }}
+    {{ if ne .Params.hideBookerForGood true }}
       {{ if .Site.Params.newBookerURL }}
     <script async src='{{ replace .Site.Params.newBookerURL "[file]" "bundle.js"}}'></script>
       {{ else }}
          {{ with .Site.Params.bookerURL }}
-   <script async src="{{.}}"></script>
+    <script async src="{{.}}"></script>
          {{ end }}
       {{ end }}
-   {{ end }}
+    {{ end }}
   </body>
   {{ else }}
   <body>
