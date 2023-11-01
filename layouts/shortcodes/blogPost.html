@@ -1,0 +1,18 @@
+{{ $blogList := getJSON $.Site.Params.api.blog.name }}
+{{ $requestedID := .Get "id" | int }}
+{{ with .Get "id" }}
+  {{ $blogID := . | int }}
+  {{ with index $blogList $requestedID }}
+    <div class="">
+      <h3>{{ .title.rendered }}</h3>
+      <img src="https://res.cloudinary.com/itermotus/q_auto:low,f_auto,w_240,h_135,c_fill/hotel-stage/ixtul/1/40e29b09-1-All-Ritmo1.jpg" class="card-img-top" alt="...">
+      {{ with .content.rendered | safeHTML }}
+        {{ . }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="alert alert-danger" role="alert">
+      {{ i18n "blogPostNotFound" }}
+    </div>
+  {{ end }}
+{{ end }}

@@ -1,0 +1,20 @@
+{{ $blogList := getJSON $.Site.Params.api.blog.name }}
+<div class="blog-container"> 
+        {{ range $blogList }}
+            <div class="card blog-itemCard">
+                <img src="https://res.cloudinary.com/itermotus/q_auto:low,f_auto,w_240,h_135,c_fill/hotel-stage/ixtul/1/40e29b09-1-All-Ritmo1.jpg" class="card-img-top" alt="...">
+                <div class="card-body blog-itemCard-body">
+                    <div>
+                        <h5 class="card-title">{{.title.rendered}}</h5>
+                        {{ with .excerpt.rendered | safeHTML }}
+                        {{ . }}
+                        {{ end }}
+                    </div>
+                    <div>
+                        <!-- Enlace para ver detalles de la entrada de blog -->
+                        <a href="/blogPost/{{.slug}}" class="btn btn-primary">Leer más..</a>
+                    </div>
+                </div>
+            </div>
+        {{ end }}
+</div>

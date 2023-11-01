@@ -1,0 +1,17 @@
+.blog-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    .blog-itemCard{
+        width: 350px;
+        @media (max-width: 675px){
+            width: 100%;        
+         }
+         .blog-itemCard-body{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+         }
+    }
+}
