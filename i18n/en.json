@@ -310,5 +310,9 @@
    {
       "id": "hotel",
       "translation": "Hotel"
+   },
+   {
+      "id": "blog.showMore",
+      "translation": "Show more.."
    }
 ]

@@ -12,6 +12,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            .blog-postBody{
+                max-height: 250px;
+                overflow: auto;
+            }
          }
     }
 }

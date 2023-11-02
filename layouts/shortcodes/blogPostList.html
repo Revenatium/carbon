@@ -6,13 +6,16 @@
                 <div class="card-body blog-itemCard-body">
                     <div>
                         <h5 class="card-title">{{.title.rendered}}</h5>
-                        {{ with .excerpt.rendered | safeHTML }}
-                        {{ . }}
-                        {{ end }}
+                        <div class="blog-postBody">
+
+                            {{ with .excerpt.rendered | safeHTML }}
+                            {{ . }}
+                            {{ end }}
+                        </div>
                     </div>
                     <div>
                         <!-- Enlace para ver detalles de la entrada de blog -->
-                        <a href="/blogPost/{{.slug}}" class="btn btn-primary">Leer más..</a>
+                        <a href="/blogPost/{{.slug}}" class="btn btn-primary">{{ i18n "blog.showMore" }}</a>
                     </div>
                 </div>
             </div>
