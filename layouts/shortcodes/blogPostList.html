@@ -1,0 +1,23 @@
+{{ $blogList := getJSON $.Site.Params.api.blog.name }}
+<div class="blog-container"> 
+        {{ range $blogList }}
+            <div class="card blog-itemCard">
+                <img src="{{.img}}" class="card-img-top" alt="...">
+                <div class="card-body blog-itemCard-body">
+                    <div>
+                        <h5 class="card-title">{{.title.rendered}}</h5>
+                        <div class="blog-postBody">
+
+                            {{ with .excerpt.rendered | safeHTML }}
+                            {{ . }}
+                            {{ end }}
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Enlace para ver detalles de la entrada de blog -->
+                        <a href="/blogPost/{{.slug}}" class="btn btn-primary">{{ i18n "blog.showMore" }}</a>
+                    </div>
+                </div>
+            </div>
+        {{ end }}
+</div>

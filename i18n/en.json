@@ -312,6 +312,10 @@
       "translation": "Hotel"
    },
    {
+      "id": "blog.showMore",
+      "translation": "Show more.."
+   },
+   {
       "id": "moreInfo",
       "translation": "Mas información"
    },
