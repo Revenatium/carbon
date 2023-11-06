@@ -1,8 +1,22 @@
 .itm-stage-new{
    position: relative;
-   min-height: 75vh;
+   @media (min-width: 426px){
+      min-height: 433px;
+   }
+   @media (min-width: 768px){
+      min-height: 600px;
+      // height: 65vh;
+   }
+   @media (min-width: 820px){//992px
+      min-height: 480px;
+      // height: 70vh;
+   }
+   @media (min-width: 1200px){
+      min-height: 600px;
+      // height: 70vh;
+   }
    @media (max-width:425px) {
-      min-height: 400px;
+      min-height: 433px;
       height: 60vh;
    }
    margin-bottom: 24px;

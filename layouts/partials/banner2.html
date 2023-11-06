@@ -69,11 +69,16 @@
       </div>
       {{ else }}
       <picture>
-         <source media="(max-width: 425px)" srcset="{{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill/` .image.path}},
+         <source media="(min-width: 1200px)" srcset="{{print .image.base `f_auto,w_1200,h_600,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_1200,h_600,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(min-width: 820px)" srcset="{{print .image.base `f_auto,w_992,h_480,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_992,h_480,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(min-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_600,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_768,h_600,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(max-width: 767px)" srcset="{{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill/` .image.path}},
          {{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
-         <source media="(max-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_680,b_black,o_70,c_fill/` .image.path}},
-         {{print .image.base `f_auto,w_768,h_680,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
          <img src="{{print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path}}"/>
+
       </picture>
       {{ end }}
       {{ if (or .title .subTitle) }}
