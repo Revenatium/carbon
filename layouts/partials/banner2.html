@@ -69,8 +69,10 @@
       </div>
       {{ else }}
       <picture>
-         <source media="(max-width: 425px)" srcset="{{print .image.base `f_auto,w_375,h_388,b_black,o_70,c_fill/` .image.path}},
-         {{print .image.base `f_auto,w_375,h_388,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(max-width: 425px)" srcset="{{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(max-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_680,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_768,h_680,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
          <img src="{{print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path}}"/>
       </picture>
       {{ end }}

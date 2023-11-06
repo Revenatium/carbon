@@ -2,7 +2,8 @@
    position: relative;
    min-height: 75vh;
    @media (max-width:425px) {
-      min-height: 65vh;
+      min-height: 400px;
+      height: 60vh;
    }
    margin-bottom: 24px;
    .itm-carousel-new{
