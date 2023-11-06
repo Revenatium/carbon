@@ -1,0 +1,28 @@
+{{ define "main" }}
+   {{ .Scratch.Set "widgetLocation" "top" }}
+   {{ .Scratch.Set "banners" "" }}
+   {{ if and .Params.showBanners (and .Site.Params.api .Site.Params.api.banners) }}
+      {{ .Scratch.Set "banners" (getJSON .Site.Params.api.banners.name) }}
+   {{ end }}
+   {{ if and .Params.slider_txt (not (.Scratch.Get "banners")) }}
+      {{ $customScratch := newScratch }}
+      {{ range .Params.slider_txt.pics }}
+         {{ $photos := (slice (dict "bannerImage" (dict "path" .path "base" $.Params.slider_txt.base ))) }}
+         {{ $banner := (dict "isActive" true "title" .title "subTitle" .subTitle "photos" $photos) }}
+         {{ $customScratch.Add "sliderBanners" (slice $banner) }}
+      {{ end }}
+      {{ .Scratch.Set "banners" ($customScratch.Get "sliderBanners") }}
+   {{ end }}
+   {{ if .Scratch.Get "banners" }}
+      {{ partial "main-banner-carousel-2" . }}
+   {{ else if isset .Params "slider" }}
+      {{ partial "main-image-carousel" . }}
+   {{ else if (or (isset .Params "featured_image") (isset .Params "featured_video")) }}
+      {{ partial "main-image-single" . }}
+   {{ else }}
+      {{ partial "main-text" . }}
+   {{ end }}
+   <section class="itm-body">
+      {{ .Content }}
+   </section>
+{{ end }}

@@ -1,0 +1,59 @@
+{{ $base := .imageBase }}
+{{ with .service }}
+   {{ $mainPhotos := .photos }}
+   {{ $chargeType := .chargeType }}
+   {{ $vLenght := len .variations }}
+   {{ $mainDescription := .description }}
+   <div class="itm-service-container" data-service="{{ .id }}">
+   {{ range .variations }}
+   <div class="itm-service-variation">
+      <div class="item-image-container">
+         {{if .photos }}
+            {{ $image := index .photos 0 }}
+            {{ $segments := split $image.basePath "/"}}
+            {{ $lastIndex := sub (len $segments) 2 }}
+            {{ $bucket := index $segments $lastIndex }}
+         <img src='{{ print $base "f_auto,h_244,w_650,c_fill,dpr_2/" $bucket "/" $image.path }}'/>
+         {{ else if $mainPhotos}}
+            {{ $image := index $mainPhotos 0 }}
+            {{ $segments := split $image.basePath "/"}}
+            {{ $lastIndex := sub (len $segments) 2 }}
+            {{ $bucket := index $segments $lastIndex }}
+         <img src='{{ print $base "f_auto,h_244,w_650,c_fill,dpr_2/" $bucket "/" $image.path }}'/>
+         {{ else }}
+         <div class="item-image--empty"></div>
+         {{ end}}
+      </div>
+      {{ if gt $vLenght 1 }}<h4 class="listItem-title">{{.name}}</h4>{{end}}
+      {{ if .description }}
+         <p>{{ .description }}</p>
+      {{ else if $mainDescription }}
+         <p>{{ $mainDescription }}</p>
+      {{ end }}
+      <h5>{{ i18n "prices"}}</h5>
+      {{ if eq $chargeType "UNIT_PRICE" }}
+      {{ i18n "perUnit" }}: ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+      {{ else if eq $chargeType "PERSON_PRICE" }}
+      {{ i18n "perPerson" }}: ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+      {{ else }}
+         {{ if not (and (gt .ratePrice.priceAdult -0.5) (lt .ratePrice.priceAdult 0.5)) }}
+      {{ i18n "adults" }}: ${{ lang.NumFmt 0 .ratePrice.priceAdult "- . ," }} {{ .ratePrice.currency }}
+         {{ end }}
+         {{ if not (and (gt .ratePrice.priceChild -0.5) (lt .ratePrice.priceChild 0.5)) }}
+      {{ i18n "minors" }}: ${{ lang.NumFmt 0 .ratePrice.priceChild "- . ," }} {{ .ratePrice.currency }}
+         {{ end }}
+      {{ end }}
+   </div>
+   {{ end }}
+   </div> 
+   {{ with .restrictions }}
+   <div class="itm-service-restrictions">
+         <h5>{{i18n "dealTerms"}}</h5>
+         <ul>
+            {{ range . }}
+            <li>{{ . | markdownify }}</li>
+            {{ end}}
+         </ul>
+   </div>
+   {{ end }}
+{{ end }}

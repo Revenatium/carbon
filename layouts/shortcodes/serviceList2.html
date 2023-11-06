@@ -1,0 +1,49 @@
+{{ if and .Site.Params.api .Site.Params.api.services }}
+   {{ $many := 20 }}
+   {{ $type := "" }}
+   {{ $serviceId := 0 }}
+
+   {{ $listType := "regular" }}
+   {{ with .Get "items" }}
+      {{ $many = . }}
+   {{ end }}
+
+   {{ $hotelId := "" }}
+   {{ with .Get "hotelId" }}
+      {{ $hotelId = . }}
+   {{ end }}
+   {{ $items := getJSON (replace .Site.Params.api.services.name "{hotelId}" $hotelId) }}
+   {{ with .Get "showComplete" }}
+      {{ $listType = "complete"}}
+   {{ end }}
+   {{ with $.Page.Params.serviceId }}
+      {{ $serviceId = . }}
+   {{ end }}
+   {{ $url := "" }}
+   {{ if .Site.Params.newBookerURL }}
+   {{ $url = replace .Site.Params.newBookerURL "[file]" "" }}
+   {{ $url = print $url "&dev-account=" .Site.Params.account }}
+   {{ else }}
+   {{ $url = .Site.Params.bookerURL }}
+   {{ $url = replace $url "bundle.js" "index.html?embeded=true" }}
+   {{ end }}
+   <div class="list-container-grid">
+      {{ with $.Page.Params.serviceType }}
+         {{ range where (where $items "isActive" true) "addonType" . }}
+            {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
+               <div class="list-item-grid">
+                  {{ partial "service2" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "url" $url) }}
+               </div>
+            {{ end }}
+         {{ end }}
+      {{ else }}
+         {{ range where $items "isActive" true }}
+            {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
+               <div class="list-item-grid">
+                  {{ partial "service2" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "url" $url) }}
+               </div>
+            {{ end }}
+         {{ end }}
+      {{ end }}
+   </div>
+{{ end }}

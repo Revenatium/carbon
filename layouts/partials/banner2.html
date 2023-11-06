@@ -1,0 +1,91 @@
+{{ $ := .main }}
+{{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
+{{ $video := $.Params.featured_video }}
+{{ $disableOpacity := $.Params.disableBannerOpacity }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "") }}
+{{ if .isCarousel }}
+   {{ $customScratch.Add "classes" (slice "carousel-item c-item") }}
+{{ end }}
+{{ if .active }}
+   {{ $customScratch.Add "classes" (slice "active") }}
+{{ end }}
+
+{{ $isVertical := $.Site.Params.widgetVertical }}
+{{ $customScratch.Add "infoClasses" (slice "col-12") }}
+
+{{ if eq $.Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq $.Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if $isVertical }}
+   {{ $customScratch.Add "infoClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
+{{ else }}
+   {{ $customScratch.Add "infoClasses" (slice "col-md-12") }}
+{{ end }}
+
+{{ if eq $.Params.keepAspectRatio true }}
+   {{ $customScratch.Add "infoClasses" (slice "col-sm-9" ) }}
+   {{ $customScratch.Add "extraInfoClasses" (slice "col-12" "d-block" "d-md-none" "itm-banner-extra-info") }}
+{{ else }}
+   {{ $customScratch.Add "extraInfoClasses" (slice "d-none" ) }}
+{{ end }}
+
+{{ with .banner }}
+
+{{ $actionLink := $bookingEngineUrl }}
+{{ if eq .showButton true }}
+   {{ if and (eq .isPromotion true) .promotion }}
+      {{ $showHotel := $.Site.Params.promotionsShowHotel }}
+      {{ $lastTravelDate := time .promotion.lastTravelWindowDate }}
+      {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
+      {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastTravelWindowDate "?r[0].adults=2&r[0].children=0" }}
+      {{ $query := delimit $params "" }}
+      {{ if and $showHotel .promotion.hotel }}
+         {{ $actionLink = print $bookingEngineUrl "#/s/" .promotion.hotel.id ($query | safeURL) }}
+      {{ else }}
+         {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
+      {{ end }}
+   {{ else if and (eq .isPromotion false) .buttonUrl }}
+      {{ $actionLink = (.buttonUrl | safeURL)}}
+   {{ end }}
+{{ end }}
+
+{{ if .image }}
+   <div 
+      class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
+   >
+      {{ if $video }}
+      <div class="itm-video-background">
+         <div class="itm-video-foreground">
+            <video playsinline autoplay loop muted class="itm-video">
+               <source src="{{ print $video.base `upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $video.path `.mp4` }}" type="video/mp4; codecs=hvc1">
+               <source src="{{ print $video.base `upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $video.path `.webm` }}" type="video/webm; codecs=vp9">
+               <source src="{{ print $video.base `upload/c_limit,q_auto,w_1280/` $video.path `.mp4` }}" type="video/mp4">
+            </video>
+         </div>
+      </div>
+      {{ else }}
+      <picture>
+         <source media="(max-width: 425px)" srcset="{{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(max-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_680,b_black,o_70,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_768,h_680,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
+         <img src="{{print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path}}"/>
+      </picture>
+      {{ end }}
+      {{ if (or .title .subTitle) }}
+      <div class="container itm-banner-info-container itm-banner-info-container--dark">
+         <div class="row">
+            <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
+               {{ partial "banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "showButton" .showButton "isButtonUrlExternal" .isButtonUrlExternal "main" $) }}
+            </div>
+         </div>
+      </div>
+      {{ end }}
+   </div>
+{{ end }}
+
+{{ end }}

@@ -314,5 +314,21 @@
    {
       "id": "blog.showMore",
       "translation": "Show more.."
+   },
+   {
+      "id": "moreInfo",
+      "translation": "Mas información"
+   },
+   {
+      "id": "perUnit2",
+      "translation": "por unidad"
+   },
+   {
+      "id": "perPerson2",
+      "translation": "por persona"
+   },
+   {
+      "id": "from",
+      "translation": "Desde"
    }
 ]

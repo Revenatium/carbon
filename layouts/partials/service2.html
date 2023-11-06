@@ -1,0 +1,76 @@
+{{ $url := .url }}
+{{ $base := .imageBase }}
+{{ $min := 0 }}
+{{ $currency := "" }}
+{{ range .service.variations }}
+   {{ if or (eq $min 0) (lt .ratePrice.priceAdult $min) }}
+      {{ $min = .ratePrice.priceAdult }}
+      {{ $currency = .ratePrice.currency }}
+   {{ end}}
+{{ end}}
+{{ with .service}}
+   {{ $chargeType := .chargeType }}
+   <div class="item-image-container">
+      {{if .photos }}
+         {{ $image := index .photos 0 }}
+         {{ $segments := split $image.basePath "/"}}
+         {{ $lastIndex := sub (len $segments) 2 }}
+         {{ $bucket := index $segments $lastIndex }}
+      <img
+         srcset='
+         {{print $base `f_auto,w_333,h_200,c_fill/` $bucket "/" $image.path }} 333w,
+         {{print $base `f_auto,w_360,h_200,c_fill/` $bucket "/" $image.path }} 360w,
+         {{print $base `f_auto,w_294,h_200,c_fill/` $bucket "/" $image.path }} 294w,
+         {{print $base `f_auto,w_354,h_200,c_fill/` $bucket "/" $image.path }} 354w,
+         {{print $base `f_auto,w_333,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 666w,
+         {{print $base `f_auto,w_360,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 720w,
+         {{print $base `f_auto,w_294,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 588w,
+         {{print $base `f_auto,w_354,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 708w
+         '
+         sizes="(min-width: 1200px) 354px, (min-width: 992px) 294px, (min-width: 768px) 333px, (max-width: 575px) 360px"
+         src='{{ print $base "f_auto,h_200,w_354,c_fill/" $bucket "/" $image.path }}'
+      />
+      {{ else }}
+      <div class="item-image--empty"></div>
+      {{ end}}
+   </div>
+   {{ with .title }}
+   <h2 class="listItem-title">{{ . | markdownify }}</h2>
+   {{ end }}
+   <p>
+   {{ if eq $chargeType "UNIT_PRICE" }}
+   {{ i18n "from" }} ${{ lang.NumFmt 0 $min "- . ," }} {{ $currency }} {{ i18n "perUnit"}}
+   {{ else }}
+   {{ i18n "from" }} ${{ lang.NumFmt 0 $min "- . ," }} {{ $currency }} {{ i18n "perPerson"}}
+   {{end}}
+   </p>   
+   <button class="btn btn-outline-primary" data-toggle="modal" data-target="#itm-modal-services-{{.id}}">{{ i18n "moreInfo" }}</button>
+   <div class="modal fade" id="itm-modal-services-{{.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-services-size" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">{{ .title }}</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <div class="itm-modal-services-container">
+                  <div class="itm-modal-services-info">                  
+                     {{ partial "servicePopup" (dict "service" . "imageBase" $base) }}
+                  </div>
+                  <div class="itm-modal-services-widget">
+                     <div class="itm-modal-services-widget-container">
+                        <iframe
+                           src='{{ $url }}&only-show-form=SERVICES{{ if ge $.Page.Params.id 0 }}&hotel={{$.Page.Params.id}}{{ end }}{{ if $.Page.Params.serviceType }}&service-type={{ $.Page.Params.serviceType }}{{ end }}&service={{ .id }}'
+                           frameborder="0"
+                        >
+                        </iframe>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+{{ end }}
