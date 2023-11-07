@@ -1,0 +1,62 @@
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+{{ $base := .Params.slider.base }}
+{{ $banners := split .Params.slider.pics ","}}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade") }}
+{{ $customScratch.Add "infoColumnClasses" (slice "col-12") }}
+
+{{ $isVertical := .Site.Params.widgetVertical }}
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if and $isVertical (eq $widgetLocation "top") }}
+   {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
+{{ end }}
+
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
+      <div class="carousel-inner c-inner">
+         {{ range $index, $element := $banners }}
+            {{ $banner := dict "image" (dict "path" $element "base" $base) }}
+            {{ partial "banner2" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
+         {{ end }}
+      </div>
+      <ol class="carousel-indicators">
+         {{ range $index, $element := $banners }}
+         <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+         {{ end }}
+      </ol>
+      {{ if eq .Params.keepAspectRatio true }}
+      <div class="container itm-banner-info-container itm-banner-info-container--dark d-md-none">
+         <div class="row">
+            <div class="col-12">
+               {{ if ne .Params.hideTitle true }}
+               {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "customClass" "my-0" "main" $) }}
+               {{ end }}
+            </div>
+         </div>
+      </div>
+      {{ end }}
+   </div>
+   <div class="container itm-banner-info-container itm-banner-info-container--dark">
+      <div class="row">
+         <div class="{{ delimit ($customScratch.Get `infoColumnClasses`) ` ` }}">
+            {{ if ne .Params.hideTitle true }}
+            {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "main" $) }}
+            {{ end }}
+         </div>
+         {{ if $isVertical }}
+         <div class="col-12 col-md-6 col-lg-5 col-xl-4">
+            {{ partial "widget-card" . }}              
+         </div>
+         {{end}}
+      </div>
+   </div>
+   {{ if not $isVertical }}
+   {{ partial "widget-container" . }}
+   {{ end }}
+</div>

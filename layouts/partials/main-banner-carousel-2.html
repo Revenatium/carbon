@@ -2,8 +2,18 @@
 {{ $bucket := .Site.Params.imageBucket }}
 {{ $banners := .Scratch.Get "banners" }}
 {{ $customScratch := newScratch }}
+{{ $isVertical := .Site.Params.widgetVertical }}
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
-{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new carousel slide") }}
+{{ if ne $isVertical true }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
+{{ end }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade") }}
 
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
@@ -27,5 +37,5 @@
          {{ end }}
       </ol>
    </div>
-   {{ partial "widget-container" . }}
+   {{ partial "widget-container-2" . }}
 </div>

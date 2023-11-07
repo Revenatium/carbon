@@ -1,0 +1,16 @@
+.itm-banner-container-new{
+   position: absolute;
+   height: 100%;
+   width: 100%;
+   left: 0;
+   top: 0;
+   .itm-banner-item-new{
+      position: relative;
+      height: 100%;
+      img{
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+      }
+   }
+}

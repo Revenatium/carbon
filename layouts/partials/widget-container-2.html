@@ -1,0 +1,46 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "containerClasses" (slice "itm-widget-container") }}
+{{ $customScratch.Add "columnClasses" (slice "col-12") }}
+{{ $customScratch.Add "outerClasses" (slice "w-outer-container") }}
+
+{{ $isVertical := .Site.Params.widgetVertical }}
+
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if $isVertical }}
+   {{ $customScratch.Add "columnClasses" (slice "col-md-6" "col-lg-5" "col-xl-4" "offset-md-6" "offset-lg-7" "offset-xl-8") }}
+{{ else }}
+   {{ $customScratch.Add "containerClasses" (slice "itm-new-widget-container--bottom") }}
+   {{ if .Site.Params.centerWidget }}
+      {{ $customScratch.Add "columnClasses" (slice "col-lg-9" ) }}
+   {{ end }}
+{{ end }}
+
+{{ if and (eq .Site.Params.stickyWidget true) (ne $isVertical true) }}
+   {{ $customScratch.Add "outerClasses" (slice "widget-sticky") }}
+{{ end }}
+
+{{ if and (ne .Params.keepAspectRatio true) (.Scratch.Get "banners") }}
+   {{ $customScratch.Add "containerClasses" (slice "itm-widget-container--margin") }}
+{{ end }}
+
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+
+{{ if and (ne .Params.hideBooker true) (eq $widgetLocation "top")}}
+<div class="{{ delimit ($customScratch.Get `containerClasses`) ` ` }}">
+   <div class="{{ delimit ($customScratch.Get `outerClasses`) ` ` }}">
+   <div class="container">
+      <div class="row justify-content-center">
+         <div class="{{ delimit ($customScratch.Get `columnClasses`) ` ` }}">
+            {{ partial "widget-card" . }}
+         </div>
+      </div>
+   </div>
+   </div>
+</div>
+{{ end }}
+

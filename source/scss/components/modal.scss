@@ -185,9 +185,12 @@
       max-width: 1140px;
     }
   }
-  
-  
-  @media (max-width: 768px) {
+  @media (min-width: 768px) {
+      .booking-modal{
+            display: block;
+      }
+   }
+  @media (max-width: 767px) {
     .booking-modal {
       position: fixed;
       top: 0;

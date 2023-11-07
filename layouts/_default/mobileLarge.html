@@ -16,9 +16,9 @@
    {{ if .Scratch.Get "banners" }}
       {{ partial "main-banner-carousel-2" . }}
    {{ else if isset .Params "slider" }}
-      {{ partial "main-image-carousel" . }}
+      {{ partial "main-image-carousel-2" . }}
    {{ else if (or (isset .Params "featured_image") (isset .Params "featured_video")) }}
-      {{ partial "main-image-single" . }}
+      {{ partial "main-image-single-2" . }}
    {{ else }}
       {{ partial "main-text" . }}
    {{ end }}

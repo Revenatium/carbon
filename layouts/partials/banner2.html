@@ -3,7 +3,7 @@
 {{ $video := $.Params.featured_video }}
 {{ $disableOpacity := $.Params.disableBannerOpacity }}
 {{ $customScratch := newScratch }}
-{{ $customScratch.Add "classes" (slice "") }}
+{{ $customScratch.Add "classes" (slice "itm-banner-item-new") }}
 {{ if .isCarousel }}
    {{ $customScratch.Add "classes" (slice "carousel-item c-item") }}
 {{ end }}
@@ -24,13 +24,6 @@
    {{ $customScratch.Add "infoClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
 {{ else }}
    {{ $customScratch.Add "infoClasses" (slice "col-md-12") }}
-{{ end }}
-
-{{ if eq $.Params.keepAspectRatio true }}
-   {{ $customScratch.Add "infoClasses" (slice "col-sm-9" ) }}
-   {{ $customScratch.Add "extraInfoClasses" (slice "col-12" "d-block" "d-md-none" "itm-banner-extra-info") }}
-{{ else }}
-   {{ $customScratch.Add "extraInfoClasses" (slice "d-none" ) }}
 {{ end }}
 
 {{ with .banner }}
@@ -69,15 +62,15 @@
       </div>
       {{ else }}
       <picture>
-         <source media="(min-width: 1200px)" srcset="{{print .image.base `f_auto,w_1200,h_600,b_black,o_70,c_fill/` .image.path}},
-         {{print .image.base `f_auto,w_1200,h_600,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
-         <source media="(min-width: 820px)" srcset="{{print .image.base `f_auto,w_992,h_480,b_black,o_70,c_fill/` .image.path}},
-         {{print .image.base `f_auto,w_992,h_480,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
-         <source media="(min-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_600,b_black,o_70,c_fill/` .image.path}},
-         {{print .image.base `f_auto,w_768,h_600,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
-         <source media="(max-width: 767px)" srcset="{{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill/` .image.path}},
-         {{print .image.base `f_auto,w_375,h_433,b_black,o_70,c_fill,dpr_2/` .image.path}} 2x" >
-         <img src="{{print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path}}"/>
+         <source media="(min-width: 1200px)" srcset="{{print .image.base `f_auto,w_1200,h_600,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_1200,h_600,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(min-width: 820px)" srcset="{{print .image.base `f_auto,w_992,h_480,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_992,h_480,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(min-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_600,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_768,h_600,c_fill,dpr_2/` .image.path}} 2x" >
+         <source media="(max-width: 767px)" srcset="{{print .image.base `f_auto,w_375,h_433,c_fill/` .image.path}},
+         {{print .image.base `f_auto,w_375,h_433,c_fill,dpr_2/` .image.path}} 2x" >
+         <img src="{{print .image.base `f_auto,w_1280,h_600,c_fill/` .image.path}}"/>
 
       </picture>
       {{ end }}
