@@ -1,5 +1,5 @@
 <footer class="itm-footer">
-   {{ if and (eq .Params.hideBooker true) (ne .Params.showServices true)}}
+   {{ if and (eq .Params.hideBooker true) (and (ne .Params.showServices true) (ne .Params.layout "sidebar")) }}
    <div class="container">
       {{ partial "widget-footer" . }}
    </div>

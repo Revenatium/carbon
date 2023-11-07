@@ -27,36 +27,54 @@
    {{ else }}
       {{ partial "main-text" . }}
    {{ end }}
-   {{ $containerId := "itm-booker--services"}}
-   {{ if .Params.serviceBooker }}
-   {{ $containerId = "itm-booker--service"}}
-   {{ end }}
    <section class="itm-body">
       <div class="container">
          <div class="row">
-            <div class="col-lg-4 mb-4 order-lg-last">
-               {{ if .Params.showServices }}
-                  <div id="sidebar-widget" class="sidebar-widget--service">
-                     <div class="sidebar-widget-container">
-                        <div class="itm-booker {{ $containerId }}" data-only-show-form="SERVICES" {{ if ge .Params.id 0 }} data-hotel="{{ .Params.id }}" {{ end }} {{if .Params.serviceType }} data-service-type="{{ .Params.serviceType }}" {{ end }} {{if .Params.serviceId }} data-service="{{ .Params.serviceId }}" {{ end }}>
-                           <div class="sidebar-widget-loading">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               {{ else }}
-                  <div id="sidebar-widget" class="sidebar-widget">
-                     <div class="card itm-widget-card itm-widget-card--bordered">
-                        <div class="card-body">
-                           <h5 class="card-title">{{ i18n "bookNow"}}</h5>
-                           <div id="rvm-booker-container" {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }} class="itm-booker itm-booker-vertical"></div>
-                        </div>
-                     </div>
-                  </div>
-               {{ end }}
-            </div>
-            <div class="col-lg-8 order-lg-first itm-index-sub-zero">
+            <div class="col-lg-8">
                {{ .Content }}
+            </div>
+            <div class="col-lg-4 mb-4">
+               {{ if .Params.showServices }}
+               <div id="sidebar-widget" class="sidebar-widget">
+                  <div class="sidebar-widget-container">
+                     <div id="rvm-booker-container"
+                        data-vertical="true"
+                        data-account="{{.Site.Params.account}}"
+                        {{if .Params.id }}
+                        data-hotel="{{ .Params.id }}"
+                        {{ end }}
+                        class="itm-booker itm-booker--services"
+                        {{ if .Params.showServices }}
+                        data-only-show-form="SERVICES"
+                        {{ end }}
+                        {{if .Params.serviceType }} 
+                        data-service-type="{{ .Params.serviceType }}"
+                        {{ end }}
+                        {{if .Params.serviceId }}
+                        data-service="{{ .Params.serviceId }}"
+                        {{ end }}
+                     >
+                     </div>
+                  </div>   
+               </div>
+               {{ else }}
+               <div id="sidebar-widget" class="sidebar-widget">
+                  <div class="card itm-widget-card itm-widget-card--bordered">
+                     <div class="card-body">
+                        <h5 class="card-title">{{ i18n "bookNow"}}</h5>
+                        <div id="rvm-booker-container"
+                           data-vertical="true"
+                           data-account="{{ .Site.Params.account }}"
+                           {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
+                           class="itm-booker itm-booker-vertical"
+                           {{if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
+                           {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
+                        >
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               {{ end }}
             </div>
          </div>
       </div>

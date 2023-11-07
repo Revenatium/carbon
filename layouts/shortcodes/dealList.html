@@ -15,6 +15,10 @@
    {{ with .Get "showHotelFilter"}}
       {{ $showHotelFilter = . }}
    {{ end }}
+   {{ $version := "1" }}
+   {{ with .Get "version" }}
+      {{ $version = . }}
+   {{ end }}
    {{ $deals := getJSON .Site.Params.api.promotions.name }}
 
    {{ if eq $showCategories "true" }}
@@ -35,7 +39,7 @@
       {{ end }}
    <div class="{{ $containerType }}">
    {{ range first $many (where $deals "isActive" true) }}
-      {{ partial "deal" (dict "deal" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "showHotel" $.Site.Params.promotionsShowHotel) }}
+      {{ partial "deal" (dict "deal" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "showHotel" $.Site.Params.promotionsShowHotel "version" $version) }}
    {{ end }}
    </div>
 {{ end }}

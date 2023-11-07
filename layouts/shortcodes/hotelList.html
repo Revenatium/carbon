@@ -10,6 +10,10 @@
 {{ with .Get "zone" }}
    {{ $zone = . }}
 {{ end }}
+{{ $version := "1" }}
+{{ with .Get "version" }}
+   {{ $version = . }}
+{{ end }}
 {{ $hotels := ""}}
 {{ if and $.Site.Params.api $.Site.Params.api.hotels }}
    {{ $hotels = getJSON $.Site.Params.api.hotels.name }}
@@ -41,7 +45,7 @@
       {{ end }}
    {{ end }}
    
-   {{ partial "hotel" (dict "hotel" ($customScratch.Get "hotel") "bookingEngineURL" $.Site.Params.bookingEngineURL "bookingEngineRoomsUrlSufix" $.Site.Params.bookingEngineRoomsUrlSufix "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+   {{ partial "hotel" (dict "hotel" ($customScratch.Get "hotel") "bookingEngineURL" $.Site.Params.bookingEngineURL "bookingEngineRoomsUrlSufix" $.Site.Params.bookingEngineRoomsUrlSufix "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "version" $version) }}
    {{ end }}
 {{ end }}
 </div>

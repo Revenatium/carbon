@@ -4,6 +4,7 @@
 {{ $bookingEngineURL := .bookingEngineURL }}
 {{ $hotelId := .hotelId }}
 {{ $showHotel := .showHotel }}
+{{ $version := .version }}
 
 {{ with .room}}
 <div class="row listItem listItem-room">
@@ -32,15 +33,26 @@
          {{ .description  | safeHTML | truncate 150 }}
       </div>
       {{ end }}
+      {{ $nights := "2" }}
+      {{ $weekday := "friday" }}
+      {{ $cutoff := "5" }}
+      {{ if $.Site.Params.RoomsNext }}
+         {{ $weekday = cond (isset $.Site.Params.RoomsNext "weekday") $.Site.Params.RoomsNext.weekday $weekday }}
+         {{ $nights = cond (isset $.Site.Params.RoomsNext "nights") $.Site.Params.RoomsNext.nights $nights }}
+         {{ $cutoff = cond (isset $.Site.Params.RoomsNext "cutoff") $.Site.Params.RoomsNext.cutoff $cutoff }}
+      {{ end }}
+      {{ if eq $version "2" }}
       <div class="listItem-actions">
-         {{ $nights := "2" }}
-         {{ $weekday := "friday" }}
-         {{ $cutoff := "5" }}
-         {{ if $.Site.Params.RoomsNext }}
-            {{ $weekday = cond (isset $.Site.Params.RoomsNext "weekday") $.Site.Params.RoomsNext.weekday $weekday }}
-            {{ $nights = cond (isset $.Site.Params.RoomsNext "nights") $.Site.Params.RoomsNext.nights $nights }}
-            {{ $cutoff = cond (isset $.Site.Params.RoomsNext "cutoff") $.Site.Params.RoomsNext.cutoff $cutoff }}
+         {{ $query2 := slice "rooms" "?weekday=" (urlize $weekday) "&nights=" $nights "&cutoff=" $cutoff "&roomId=" .id "&isDynamic=" "true" }}
+         {{ if and $showHotel $hotelId }}
+            <a href="{{ $bookingEngineURL }}{{ $hotelId }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+         {{ else }}
+            <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
          {{ end }}
+         <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#room{{.id}}">{{ i18n "roomDetails"}}</button>
+      </div>
+      {{ else }}
+      <div class="listItem-actions">
          {{ $query := slice (i18n "roomsNextUri") "/" (urlize (i18n $weekday)) "/" $nights "/" $cutoff "?ro=" .id }}
          {{ if and $showHotel $hotelId }}
             <a href="{{ $bookingEngineURL }}#/{{ $hotelId }}/{{ delimit $query `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
@@ -49,6 +61,7 @@
          {{ end }}
          <button type="button" class="btn btn-outline-secondary" data-toggle="collapse" data-target="#room{{.id}}">{{ i18n "roomDetails"}}</button>
       </div>
+      {{ end }}
    </div>
    <div class="listItem-details collapse" id="room{{.id}}">
       <div class="lead">{{ .description }}</div>

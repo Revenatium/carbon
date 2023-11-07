@@ -9,7 +9,12 @@
           </div>
           <div class="itm-widget-card itm-widget-card--horizontal">
              <div class="card-body">
-             <div id="rvm-booker-container" {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }} {{if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }} class="itm-booker itm-booker-horizontal">
+             <div id="rvm-booker-container"
+               data-account="{{.Site.Params.account}}"
+               {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
+               {{if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
+               {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
+               class="itm-booker itm-booker-horizontal">
              </div>
              </div>
           </div>
