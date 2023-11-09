@@ -2,6 +2,7 @@
 {{ $base := .imageBase }}
 {{ $min := 0 }}
 {{ $currency := "" }}
+{{ $hotelId := "" }}
 {{ range .service.variations }}
    {{ if or (eq $min 0) (lt .ratePrice.priceAdult $min) }}
       {{ $min = .ratePrice.priceAdult }}
@@ -10,6 +11,13 @@
 {{ end}}
 {{ with .service}}
    {{ $chargeType := .chargeType }}
+   {{ if gt (len .hotels) 0 }}
+   {{ $auxHotel := index .hotels 0}}
+   {{ $hotelId = $auxHotel.hotelId }}
+   {{ else }}
+   {{ $hotelId = $.Page.Params.id }}
+   {{ end }}
+   <div class="list-item-grid-top">
    <div class="item-image-container">
       {{if .photos }}
          {{ $image := index .photos 0 }}
@@ -35,16 +43,19 @@
       {{ end}}
    </div>
    {{ with .title }}
-   <h2 class="listItem-title">{{ . | markdownify }}</h2>
+   <p class="list-item-grid-title">{{ . | markdownify }}</p>
    {{ end }}
-   <p>
+   </div>
+   <div class="list-item-grid-bottom">
+   <p class="list-item-grid-description">
    {{ if eq $chargeType "UNIT_PRICE" }}
    {{ i18n "from" }} ${{ lang.NumFmt 0 $min "- . ," }} {{ $currency }} {{ i18n "perUnit"}}
    {{ else }}
    {{ i18n "from" }} ${{ lang.NumFmt 0 $min "- . ," }} {{ $currency }} {{ i18n "perPerson"}}
    {{end}}
-   </p>   
+   </p>
    <button class="btn btn-outline-primary" data-toggle="modal" data-target="#itm-modal-services-{{.id}}">{{ i18n "moreInfo" }}</button>
+   </div>
    <div class="modal fade" id="itm-modal-services-{{.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-services-size" role="document">
          <div class="modal-content">
@@ -62,7 +73,7 @@
                   <div class="itm-modal-services-widget">
                      <div class="itm-modal-services-widget-container">
                         <iframe
-                           src='{{ $url }}&only-show-form=SERVICES{{ if ge $.Page.Params.id 0 }}&hotel={{$.Page.Params.id}}{{ end }}{{ if $.Page.Params.serviceType }}&service-type={{ $.Page.Params.serviceType }}{{ end }}&service={{ .id }}'
+                           src='{{ $url }}&only-show-form=SERVICES{{ if ge $hotelId 0 }}&hotel={{$hotelId}}{{ end }}{{ if $.Page.Params.serviceType }}&service-type={{ $.Page.Params.serviceType }}{{ end }}&service={{ .id }}'
                            frameborder="0"
                         >
                         </iframe>

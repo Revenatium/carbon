@@ -25,18 +25,16 @@
 @mixin booker-nav-2() {
    .itm-booker {
       ul {
-         background-color: transparent;
-         border-color: transparent;
-         > li > a {
+         > li > a.itm-booker-navItem {
             padding: 5px;
             margin-left: 5px;
          }
-         > li > a:hover{
+         > li > a.itm-booker-navItem:hover{
             border-color: lighten($brand-color, 10%);
             background-color: transparent;
             text-decoration: none;
          }
-         > li.active > a {
+         > li.active > a.itm-booker-navItem {
             border-color: $brand-color;
             background-color: transparent;
          }
@@ -75,7 +73,7 @@
 @mixin booker-nav-text-2($color, $shadow: null) {
    .itm-booker {
       ul {
-         > li > a {
+         > li > a.itm-booker-navItem {
             color: rgba($color,.75);
             @if $shadow {
             text-shadow: 0 1px 2px rgba($shadow, 0.4);
@@ -83,11 +81,11 @@
             text-shadow: none;
             }
          }
-         > li > a:hover {
+         > li > a.itm-booker-navItem:hover {
             color: rgba($color,1);
             border-bottom-color: lighten($brand-color, 10%);
          }
-         > li.active > a {
+         > li.active > a.itm-booker-navItem {
             color: rgba($color,1);
             cursor: default;
          }

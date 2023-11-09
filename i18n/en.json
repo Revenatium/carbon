@@ -317,18 +317,18 @@
    },
    {
       "id": "moreInfo",
-      "translation": "Mas información"
+      "translation": "More information"
    },
    {
       "id": "perUnit2",
-      "translation": "por unidad"
+      "translation": "per unit"
    },
    {
       "id": "perPerson2",
-      "translation": "por persona"
+      "translation": "per person"
    },
    {
       "id": "from",
-      "translation": "Desde"
+      "translation": "From"
    }
 ]
