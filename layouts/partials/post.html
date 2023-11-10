@@ -1,7 +1,6 @@
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage" "itm-stage--solid") }}
 {{ $customScratch.Add "infoColumnClasses" (slice "col-12") }}
-
 {{ $isVertical := .Site.Params.widgetVertical }}
 {{ if eq .Params.widgetMode "vertical" }}
    {{ $isVertical = true }}
@@ -27,9 +26,9 @@
                {{ if .Description }}
                   <p class="text-muted">{{ .Description | markdownify }}</p>
                {{ end }}
-                {{ with .Date }}
-                {{ $formattedDate := .Format "2 de Enero, 2006" | safeHTML }}
-                <p class="font-weight-normal">{{ $formattedDate }}</p>
+                {{ with .Params.dateFormat }}
+
+                <p class="font-weight-normal">{{ . }}</p>
                 {{ end }}
             </div>
             {{ end }}
