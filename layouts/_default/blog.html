@@ -1,7 +1,7 @@
 {{ define "main" }}
    {{ .Scratch.Set "widgetLocation" "top" }}
    {{ .Scratch.Set "banners" "" }}
-      {{ partial "post" . }}
+   {{ partial "main-post" . }}
    <section class="itm-body">
       {{ .Content }}
    </section>

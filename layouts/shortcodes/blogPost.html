@@ -1,16 +1,13 @@
 {{ $blogList := getJSON $.Site.Params.api.blog.name }}
-{{ $requestedID := .Get "id" | int }}
-{{ with .Get "id" }}
-  {{ $blogID := . | int }}
-  {{ with index $blogList $requestedID }}
-    <div class="">
-      {{ with .content.rendered | safeHTML }}
-        {{ . }}
-      {{ end }}
-    </div>
-  {{ else }}
-    <div class="alert alert-danger" role="alert">
-      {{ i18n "blogPostNotFound" }}
-    </div>
-  {{ end }}
+{{ $requestedID := .Get "index" | int }}
+{{ with index $blogList $requestedID }}
+   <div class="">
+   {{ with .content.rendered | safeHTML }}
+      {{ . }}
+   {{ end }}
+   </div>
+{{ else }}
+   <div class="alert alert-danger" role="alert">
+   {{ i18n "blogPostNotFound" }}
+   </div>
 {{ end }}
