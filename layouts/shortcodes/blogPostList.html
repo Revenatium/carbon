@@ -1,14 +1,21 @@
 {{ $blogList := getJSON $.Site.Params.api.blog.name }}
 <div class="blog-container"> 
+    {{ if gt (len $blogList) 0 }}
         {{ range $blogList }}
             <div class="card blog-itemCard">
-                <img src="{{.img}}" class="card-img-top" alt="...">
+            <div class="blog-image-container">
+                {{ if .img }}
+                    <img src="{{.img}}" class="card-img-top" alt="...">
+                {{ else }}
+                    <div class="item-image--empty"></div>
+                {{ end }}
+            </div>   
                 <div class="card-body blog-itemCard-body">
                     <div>
                         <h5 class="card-title">{{.title.rendered}}</h5>
                         <div class="blog-postBody">
                             {{ with .excerpt.rendered | safeHTML }}
-                            {{ . }}
+                                {{ . }}
                             {{ end }}
                         </div>
                     </div>
@@ -19,4 +26,7 @@
                 </div>
             </div>
         {{ end }}
+    {{ else }}
+        <p>{{ i18n "blog.noPost" }}</p>
+    {{ end }}
 </div>

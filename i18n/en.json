@@ -330,5 +330,9 @@
    {
       "id": "from",
       "translation": "From"
+   },
+   {
+      "id": "blog.noPost",
+      "translation": "No post at Blog"
    }
 ]

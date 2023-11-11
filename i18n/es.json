@@ -330,5 +330,9 @@
    {
       "id": "from",
       "translation": "Desde"
+   },
+   {
+      "id": "blog.noPost",
+      "translation": "No hay publicaciones en el Blog"
    }
 ]
