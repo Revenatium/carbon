@@ -11,6 +11,7 @@
              <div class="card-body">
              <div id="rvm-booker-container"
                data-account="{{.Site.Params.account}}"
+               data-language="{{.Site.Params.languageCode}}"
                {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
                {{if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
                {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
