@@ -48,7 +48,7 @@
       {{ else }}
          {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
       {{ end }}
-   {{ else if and (eq .isPromotion false) .buttonUrl }}
+   {{ else if .buttonUrl }}
       {{ $actionLink = (.buttonUrl | safeURL)}}
    {{ end }}
 {{ end }}
