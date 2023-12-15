@@ -3,6 +3,9 @@
 {{ $banners := split .Params.slider.pics ","}}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
+{{ end }}
 {{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade") }}
 {{ $customScratch.Add "infoColumnClasses" (slice "col-12") }}
 

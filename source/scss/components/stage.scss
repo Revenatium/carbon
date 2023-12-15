@@ -48,9 +48,6 @@
          height: 100vh;
          padding-top: 100px;
       }
-      .itm-banner-container {
-         min-height: 360px;
-      }
    }
    &.itm-stage--light .itm-banner-item:before,
    &.itm-stage--dark .itm-banner-item:before {
@@ -76,9 +73,11 @@
 }
 
 .itm-header--fullscreen {
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   z-index: 2;
+   @media (min-width: 768px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 2;
+   }
 }

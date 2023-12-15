@@ -1,6 +1,9 @@
 {{ $widgetLocation := .Scratch.Get "widgetLocation" }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
+{{ end }}
 {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container-new") }}
 {{ $customScratch.Add "infoColumnClasses" (slice "col-12") }}
 

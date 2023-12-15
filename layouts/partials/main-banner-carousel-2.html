@@ -10,6 +10,9 @@
 {{ end }}
 
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
+{{ end }}
 {{ if ne $isVertical true }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
 {{ end }}
