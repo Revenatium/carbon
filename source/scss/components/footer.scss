@@ -8,6 +8,11 @@
    a {
       color: $footer-linkcolor;
    }
+   .itm-extra-icon{
+      line-height:1;
+      vertical-align:sub;
+      fill: $footer-linkcolor;
+   }
    @media (max-width:768px){
       margin-bottom: 70px;
    }
