@@ -44,6 +44,7 @@
 .#{$fa-css-prefix}-check:before { content: fa-content($fa-var-check); }
 .#{$fa-css-prefix}-info-circle { content: fa-content($fa-var-info-circle); }
 .#{$fa-css-prefix}-check-circle { content: fa-content($fa-var-check-circle); }
+.#{$fa-css-prefix}-tripadvisor { content: fa-content($fa-var-tripadvisor); }
 
 @import 'node_modules/@fortawesome/fontawesome-free/scss/screen-reader';
 @import 'node_modules/@fortawesome/fontawesome-free/scss/brands';
