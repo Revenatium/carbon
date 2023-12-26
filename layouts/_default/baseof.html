@@ -71,7 +71,9 @@
   </head>
   {{ if ne .Site.Params.suspended true }}
   <body>
-    {{ partial "googleTagManagerBody.html" . }} {{ block "header" . }}{{ partial "header" . }}{{end}}
+    {{ partial "googleTagManagerBody.html" . }}
+    
+    {{ block "header" . }}{{ partial "header" . }}{{end}}
 
     <main>{{ block "main" . }}{{end}}</main>
 

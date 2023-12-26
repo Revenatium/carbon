@@ -18,11 +18,11 @@
             {{ .Site.Title | safeHTML }}
          {{ end }}
       </a>
-
+      {{ if and (eq .Params.hideBooker true) (and (ne .Params.showServices true) (ne .Params.layout "sidebar")) }}
       <button class="btn btn-primary btn-sm d-inline-block d-md-none btn-book-mobile" data-toggle="modal" data-target="#bookerModal"> 
          {{ i18n "book"}}
       </button>
-      
+      {{ end }}
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
          <span class="fas fax-bars"></span>
       </button>

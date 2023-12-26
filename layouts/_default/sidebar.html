@@ -30,10 +30,10 @@
    <section class="itm-body">
       <div class="container">
          <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 order-last order-md-firts">
                {{ .Content }}
             </div>
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-4 mb-4 order-first order-md-last">
                {{ if .Params.showServices }}
                <div id="sidebar-widget" class="sidebar-widget">
                   <div class="sidebar-widget-container">
