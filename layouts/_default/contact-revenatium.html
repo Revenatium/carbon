@@ -79,9 +79,13 @@
       <div class="col-sm-4">
          <div class="sidebar-block contact-sidebar">
             <h5>{{ i18n "contactSidebarTitle"}}</h5>	
-            {{ with .Site.Params.hotelPhone }}<span class="hotel-phone">{{.}}</span><br>{{ end }}
-            {{ with .Site.Params.hotelEmail }}<a href="mailto:{{.}}" class="hotel-email">{{.}}</a>{{ end }}
-            {{ with .Site.Params.hotelAddress | markdownify }} <p><span class="hotel-address">{{.}}</span></p>{{ end }}
+            <div class="mb-3">
+               {{ with .Site.Params.hotelPhone }}<p class="mb-1"><span class="hotel-phone">{{.}}</span></p>{{ end }}
+               {{ with .Site.Params.hotelPhoneSecondary }}<p class="mb-1"><span class="hotel-phone">{{.}}</span></p>{{ end }}
+               {{ with .Site.Params.hotelEmail }}<p class="mb-1"><a href="mailto:{{.}}" class="hotel-email">{{.}}</a></p>{{ end }}
+               {{ with .Site.Params.hotelEmailSecondary }}<p class="mb-1"><a href="mailto:{{.}}" class="hotel-email">{{.}}</a></p>{{ end }}
+            </div>
+            {{ with .Site.Params.hotelAddress | markdownify }} <p class="mb-0"><span class="hotel-address">{{.}}</span></p>{{ end }}
          </div>
       </div>
    </div>
