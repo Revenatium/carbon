@@ -15,13 +15,16 @@
 {{ partial "main-text" . }}
 <div class="container"> 
    <div class="row">
-      <div class="col-sm-8">
+      <div class="col-sm-7">
       <!--   {{ .Site.Params.ContactEmailURL }}   -->
          <!--   http://localhost:8088/test   -->
       <form method="POST" action="{{ .Site.Params.ContactEmailURL }}" name="contact" class="contact-form" novalidate="" id="contact-form">
          <input type="hidden" name="site" value="{{ .Site.Params.BookingEngineURL }}"/>
          <input type="hidden" name="tysite" value="{{ .Site.Params.ThankYouSite }}"/>
-         <input type="hidden" name="account" value="{{ .Site.Params.Account }}"/>		
+         <input type="hidden" name="account" value="{{ .Site.Params.Account }}"/>
+         {{ with .Site.Params.hotelEmail }}
+         <input type="hidden" name="sendTo" value="{{.}}"/>
+         {{ end }}
             <div class="row">
                <div class="col-sm-6">
                   <div class="form-group">
@@ -76,7 +79,7 @@
          </div>
          </form>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-5">
          <div class="sidebar-block contact-sidebar">
             <h5>{{ i18n "contactSidebarTitle"}}</h5>	
             <div class="mb-3">
