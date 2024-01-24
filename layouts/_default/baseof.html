@@ -50,7 +50,7 @@
       {{- end -}}
       {{ range after 1 .AllTranslations }}
         {{ if .Site.Params.canonicalUrl }}
-        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
+        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}" />
         {{ else }}
         <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />
         {{ end }}
@@ -72,7 +72,7 @@
   {{ if ne .Site.Params.suspended true }}
   <body>
     {{ partial "googleTagManagerBody.html" . }}
-    
+
     {{ block "header" . }}{{ partial "header" . }}{{end}}
 
     <main>{{ block "main" . }}{{end}}</main>
