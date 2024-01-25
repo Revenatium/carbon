@@ -1,0 +1,33 @@
+{{ $deals := .deals }}
+{{ $hotels := slice }}
+{{ $allHotels := slice }}
+{{ $hotelsId := slice }}
+{{ $newHotelsId := slice }}
+{{ range $deals }}
+   {{ if eq .isActive true }}
+      {{ with .hotel }}
+         {{ $hotelsId = $hotelsId | append .id }}
+         {{ $allHotels = $allHotels | append . }}
+      {{ end }}
+   {{ end }}
+{{ end }}
+{{ $hotelsId := $hotelsId | uniq}}
+{{ range $allHotels }}
+   {{ if and (in $hotelsId .id) (not (in $newHotelsId .id)) }}
+      {{ $hotels = $hotels | append . }}
+      {{ $newHotelsId = $newHotelsId | append .id}}
+   {{ end}}
+{{ end }}
+{{ if gt (len $hotelsId) 0 }}
+<div id="itm-promotions-hotel-selector" class="itm-promotions-dropdown dropdown mb-4">
+   <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{ i18n "hotel"}}: <strong id="hotel-filter-name">{{ i18n "allHotels"}}</strong>
+   </button>
+   <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a id="itm-all-hotels-in-promotion" class="itm-promotions-dropdown-item dropdown-item">{{ i18n "allHotels" }}</a>
+      {{ range $index, $hot:= $hotels }}
+      <a class="itm-promotions-dropdown-item dropdown-item" data-hotelId="{{ $hot.id }}">{{$hot.name}}</a>
+      {{ end }}
+   </div>
+</div>
+{{ end }}

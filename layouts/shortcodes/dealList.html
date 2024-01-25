@@ -22,21 +22,11 @@
    {{ $deals := getJSON .Site.Params.api.promotions.name }}
 
    {{ if eq $showCategories "true" }}
-      {{ partial "dealCategories" (dict "deals" $deals)}}
+      {{ partial "dealCategories" (dict "deals" $deals) }}
    {{ end }}
-   {{ if and (gt (len (where .Site.RegularPages.ByWeight "Type" "==" "hotel")) 1) (eq $showHotelFilter "true") }}
-      <div id="itm-promotions-hotel-selector" class="itm-promotions-dropdown dropdown mb-4">
-         <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ i18n "hotel"}}: <strong id="hotel-filter-name">{{ i18n "allHotels"}}</strong>
-         </button>
-         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a id="itm-all-hotels-in-promotion" class="itm-promotions-dropdown-item dropdown-item">{{ i18n "allHotels" }}</a>
-            {{ range where .Site.RegularPages.ByWeight "Type" "==" "hotel" }}
-            <a class="itm-promotions-dropdown-item dropdown-item" data-hotelId="{{ .Params.id }}">{{.Title}}</a>
-            {{ end }}
-         </div>
-      </div>
-      {{ end }}
+   {{ if eq $showHotelFilter "true" }}
+      {{ partial "dealHotels" (dict "deals" $deals) }}
+   {{ end }}
    <div class="{{ $containerType }}">
    {{ range first $many (where $deals "isActive" true) }}
       {{ partial "deal" (dict "deal" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "showHotel" $.Site.Params.promotionsShowHotel "version" $version) }}
