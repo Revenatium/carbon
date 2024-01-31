@@ -1,0 +1,116 @@
+{{ $name := "" }}
+{{ $months := "0" }}
+{{ with .Get "name" }}
+{{ $name = . }}
+{{ end }}
+{{ with .Get "months" }}
+{{ $months = . }}
+{{ end }}
+{{ $benefits := getJSON $.Site.Params.api.benefits.name }}
+{{ $benefitsIcons := getJSON "data/benefits-icons.json" }}
+{{ $len := 1 }}
+{{ $half := 1 }}
+{{ with $benefits }}
+    {{ $len = len . }}
+    {{ $half = math.Ceil (div $len 2.0)}}
+{{ end }}
+<style>
+@media (max-width:576px){.hscroll .row{display:flex;flex-wrap:nowrap;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;overflow-x:scroll;margin-bottom: 2rem;;}
+.hscroll .row .col{scroll-snap-align:center;-webkit-box-flex:0;-ms-flex:0 0 100vw;flex:0 0 100vw;width:100vw}}
+.hscroll-buttons{display:flex;justify-content:space-between;align-items:center}
+.hscroll-buttons .btn{border-radius:50%;aspect-ratio:1/1}    
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="text-center itm-benefits-footer-title mb-3">
+                <i class="far fax-check-circle text-success fa-5x"></i>
+                <h4>{{ i18n "benefits.footer.title" (dict "Count" 25 "Name" $name) }}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="itm-benefits-footer-body hscroll">
+        <div class="row">
+        {{ if and (ne $months "0") (ne $months "1")}}
+            <div class="col col-sm-6 col-md-6 col-lg-4  mb-0 mb-sm-4">
+                <div class="benefit">
+                    <div class="benefit-icon float-left mr-2 text-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-credit-card float-left mr-2" viewBox="0 0 16 16"> <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/> <path d="M2 10a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/> </svg>
+                    </div>
+                    <div class="benefit-name">
+                        {{ i18n "benefits.msi" (dict "Count" 25 "Months" $months)}}
+                    </div>
+                </div>
+            </div>
+        {{ end }}
+        {{ with $benefits }}
+            {{ range (sort . "order") }}
+            <div class="col col-sm-6 col-md-6 col-lg-4 mb-0 mb-sm-4">
+                <div class="benefit">
+                {{ $benefit := . }}{{ $matchFound := false }}
+                {{ range $benefitsIcons }}
+                    {{ if eq .code $benefit.code }}
+                        <span class="benefit-icon float-left mr-2 text-primary">
+                            {{ .icon | safeHTML }}
+                        </span>
+                        {{ $matchFound = true }}
+                    {{ end }}
+                {{ end }}
+                {{ if not $matchFound }}
+                <div class="benefit-icon float-left mr-2 text-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+                    </svg>
+                </div>
+                {{ end }}
+                <div class="benefit-name">
+                    {{ $benefit.text }}
+                </div>
+                </div>
+            </div>
+            {{ end }}
+        {{ end }}
+        </div>
+        <div class="hscroll-buttons d-flex d-sm-none">
+            <button class="btn btn-outline-secondary button-prev" disabled  aria-label="Anterior">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+                </svg>
+            </button>
+            <button class="btn btn-outline-secondary button-next" aria-label="Siguiente">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    const containers = document.querySelectorAll('.hscroll');
+    
+    containers.forEach((container) => {
+      const buttonPrev = container.querySelector('.button-prev');
+      const buttonNext = container.querySelector('.button-next');
+      const row = container.querySelector('.row');
+    
+      buttonPrev.addEventListener('click', () => {
+        row.scrollTo({
+          left: row.scrollLeft - row.offsetWidth,
+          behavior: 'smooth'
+       });
+      });
+    
+      buttonNext.addEventListener('click', () => {
+        row.scrollTo({
+          left: row.scrollLeft + row.offsetWidth,
+          behavior: 'smooth'
+        });
+      });
+    
+      row.addEventListener('scroll', () => {
+        buttonPrev.disabled = row.scrollLeft === 0;
+        buttonNext.disabled = row.scrollLeft + row.offsetWidth + 1 >= row.scrollWidth;
+      });
+    });
+    </script>
