@@ -7,7 +7,7 @@
 {{ $months = . }}
 {{ end }}
 {{ $benefits := getJSON $.Site.Params.api.benefits.name }}
-{{ $benefitsIcons := getJSON "data/benefits-icons.json" }}
+{{ $benefitsIcons := getJSON "/themes/carbon/data/benefits-icons.json" }}
 {{ $len := 1 }}
 {{ $half := 1 }}
 {{ with $benefits }}
