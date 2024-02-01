@@ -1,0 +1,122 @@
+{{ define "custom-headers" }}
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<style>
+  #g-recaptcha-response {
+    display: block !important;
+    position: absolute;
+    width: 0 !important;
+    height: 0 !important;
+    z-index: -999999;
+    opacity: 0;
+  }
+</style>
+{{ end }}
+{{ define "main" }}
+{{ partial "main-text" . }}
+<div class="container">
+{{ .Content }}
+<div class="row">
+   <div class="col-sm-8">
+     <form method="POST" action="{{ .Site.Params.ContactEmailURL }}" name="contact" class="contact-form" novalidate="">
+      <input type="hidden" name="site" value="{{ .Site.Params.BookingEngineURL }}"/>
+      <input type="hidden" name="tysite" value="{{ .Site.Params.ThankYouSite }}"/>
+      <input type="hidden" name="account" value="{{ .Site.Params.Account }}"/>
+      <input type="hidden" name="sendTo" value="{{ .Site.Params.EventsEmail }}"/>
+         <div class="row">
+            <div class="col-sm-6">
+               <div class="form-group">
+                  <label for="name">{{ i18n "name"}} <span class="required text-danger">*</span></label>
+                  <input type="text" name="name" id="name" class="form-control" required>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="form-group">
+                  <label for="email">{{ i18n "email"}} <span class="required text-danger">*</span></label>
+                  <input type="email" name="email" id="email" class="form-control" required>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-6">
+               <div class="form-group">
+                  <label for="event_type">{{ i18n "event_type"}}</label>
+                  <select name="event_type" id="event_type" class="form-control">
+                     <option value="0">Seleccionar</option>
+                     <option value="{{ i18n "wedding" }}">{{ i18n "wedding" }}</option>
+                     <option value="{{ i18n "business" }}">{{ i18n "business" }}</option>
+                     <option value="{{ i18n "birthday" }}">{{ i18n "birthday" }}</option>
+                     <option value="{{ i18n "other" }}">{{ i18n "other" }}</option>
+                  </select>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="form-group">
+                  <label for="date">{{ i18n "event_date"}}</label>
+                  <input type="text" name="date" id="date" class="form-control" placeholder="dd/mm/aaaa">
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-6">
+               <div class="form-group">
+                  <label for="rooms">{{ i18n "event_rooms"}}</label>
+                  <input type="number" name="rooms" id="rooms" class="form-control">
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <div class="form-group">
+                  <label for="assistants">{{ i18n "assistants"}}</label>
+                  <input type="number" name="assistants" id="assistants" class="form-control">
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12">
+               <div class="form-group">
+                  <label for="comments">{{ i18n "comments"}}</label>
+                  <textarea name="comments" id="comments" class="form-control" rows="5"></textarea>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            {{ if .Site.Params.captchaSiteKey }}
+            <div class="g-recaptcha" data-sitekey="{{ .Site.Params.captchaSiteKey}}"></div>
+            <br />
+            <br />
+            {{ end }}
+            <button type="submit" id="submitContactForm" class="btn btn-primary">{{ i18n "contactBtn"}}</button>
+          </div>
+        </div>
+      </div>
+      </form>
+   </div>
+   <div class="col-sm-4">
+      <div class="sidebar-block contact-sidebar">
+         <h5>{{ i18n "contactSidebarTitle"}}</h5>
+         {{ with .Site.Params.hotelEventsPhone }}<span class="hotel-phone">{{.}}</span><br>{{ end }}
+         {{ with .Site.Params.hotelEventsEmail }}<a href="mailto:{{.}}" class="hotel-email">{{.}}</a>{{ end }}
+         {{ with .Site.Params.hotelAddress | markdownify }} <p><span class="hotel-address">{{.}}</span></p>{{ end }}
+      </div>
+   </div>
+</div>
+</div>
+<script>
+  window.onload = function () {
+      var $recaptcha = document.querySelector('#g-recaptcha-response');
+      if ($recaptcha) {
+        $recaptcha.setAttribute("required", "required");
+      }
+    };
+  window.formMessages = {
+    name: {{ i18n "nameEmptyErrorMsg" }},
+    comments: {{ i18n "commentsEmptyErrorMsg" }},
+    email: {
+      required: {{ i18n "emailEmptyErrorMsg" }},
+      email: {{ i18n "emailInvalidErrorMsg" }}
+    },
+    ['g-recaptcha-response']: {{ i18n "verifyRobotMsg" }}
+  };
+</script>
+{{end}}
