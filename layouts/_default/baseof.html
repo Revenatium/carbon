@@ -35,6 +35,12 @@
       {{ end }}
     {{ end }}
 
+    {{ if .Params.agencyForm }}
+    {{ with .Site.Params.agenciesFormWidgetUrl }}
+    <link href="{{.}}.css" rel="stylesheet" />
+    {{ end }}
+    {{ end }}
+
     {{ if .Site.Params.canonicalUrl }}
     <link rel="canonical" href="{{ .Site.Params.canonicalUrl }}{{ .Permalink }}" />
     {{ else }}
@@ -88,6 +94,11 @@
     {{ end }}
     {{ with .Site.Params.loyaltyURL }}
     <script async src="{{.}}"></script>
+    {{ end }}
+    {{ if .Params.agencyForm }}
+    {{ with .Site.Params.agenciesFormWidgetUrl }}
+    <script src="{{.}}.js"></script>
+    {{ end }}
     {{ end }}
     {{ if ne .Params.hideBookerForGood true }}
       {{ if .Site.Params.newBookerURL }}
