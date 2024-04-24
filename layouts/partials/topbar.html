@@ -28,7 +28,7 @@
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lang-selector">
                {{ range .Translations }}
-                  <a class="dropdown-item" href="{{ .Permalink }}">{{ .Site.Language.LanguageName }}</a>
+                  <a class="dropdown-item" href="{{ .Permalink }}?dr=true">{{ .Site.Language.LanguageName }}</a>
                {{ end}}
             </div>
          </div>
