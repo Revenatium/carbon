@@ -25,6 +25,9 @@
    {{ $customScratch.Add "stageClasses" (slice "itm-stage--dark") }}
 {{ end }}
 
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
       <div class="carousel-inner">
@@ -46,5 +49,11 @@
          {{ end }}
       </ol>
    </div>
+   {{ if ne .Params.widgetOutsideBanner true }}
    {{ partial "widget-container" . }}
+   {{ end }}
 </div>
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "widget-container" . }}
+</div>
+{{ end }}

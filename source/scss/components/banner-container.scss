@@ -70,3 +70,52 @@
       }
    }
 }
+
+// Widget outside banner
+.widget-outside-banner {
+   .itm-stage {
+      margin-bottom: 0;
+   }
+   .itm-booker .promocode-container {
+      padding-top: 0;
+      padding-bottom: 0;
+   }
+   .itm-banner-container.itm-banner-container--aspectRatio {
+      margin-bottom: 0;
+  }
+}
+@media (min-width: 768px) {
+   .widget-outside-banner {
+      .itm-widget-container--bottom {
+         position: static;
+         background-color: #f8f9fa;
+         padding: 1rem 0;
+      }
+      .itm-banner-info--extended {
+         margin-bottom: 0;
+      }
+      .itm-widget-container .itm-widget-card--horizontal .itm-booker .nav > li.active > a {
+         color: #000;
+      }
+      .itm-widget-container .itm-widget-card--horizontal .itm-booker .nav > li > a,
+      .itm-widget-container .itm-widget-card--horizontal .itm-booker .itm-promotion-code-modal-link span {
+         color: rgba(0, 0, 0, 0.75);
+         text-shadow: none;
+      }
+   }
+}
+@media (min-width: 1200px) {
+   .widget-outside-banner .itm-stage.itm-stage--vconstrained {
+       min-height: 550px;
+   }
+}
+.is-sticky {
+   .itm-booker-horizontal .DateRangePickerInput {
+      line-height: 42px;
+   }
+   .itm-booker-horizontal .booker-container .field,
+   .itm-booker-horizontal .booker-container .booker-submit .itm-btn-primary {
+      line-height: 46px;
+   }
+}
+.widget-outside-banner + .itm-body > .itm-benefits-container {margin-top: 0;}
