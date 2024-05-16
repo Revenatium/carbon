@@ -114,6 +114,9 @@
       {{ if eq $version "2" }}
       <div class="listItem-actions">
          {{ $params2 := slice  "rooms" "?checkIn=" $startDate "&checkOut=" .lastTravelWindowDate "&rooms[0].adults=2&rooms[0].children=0" }}
+         {{ if .promotionCode }}
+         {{ $params2 = slice "rooms" "?checkIn=" $startDate "&checkOut=" .lastTravelWindowDate "&rooms[0].adults=2&rooms[0].children=0&pc=" .promotionCode }}
+         {{ end }}
          {{ $query2 := delimit $params2 "" }}
          {{ if and $showHotel .hotel }}
          <a href="{{ $bookingEngineURL }}{{ .hotel.id }}{{ $query2 | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
@@ -124,6 +127,9 @@
       {{ else }}
       <div class="listItem-actions">
          {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .lastTravelWindowDate "?r[0].adults=2&r[0].children=0" }}
+         {{ if .promotionCode }}
+            {{ $params = $params | append (print "?r[0].adults=2&r[0].children=0&pc=" .promotionCode) }}
+        {{ end }}
          {{ $query := delimit $params "" }}
          {{ if and $showHotel .hotel }}
          <a href="{{ $bookingEngineURL }}#/s/{{ .hotel.id }}{{ $query | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
