@@ -18,24 +18,13 @@
    {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
 {{ end }}
 {{ if ne $isVertical true }}
-   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal-between") }}
 {{ end }}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
    {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) }}
    {{ partial "banner2" (dict "banner" $banner "main" $) }}
-   {{ if eq .Params.keepAspectRatio true }}
-   <div class="container itm-banner-info-container itm-banner-info-container--dark d-md-none">
-      <div class="row">
-         <div class="col-12">
-            {{ if ne .Params.hideTitle true }}
-            {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "customClass" "my-0" "main" $) }}
-            {{ end }}
-         </div>
-      </div>
-   </div>
-   {{ end }}
    </div>
    <div class="container itm-banner-info-container itm-banner-info-container--dark">
       <div class="row">
@@ -52,7 +41,7 @@
       </div>
    </div>
    {{ if not $isVertical }}
-   {{ partial "widget-container" . }}
+   {{ partial "widget-container-2" . }}
    {{ end }}
 
    {{ if eq .Params.showScrollButton true }}
