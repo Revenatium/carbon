@@ -27,6 +27,11 @@
    {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
 {{ end }}
 
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
+
 {{ if eq .Params.bannerFullScreen true }}
    {{ $customScratch.Add "stageClasses" (slice "itm-stage--fullscreen") }}
 {{ end }}
@@ -40,7 +45,7 @@
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
    {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) }}
-   {{ partial "banner" (dict "banner" $banner "main" $) }}
+   {{ partial "banner" (dict "banner" $banner "version" $version "main" $) }}
    {{ if eq .Params.keepAspectRatio true }}
    <div class="container itm-banner-info-container itm-banner-info-container--dark d-md-none">
       <div class="row">

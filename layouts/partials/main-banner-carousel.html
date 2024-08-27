@@ -1,6 +1,10 @@
 {{ $base := .Site.Params.imageBase }}
 {{ $bucket := .Site.Params.imageBucket }}
 {{ $banners := .Scratch.Get "banners" }}
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage" ) }}
 {{ $customScratch.Add "bannerContainerClasses" (slice "carousel" "slide" "carousel-fade" "itm-banner-container" "itm-banner-container--extrainfo") }}
@@ -39,7 +43,7 @@
                   {{ $bannerImage = $image.bannerImage }}
                {{ end }}
                {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal }}
-               {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
+               {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
             {{ end }}
          {{ end }}
       </div>

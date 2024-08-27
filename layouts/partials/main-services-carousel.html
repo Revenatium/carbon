@@ -31,6 +31,10 @@
 {{ with .Params.serviceType }}
    {{ $serviceType = . }}
 {{ end }}
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
@@ -48,7 +52,7 @@
                      {{ $bannerImage = $image.bannerImage }}
                   {{ end }}
                   {{ $banner := dict "image" $bannerImage }}
-                  {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
+                  {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
                   {{ $index = add $index 1 }}
                {{ end }}
             {{ end }}

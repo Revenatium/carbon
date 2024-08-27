@@ -21,10 +21,15 @@
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal-between") }}
 {{ end }}
 
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
+
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
    {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) }}
-   {{ partial "banner2" (dict "banner" $banner "main" $) }}
+   {{ partial "banner2" (dict "banner" $banner "version" $version "main" $) }}
    </div>
    <div class="container itm-banner-info-container itm-banner-info-container--dark">
       <div class="row">

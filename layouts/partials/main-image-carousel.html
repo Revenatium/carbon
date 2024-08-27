@@ -29,12 +29,17 @@
    {{ $customScratch.Add "infoColumnClasses" (slice "col-md-6" "col-lg-7" "col-xl-8") }}
 {{ end }}
 
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
+
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
       <div class="carousel-inner">
          {{ range $index, $element := $banners }}
             {{ $banner := dict "image" (dict "path" $element "base" $base) }}
-            {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "main" $) }}
+            {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
          {{ end }}
       </div>
       <ol class="carousel-indicators">
