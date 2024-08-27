@@ -45,7 +45,7 @@
       <div class="listItem-actions">
          {{ $query2 := slice "rooms" "?weekday=" (urlize $weekday) "&nights=" $nights "&cutoff=" $cutoff "&roomId=" .id "&isDynamic=" "true" }}
          {{ if and $showHotel $hotelId }}
-            <a href="{{ $bookingEngineURL }}{{ $hotelId }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
+            <a href="{{ $bookingEngineURL }}{{ $hotelId }}/{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
          {{ else }}
             <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">{{ i18n "bookNow"}}</a>
          {{ end }}

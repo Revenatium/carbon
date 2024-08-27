@@ -46,7 +46,7 @@
          {{ $params2 := slice  "rooms" "?checkIn=" $startDate "&checkOut=" .promotion.lastTravelWindowDate "&rooms[0].adults=2&rooms[0].children=0" }}
          {{ $query2 := delimit $params2 "" }}
          {{ if and $showHotel .hotel }}
-            {{ $actionLink = print $bookingEngineUrl .promotion.hotel.id ($query2 | safeURL) }}
+            {{ $actionLink = print $bookingEngineUrl .promotion.hotel.id "/" ($query2 | safeURL) }}
          {{ else }}
             {{ $actionLink = print $bookingEngineUrl ($query2 | safeURL) }}
          {{end}}
