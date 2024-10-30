@@ -66,6 +66,7 @@
                            data-vertical="true"
                            data-account="{{ .Site.Params.account }}"
                            data-language="{{.Site.Params.languageCode}}"
+                           {{ if .Site.Params.customUri }} data-custom-uri="{{.Site.Params.customUri}}" {{ end }}
                            {{if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
                            class="itm-booker itm-booker-vertical"
                            {{if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
