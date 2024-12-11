@@ -1,0 +1,54 @@
+<div class="col col-md-4 mb-4 listItem-deal" data-categories="{{ categories }}" data-hotelId="{{hotelId}}">
+  <div class="card bg-dark text-white border-0 bg-cover" style="background-image: url({{base}}f_auto,h_800,w_700,c_fill/{{bucket}}/{{photo}})">
+      <div class="card-body d-flex align-items-center flex-column">
+        {{#if hasDiscountPercentage }}
+          <p class="discount-amount mb-auto">
+              -{{ discountPercentageComplete }}
+          </p>
+        {{else}}
+          <p class="spacer mb-auto">&nbsp;</p>
+        {{/if}}
+
+        {{#if title}}
+          <h2 class="listItem-title">{{ title }} {{#if showHotel }}<div class="listItem-subtitle">{{hotel/name}}</div>{{/if}}</h2>
+        {{else}}
+          <h2 class="listItem-title">{{ resources/promotion }} {{#if showHotel }}<div class="listItem-subtitle">{{hotel/name}}</div>{{/if}}</h2>
+        {{/if}}
+
+        <div class="listItem-actions w-100">
+          {{#if url }}
+            <a href="{{ url }}" class="btn btn-outline-light d-block mt-auto w-100 mb-1">{{ resources/bookNow }}</a>
+          {{/if}}
+        </div>
+
+
+        <div class="deal-conditions dropdown w-100 text-center">
+            <a href="#" class="dropdown-toggle text-white" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <small>{{ resources/dealTerms }}</small></a>
+            <div class="dropdown-menu fs-small">
+              <ul>
+                {{#each termsAndConditions}}
+                  <li>{{this}}</li>
+                {{/each}}
+                  <li>
+                    {{ resources/bookingDates }}:
+                    <ul>
+                        {{#each bookingWindowPeriods }}
+                        <li>{{ description }}</li>
+                        {{/each}}
+                    </ul>
+                  </li>
+                  <li>
+                    {{ resources/travelDates }}:
+                    <ul>
+                        {{#each travelWindowPeriods }}
+                        <li>{{ description }}</li>
+                        {{/each}}
+                    </ul>
+                  </li>
+              </ul>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

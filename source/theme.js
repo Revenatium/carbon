@@ -196,7 +196,7 @@ $(document).ready(function ($) {
       });
    }
 
-   $('.itm-cat-nav').on('click', function () {
+   $(document).on('click', '.itm-cat-nav', function () {
       $('.itm-cat-nav').removeClass('active');
       $(this).addClass('active');
       const categoryId = $(this).attr('data-categoryId');
@@ -204,7 +204,7 @@ $(document).ready(function ($) {
       filterBy(categoryId, hotelId);
    });
 
-   $('.itm-promotions-dropdown-item').on('click', function () {
+   $(document).on('click', '.itm-promotions-dropdown-item', function () {
       const hotelId = $(this).attr('data-hotelId');
       const categoryId = $('.itm-cat-nav.active').attr('data-categoryId');
       filterBy(categoryId, hotelId);

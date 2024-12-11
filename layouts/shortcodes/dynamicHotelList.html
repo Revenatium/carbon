@@ -1,0 +1,128 @@
+{{ $many := 20 }}
+{{ $containerType := "list--fullpage"}}
+{{ with .Get "items" }}
+  {{ $many = . }}
+{{ end }}
+{{ with .Get "isFluid" }}
+  {{ $containerType = "list--fluid"}}
+{{ end }}
+{{ $zone := "" }}
+{{ with .Get "zone" }}
+  {{ $zone = . }}
+{{ end }}
+{{ $version := "1" }}
+{{ with .Get "version" }}
+  {{ $version = . }}
+{{ end }}
+{{ $hotels := ""}}
+{{ if and $.Site.Params.api $.Site.Params.api.hotels }}
+  {{ $hotels = getJSON $.Site.Params.api.hotels.name }}
+{{ end }}
+<div class="{{ $containerType }}">
+{{ range first $many (where .Site.RegularPages.ByWeight "Section" "==" "hotels") }}
+  {{ if or (eq $zone "") (eq $zone .Params.zone)}}
+  {{ $currentHotelPage := . }}
+  {{ $destination := (dict "name" .Params.zone) }}
+  {{ $photos := slice (dict "base" .Params.featured_image.base "path" .Params.featured_image.path )}}
+
+  {{ $customScratch := newScratch }}
+  {{ $customScratch.Add "hotel" (dict "url" .URL "id" .Params.id "name" .Title "description" .Description "destination" $destination "photos" $photos) }}
+
+  {{ if ne $hotels "" }}
+    {{ range $hotels }}
+        {{ if eq (int .id) $currentHotelPage.Params.id }}
+          {{ $photosScratch := newScratch }}
+          {{ $photosScratch.Set "photos" slice}}
+          {{ range .photos }}
+              {{ $photosScratch.Add "photos" (dict "base" $.Site.Params.imageBase "path" (print $.Site.Params.imageBucket `/` .path)) }}
+          {{ end }}
+
+          {{ $customScratch.SetInMap "hotel" "photos" ($photosScratch.Get "photos") }}
+          {{ $customScratch.SetInMap "hotel" "description" .description }}
+          {{ $customScratch.SetInMap "hotel" "destination" .destination }}
+          {{ $customScratch.SetInMap "hotel" "lowestRateDetail" .lowestRateDetail }}
+        {{ end }}
+    {{ end }}
+  {{ end }}
+  {{ partial "hotel" (dict "hotel" ($customScratch.Get "hotel") "bookingEngineURL" $.Site.Params.bookingEngineURL "bookingEngineRoomsUrlSufix" $.Site.Params.bookingEngineRoomsUrlSufix "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "version" $version "hideRates" true) }}
+  {{ end }}
+{{ end }}
+</div>
+<script type="text/javascript">
+  const resources = {
+    ratesStartingAt: '{{ i18n "ratesStartingAt" }}',
+    bookNow: '{{ i18n "bookNow" }}',
+    priceNote: '{{ i18n "priceNote" }}'
+  };
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    const markup = await $.ajax({ method: "GET", url: "/hotelRates.handlebars"});
+    const template = Handlebars.compile(markup);
+    const hotels = (await $.ajax({
+        method: "GET",
+        url: "{{ .Site.Params.api.hotels.url }}",
+    }));
+
+    $(".listItem-rates").each(function () {
+      const hotelId = parseInt($(this).attr("data-hotelid") ?? 0);
+      const hotel = hotels.find(h => h.id === hotelId);
+
+      if (hotel) {
+        const { amount, date, prePromotionalAmount, currency  } = hotel.lowestRateDetail ?? {};
+        const currencyCode = currency ?? "MXN";
+        $(".small-price-loader").hide();
+        $(".price-loader").hide();
+        $(this).children(":first").append(template({
+          amount: amount && !hotel.externalUrl ? formatPrice(amount, currencyCode) : "",
+          prePromotionalAmount: prePromotionalAmount ? formatPrice(prePromotionalAmount, currencyCode) : "",
+          currency: currencyCode,
+          url: buildUrl({ id: hotel.id, externalUrl: hotel.externalUrl, amount, date }),
+          resources
+        }));
+      }
+    });
+
+    function formatPrice(price, currency) {
+      return price.toLocaleString("{{.Site.Params.languageCode}}", {
+        currency,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+        style: "currency",
+        roundingMode: "halfFloor",
+      });
+    }
+
+    function buildUrl({ id, externalUrl, amount, date }) {
+      const [year, month, day] = (date ?? formatDate(new Date())).split("-")
+      const startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      const endDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      endDate.setTime(endDate.getTime() + ((24*60*60*1000) * 2));
+
+      if (externalUrl) {
+        return externalUrl
+          .replace("{startDate}", formatDate(startDate))
+          .replace("{endDate}", formatDate(endDate))
+          .replace("{rooms}", 1)
+          .replace("{adults}", 2)
+          .replace("{children}", 0)
+          .replace("{childrenAges}", "");
+      }
+
+      const bookingEngineURL = "{{.Site.Params.bookingEngineURL}}";
+      let url = `${bookingEngineURL}${id}/rooms`;
+
+      if (!amount) {
+        return url;
+      }
+
+      url = `${url}?checkIn=${formatDate(startDate)}&checkOut=${formatDate(endDate)}?rooms[0].adults=2&rooms[0].children=0`;
+      return url;
+    }
+
+    function formatDate(date) {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit'}
+      return date.toLocaleDateString("{{.Site.Params.languageCode}}", options).split('/').reverse().join('-')
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>

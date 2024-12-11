@@ -1,0 +1,17 @@
+{{#if amount}}
+  <div class="col-6 col-sm-6 col-md-12">
+    <div>{{ resources/ratesStartingAt }}:</div>
+    {{#if prePromotionalAmount }}
+    <div class="text-muted listItem-prePromotional-amount">{{ prePromotionalAmount }}  {{ currency }}</div> 
+    {{/if}}
+    <div class="listItem-rates-amount">{{ amount }} {{ currency }}</div>
+  </div>
+  <div class="col-12 col-sm-12 col-md-12 order-12 order-md-0">
+    <small class="text-muted">{{ resources/priceNote }}</small>
+  </div>
+{{/if}}
+<div class="col-6 col-sm-6 col-md-12">
+  {{#if url }}
+    <a href="{{ url }}" class="btn btn-primary">{{ resources/bookNow }}</a>
+  {{/if}}
+</div>

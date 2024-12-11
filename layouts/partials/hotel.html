@@ -3,6 +3,7 @@
 {{ $bookingEngineURL := .bookingEngineURL }}
 {{ $bookingEngineRoomsUrlSufix := .bookingEngineRoomsUrlSufix }}
 {{ $version := .version }}
+{{ $hideRates := .hideRates }}
 
 {{ with .hotel}}
 <div class="row listItem">
@@ -28,7 +29,13 @@
          <a href="{{ .url | absLangURL }}" class="btn btn-outline-secondary">{{ i18n "viewDetails"}}</a>
       </div>
    </div>
-   <div class="listItem-rates">
+   <div class="listItem-rates" data-hotelid="{{ .id }}">
+   {{if $hideRates}}
+      <div class="row">
+         <div class="skeleton small-price-loader" ></div>
+         <div class="skeleton price-loader" ></div>
+      </div>
+   {{else}}
       <div class="row">
          {{ if .lowestRateDetail }}
          <div class="col-6 col-sm-6 col-md-12">
@@ -64,6 +71,7 @@
          </div>
          {{ end }}
       </div>
-    </div>
+   {{end}}
+   </div>
 </div>
 {{ end }}
