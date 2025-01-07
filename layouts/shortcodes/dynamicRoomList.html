@@ -1,0 +1,81 @@
+{{ if and .Site.Params.api .Site.Params.api.rooms.url }}
+   {{ $many := 20 }}
+   {{ $containerType := "list--fullpage" }}
+   {{ $listType := "regular" }}
+   {{ with .Get "items" }}
+      {{ $many = . }}
+   {{ end }}
+   {{ with .Get "isFluid" }}
+      {{ $containerType = "list--fluid"}}
+   {{ end }}
+   {{ $hotelId := "" }}
+   {{ with .Get "hotelId" }}
+      {{ $hotelId = . }}
+   {{ end }}
+   {{ $version := "1" }}
+   {{ with .Get "version" }}
+      {{ $version = . }}
+   {{ end }}
+   {{ $rooms := getJSON (replace .Site.Params.api.rooms.name "{hotelId}" $hotelId) }}
+   {{ with .Get "showComplete" }}
+      {{ $listType = "complete"}}
+   {{ end }}
+   <div class="{{ $containerType }}">
+   {{ range first $many (where $rooms "isActive" true) }}
+      {{ if eq $listType "complete" }}
+         {{ partial "room-complete" (dict "room" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "main" $ "version" $version) }}
+      {{ else }}
+         {{ partial "room" (dict "room" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "hotelId" $hotelId  "showHotel" $.Site.Params.promotionsShowHotel "main" $ "version" $version) }}
+      {{ end }}
+   {{ end }}
+   </div>
+   <script type="text/javascript">
+    window.addEventListener("DOMContentLoaded", async () => {
+      const hotelId = parseInt("{{$hotelId}}");
+      $(".listItem-actions > a").css({
+        cursor: 'not-allowed',
+        opacity: 0.5
+      });
+
+      const hotels = (await $.ajax({
+          method: "GET",
+          url: "{{ .Site.Params.api.hotels.url }}",
+      }));
+
+      const selectedHotel = hotels.find(h => h.id === hotelId);
+
+      if (selectedHotel?.externalUrl) {
+        const { date  } = selectedHotel.lowestRateDetail ?? {};
+        const url = buildUrl({ externalUrl: selectedHotel.externalUrl, date });
+        $(".listItem-actions > a").each((i, link) => {
+          link.href = url;
+        });
+      }
+
+      $(".listItem-actions > a").css({
+        cursor: 'pointer',
+        opacity: 1,
+      });
+    });
+
+    function buildUrl({ externalUrl, date }) {
+      const [year, month, day] = (date ?? formatDate(new Date())).split("-")
+      const startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      const endDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      endDate.setTime(endDate.getTime() + ((24*60*60*1000) * 2));
+
+      return externalUrl
+          .replace("{startDate}", formatDate(startDate))
+          .replace("{endDate}", formatDate(endDate))
+          .replace("{rooms}", 1)
+          .replace("{adults}", 2)
+          .replace("{children}", 0)
+          .replace("{childrenAges}", "");
+    }
+
+    function formatDate(date) {
+      const options = { year: 'numeric', month: '2-digit', day: '2-digit'}
+      return date.toLocaleDateString("{{.Site.Params.languageCode}}", options).split('/').reverse().join('-')
+    }
+  </script>
+{{ end }}
