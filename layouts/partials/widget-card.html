@@ -49,6 +49,7 @@
             data-account="{{.Site.Params.account}}"
             data-language="{{.Site.Params.languageCode}}"
             {{ if .Site.Params.customUri }} data-custom-uri="{{.Site.Params.customUri}}" {{ end }}
+            {{ if .Site.Params.forceDestinationIdOnUrl }} data-force-destination-id-on-url="true" {{ end }}
         >
         </div>
     </div>
