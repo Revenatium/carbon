@@ -2,11 +2,19 @@
 {{ $path := .Get "imgPath" }}
 {{ $btnClass := .Get "btnClass" }}
 {{ $imgPosition := .Get "imgPosition" }}
+{{ $imageContainerClass := "col-md-6 col-lg-8" }}
+{{ if .Get "imageContainerClass" }}
+    {{ $imageContainerClass = .Get "imageContainerClass" }}
+{{ end }}
+{{ $contentContainerClass := "col-md-6 col-lg-4" }}
+{{ if .Get "contentContainerClass" }}
+    {{ $contentContainerClass = .Get "contentContainerClass" }}
+{{ end }}
 <div class="page-section-container">
     <div class="row page-section" style="background-color:{{ .Get `bgColor` }}">
-        <div class="col-md-6 col-lg-8 page-section-img {{ cond (eq $imgPosition `right`) `order-first order-md-last` `` }}"  style="background-image: url({{print $base `f_auto,w_800,h_600,c_fill/` $path }})">
+        <div class="{{ $imageContainerClass }} page-section-img {{ cond (eq $imgPosition `right`) `order-first order-md-last` `` }}"  style="background-image: url({{print $base `f_auto,w_800,h_600,c_fill/` $path }})">
         </div>
-        <div class="col-md-6 col-lg-4 page-section-content">
+        <div class="{{ $contentContainerClass }} page-section-content">
             <div class="p-5">
                 <h3>{{.Get "title"}}</h3>
                 <div class="page-section-text">
