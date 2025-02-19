@@ -60,6 +60,10 @@
       "translation": "Details"
    },
    {
+      "id": "viewRoomDetails",
+      "translation": "View details"
+   },
+   {
       "id": "dealDiscount",
       "translation": "Off"
    },
