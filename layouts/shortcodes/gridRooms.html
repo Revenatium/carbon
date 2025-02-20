@@ -1,0 +1,213 @@
+
+{{ if and .Site.Params.api .Site.Params.api.rooms.url }}
+   {{ $many := 20 }}
+   {{ $isDynamic := false }}
+   {{ $hotelId := "" }}
+   {{ $containerType := "list--fullpage" }}
+   {{ $base := $.Site.Params.imageBase }}
+   {{ $bucket := $.Site.Params.imageBucket }}
+   {{ $showHotel := $.Site.Params.promotionsShowHotel }}
+   {{ $bookingEngineURL := $.Site.Params.bookingEngineURL }}
+   {{ $nights := "2" }}
+   {{ $weekday := "friday" }}
+   {{ $cutoff := "5" }}
+   {{ if $.Site.Params.RoomsNext }}
+      {{ $weekday = cond (isset $.Site.Params.RoomsNext "weekday") $.Site.Params.RoomsNext.weekday $weekday }}
+      {{ $nights = cond (isset $.Site.Params.RoomsNext "nights") $.Site.Params.RoomsNext.nights $nights }}
+      {{ $cutoff = cond (isset $.Site.Params.RoomsNext "cutoff") $.Site.Params.RoomsNext.cutoff $cutoff }}
+   {{ end }}
+   {{ with .Get "items" }}
+      {{ $many = . }}
+   {{ end }}
+   {{ with .Get "isDynamic" }}
+      {{ $isDynamic = . }}
+   {{ end }}
+   {{ with .Get "hotelId" }}
+      {{ $hotelId = . }}
+   {{ end }}
+   {{ with .Get "isFluid" }}
+      {{ $containerType = "list--fluid"}}
+   {{ end }}
+   {{ $rooms := getJSON (replace .Site.Params.api.rooms.name "{hotelId}" $hotelId) }}
+
+<div class="{{ $containerType }} grid-rooms">
+   {{ range first $many (where $rooms "isActive" true) }}
+      {{ $query2 := slice "rooms" "?weekday=" (urlize $weekday) "&nights=" $nights "&cutoff=" $cutoff "&roomId=" .id "&isDynamic=" "true" }}
+      <div class="grid-rooms-item">
+         {{if .photos }}
+            {{ $image := index .photos 0 }}
+            <div class="item-img">
+               <img src="{{ print $base "f_auto,h_400,c_fill/" $bucket "/" $image.path }}" loading="lazy" alt="{{ .name }}">
+            </div>
+         {{ end }}
+         <div class="item-body">
+            <h3>{{ .name }}</h3>
+            <div class="item-description">
+               {{ .description }}
+            </div>
+            <div class="item-room-details">
+               <span class="item-room-info">
+                  <i class="fas fax-user mr-1"></i>
+                  <span>{{ .capacity }}</span>
+               </span>
+               <span class="item-room-info">
+                  <i class="fas fax-bed mr-1"></i>
+                  <span>{{ .bedding }}</span>
+               </span>
+            </div>
+
+            <div class="item-room-actions">
+               {{ if and $showHotel $hotelId }}
+                  <a href="{{ $bookingEngineURL }}{{ $hotelId }}/{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
+                     {{ i18n "bookNow"}}
+                  </a>
+               {{ else }}
+                  <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
+                     {{ i18n "bookNow"}}
+                  </a>
+               {{ end }}
+               <button type="button" class="btn btn-link" data-toggle="modal" data-target="#roomModal{{.id}}">
+                  {{ i18n "viewRoomDetails"}}
+               </button>
+            </div>
+         </div>
+      </div>
+      <div class="modal fade" id="roomModal{{.id}}" tabindex="-1" role="dialog"  aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                     {{ .name }}
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <div class="room-gallery-container swiper">
+                     <div class="swiper-wrapper">
+                        {{ range .photos }}
+                           <div class="swiper-slide">
+                              <img src="{{ print $base "f_auto,h_400,c_fill/" $bucket "/" .path }}" loading="lazy" alt="{{ .name }}">
+                           </div>
+                        {{ end }}
+                     </div>
+                     <div class="swiper-pagination"></div>
+                     <div class="swiper-button-next"></div>
+                     <div class="swiper-button-prev"></div>
+                  </div>
+                  <div class="modal-details">
+                     <span class="item-room-info">
+                        <i class="fas fax-user mr-1"></i>
+                        <span>{{ .capacity }}</span>
+                     </span>
+                     <span class="item-room-info">
+                        <i class="fas fax-bed mr-1"></i>
+                        <span>{{ .bedding }}</span>
+                     </span>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="modal-details">
+                     {{ .description }}
+                  </div>
+                  <div class="divider"></div>
+                  <div class="modal-details">
+                     <ul>
+                        {{ range .amenities }}
+                           <li>{{ .name }}</li>
+                        {{ end }}
+                     </ul>
+                  </div>
+                  <div class="divider"></div>
+                  <div class="modal-details actions">
+                     {{ if and $showHotel $hotelId }}
+                        <a href="{{ $bookingEngineURL }}{{ $hotelId }}/{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
+                           {{ i18n "bookNow"}}
+                        </a>
+                     {{ else }}
+                        <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
+                           {{ i18n "bookNow"}}
+                        </a>
+                     {{ end }}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   {{ end }}
+</div>
+<script type="text/javascript">
+window.addEventListener("DOMContentLoaded", async () => {
+   const hotelId = parseInt("{{$hotelId}}");
+   const isDynamic = "{{$isDynamic}}" === "true";
+
+   $(document).ready(function($) {
+      initGallery();
+   });
+
+   if (!isDynamic) {
+      return;
+   }
+
+   $(".item-room-actions > a").css({
+      cursor: 'not-allowed',
+      opacity: 0.5
+   });
+
+   const hotels = (await $.ajax({
+      method: "GET",
+      url: "{{ .Site.Params.api.hotels.url }}",
+   }));
+
+   const selectedHotel = hotels.find(h => h.id === hotelId);
+
+   if (selectedHotel?.externalUrl) {
+      const { date  } = selectedHotel.lowestRateDetail ?? {};
+      const url = buildUrl({ externalUrl: selectedHotel.externalUrl, date });
+      $(".item-room-actions > a").each((i, link) => {
+         link.href = url;
+      });
+   }
+
+   $(".item-room-actions > a").css({
+      cursor: 'pointer',
+      opacity: 1,
+   });
+});
+
+function initGallery() {
+   window.addEventListener('load', function() {
+      const swiper = window.getSwiperInstance('.room-gallery-container', {
+         slidesPerView: 1,
+         navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+         },
+         pagination: {
+            el: ".swiper-pagination",
+         }
+      });
+   });
+}
+
+function buildUrl({ externalUrl, date }) {
+   const [year, month, day] = (date ?? formatDate(new Date())).split("-")
+   const startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+   const endDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+   endDate.setTime(endDate.getTime() + ((24*60*60*1000) * 2));
+
+   return externalUrl
+      .replace("{startDate}", formatDate(startDate))
+      .replace("{endDate}", formatDate(endDate))
+      .replace("{rooms}", 1)
+      .replace("{adults}", 2)
+      .replace("{children}", 0)
+      .replace("{childrenAges}", "");
+}
+
+function formatDate(date) {
+   const options = { year: 'numeric', month: '2-digit', day: '2-digit'}
+   return date.toLocaleDateString("es-mx", options).split('/').reverse().join('-')
+}
+</script>
+{{ end }}
