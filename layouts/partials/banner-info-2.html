@@ -1,0 +1,56 @@
+{{ $ := .main }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "itm-banner-info-new") }}
+
+{{ $isVertical := $.Site.Params.widgetVertical }}
+
+{{ if eq $.Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq $.Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ if and (not $isVertical) (ne $.Params.hideBooker true) }}
+   {{ $customScratch.Add "classes" (slice "itm-banner-info-new--widgetBottom") }}
+{{ end }}
+
+{{ if .customClass }}
+   {{ $customScratch.Add "classes" (slice .customClass) }}
+{{ end }}
+
+<div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+   {{ with .promotion}}
+      {{ if and .lastValidDate .showBeforeFinish }}
+         <div>
+            <span class="badge badge-warning itm-timer-badge d-none">
+               <i class="far fax-clock mr-2" ></i>
+               {{ i18n "hurryUp"}}
+               <span class="font-weight-bold" data-countdown="{{.lastValidDate}}" data-includelastday="true"></span>
+            </span>
+         </div>
+      {{ end }}
+      {{ if and .firstValidDate .showBeforeStart }}
+         <div class="badge badge-success itm-timer-badge d-none">
+            <i class="far fax-clock mr-2" ></i>
+            {{ i18n "promotionStarts"}}
+            <span class="font-weight-bold" data-countdown="{{.firstValidDate}}"></span>
+         </div>
+      {{ end }}
+   {{ end }}
+   {{ if .labelText }}
+      <div class="d-inline-block itm-banner-info-new-label">{{ .labelText | markdownify }}</div>
+   {{ end }}
+   {{ if .title }}
+      <h1>{{.title | markdownify}}</h1>
+   {{ end }}
+   {{ if .subTitle }}
+      <p class="lead">{{ .subTitle | markdownify }}</p>
+   {{ end }}
+   {{ if .showButton }}
+      {{ if eq .isButtonUrlExternal true }}
+         <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-success">{{ .actionText | markdownify }}</a>
+      {{ else }}
+         <a href="{{ .actionLink }}" class="btn btn-success">{{ .actionText | markdownify }}</a>
+      {{ end }}
+   {{ end}}
+</div>

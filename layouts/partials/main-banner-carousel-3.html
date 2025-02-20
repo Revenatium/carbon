@@ -1,0 +1,50 @@
+{{ $base := .Site.Params.imageBase }}
+{{ $bucket := .Site.Params.imageBucket }}
+{{ $banners := .Scratch.Get "banners" }}
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
+{{ $customScratch := newScratch }}
+{{ $isVertical := .Site.Params.widgetVertical }}
+{{ if eq .Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq .Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
+{{ end }}
+{{ if ne $isVertical true }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
+{{ else }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--vertical") }}
+{{ end }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade") }}
+
+
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
+      <div class="carousel-inner c-inner">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+            {{ if $element.photos }}
+               {{ $image := index .photos 0 }}
+               {{ $bannerImage := (dict "path" (print $bucket `/` $image.path) "base" $base) }}
+               {{ if $image.bannerImage }}
+                  {{ $bannerImage = $image.bannerImage }}
+               {{ end }}
+               {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal }}
+               {{ partial "banner-with-background" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
+            {{ end }}
+         {{ end }}
+      </div>
+      <ol class="carousel-indicators">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+         <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+         {{ end }}
+      </ol>
+   </div>
+   {{ partial "widget-container-3" . }}
+</div>

@@ -1,0 +1,130 @@
+{{ $ := .main }}
+{{ $version := .version }}
+{{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
+{{ $video := $.Params.featured_video }}
+{{ $disableOpacity := $.Params.disableBannerOpacity }}
+{{ $customScratch := newScratch }}
+
+{{ $customScratch.Add "infoClasses" (slice "col-12 itm-banner-info-column") }}
+{{ $customScratch.Add "infoClassesBG" (slice "col-12" "itm-banner-info-bg") }}
+{{ if eq $.Params.banner.alignment "left" }}
+   {{ $customScratch.Add "infoClasses" (slice "col-md-6") }}
+   {{ $customScratch.Add "infoClassesBG" (slice "col-md-6") }}
+   {{ if eq $.Params.banner.solid true }}
+      {{ $customScratch.Add "infoClassesBG" (slice "itm-banner-info-bg--solid") }}
+   {{ else }}
+      {{ $customScratch.Add "infoClasses" (slice "itm-banner-info--shadow") }}
+      {{ $customScratch.Add "infoClassesBG" (slice "itm-banner-info-bg--left") }}
+   {{ end }}
+{{ end}}
+{{ if eq $.Params.banner.alignment "right" }}
+   {{ $customScratch.Add "infoClasses" (slice "col-md-6" "offset-md-6") }}
+   {{ $customScratch.Add "infoClassesBG" (slice "col-md-6" "offset-md-6") }}
+   {{ if eq $.Params.banner.solid true }}
+      {{ $customScratch.Add "infoClassesBG" (slice "itm-banner-info-bg--solid") }}
+   {{ else }}
+      {{ $customScratch.Add "infoClasses" (slice "itm-banner-info--shadow") }}
+      {{ $customScratch.Add "infoClassesBG" (slice "itm-banner-info-bg--right") }}
+   {{ end }}
+{{ end}}
+
+{{ $customScratch.Add "classes" (slice "itm-banner-item-new") }}
+{{ if .isCarousel }}
+   {{ $customScratch.Add "classes" (slice "carousel-item c-item") }}
+   {{ if and (eq $.Params.banner.alignment "left") (eq $.Params.banner.solid true) }}
+      {{ $customScratch.Add "classes" (slice "c-item--right") }}
+   {{ end }}
+   {{ if and (eq $.Params.banner.alignment "right") (eq $.Params.banner.solid true)}}
+      {{ $customScratch.Add "classes" (slice "c-item--left") }}
+   {{ end }}
+{{ end }}
+{{ if .active }}
+   {{ $customScratch.Add "classes" (slice "active") }}
+{{ end }}
+
+{{ $isVertical := $.Site.Params.widgetVertical }}
+
+{{ if eq $.Params.widgetMode "vertical" }}
+   {{ $isVertical = true }}
+{{ else if eq $.Params.widgetMode "horizontal" }}
+   {{ $isVertical = false }}
+{{ end }}
+
+
+{{ with .banner }}
+
+{{ $actionLink := $bookingEngineUrl }}
+{{ if eq .showButton true }}
+   {{ if and (eq .isPromotion true) .promotion }}
+      {{ $showHotel := $.Site.Params.promotionsShowHotel }}
+      {{ $lastTravelDate := time .promotion.lastTravelWindowDate }}
+      {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
+      {{ if eq $version "2" }}
+         {{ $params2 := slice  "rooms" "?checkIn=" $startDate "&checkOut=" .promotion.lastTravelWindowDate "&rooms[0].adults=2&rooms[0].children=0" }}
+         {{ $query2 := delimit $params2 "" }}
+         {{ if and $showHotel .hotel }}
+            {{ $actionLink = print $bookingEngineUrl .promotion.hotel.id "/" ($query2 | safeURL) }}
+         {{ else }}
+            {{ $actionLink = print $bookingEngineUrl ($query2 | safeURL) }}
+         {{end}}
+      {{ else }}   
+         {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastTravelWindowDate "?r[0].adults=2&r[0].children=0" }}
+         {{ $query := delimit $params "" }}
+         {{ if and $showHotel .promotion.hotel }}
+            {{ $actionLink = print $bookingEngineUrl "#/s/" .promotion.hotel.id ($query | safeURL) }}
+         {{ else }}
+            {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
+         {{ end }}
+      {{ end}}
+   {{ else if and (eq .isPromotion false) .buttonUrl }}
+      {{ $actionLink = (.buttonUrl | safeURL)}}
+   {{ end }}
+{{ end }}
+
+{{ if .image }}
+   <div 
+      class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
+   >
+      {{ if $video }}
+      <div class="itm-video-background">
+         <div class="itm-video-foreground">
+            <video playsinline autoplay loop muted class="itm-video">
+               <source src="{{ print $video.base `upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $video.path `.mp4` }}" type="video/mp4; codecs=hvc1">
+               <source src="{{ print $video.base `upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $video.path `.webm` }}" type="video/webm; codecs=vp9">
+               <source src="{{ print $video.base `upload/c_limit,q_auto,w_1280/` $video.path `.mp4` }}" type="video/mp4">
+            </video>
+         </div>
+      </div>
+      {{ else }}
+      <picture>
+         <source media="(min-width: 1200px)" srcset="{{print .image.base `f_auto,w_1200,h_600,c_fill,g_auto/` .image.path}},
+         {{print .image.base `f_auto,w_1200,h_600,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
+         <source media="(min-width: 820px)" srcset="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto/` .image.path}},
+         {{print .image.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
+         <source media="(min-width: 768px)" srcset="{{print .image.base `f_auto,w_768,h_600,c_fill,g_auto/` .image.path}},
+         {{print .image.base `f_auto,w_768,h_600,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
+         <source media="(max-width: 767px)" srcset="{{print .image.base `f_auto,w_375,h_433,c_fill,g_auto/` .image.path}},
+         {{print .image.base `f_auto,w_375,h_433,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
+         <img src="{{print .image.base `f_auto,w_1280,h_600,c_fill,g_auto/` .image.path}}"/>
+
+      </picture>
+      {{ end }}
+      {{ if (or .title .subTitle) }}
+      <div class="itm-banner-info-bg-container">
+         <div class="row">
+            <div class="{{ delimit ($customScratch.Get `infoClassesBG`) ` ` }}">
+            </div>
+         </div>
+      </div>
+      <div class="container itm-banner-info-container">
+         <div class="row itm-banner-info-row">
+            <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
+               {{ partial "banner-info-2" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "showButton" .showButton "isButtonUrlExternal" .isButtonUrlExternal "main" $) }}
+            </div>
+         </div>
+      </div>
+      {{ end }}
+   </div>
+{{ end }}
+
+{{ end }}
