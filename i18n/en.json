@@ -52,6 +52,10 @@
       "translation": "Other ways to contact us"
    },
    {
+      "id": "book",
+      "translation": "Book"
+   },
+   {
       "id": "bookNow",
       "translation": "Book now"
    },

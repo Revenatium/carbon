@@ -59,11 +59,11 @@
             <div class="item-room-actions">
                {{ if and $showHotel $hotelId }}
                   <a href="{{ $bookingEngineURL }}{{ $hotelId }}/{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
-                     {{ i18n "bookNow"}}
+                     {{ i18n "book"}}
                   </a>
                {{ else }}
                   <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
-                     {{ i18n "bookNow"}}
+                     {{ i18n "book"}}
                   </a>
                {{ end }}
                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#roomModal{{.id}}">
@@ -122,11 +122,11 @@
                   <div class="modal-details actions">
                      {{ if and $showHotel $hotelId }}
                         <a href="{{ $bookingEngineURL }}{{ $hotelId }}/{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
-                           {{ i18n "bookNow"}}
+                           {{ i18n "book"}}
                         </a>
                      {{ else }}
                         <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
-                           {{ i18n "bookNow"}}
+                           {{ i18n "book"}}
                         </a>
                      {{ end }}
                   </div>

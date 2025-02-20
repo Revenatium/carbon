@@ -52,6 +52,10 @@
       "translation": "Otras formas de contactarnos"
    },
    {
+      "id": "book",
+      "translation": "Reservar"
+   },
+   {
       "id": "bookNow",
       "translation": "Reservar ahora"
    },
