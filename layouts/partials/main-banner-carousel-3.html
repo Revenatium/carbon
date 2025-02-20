@@ -14,15 +14,15 @@
 {{ end }}
 
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
-{{ if eq .Params.bannerFullScreen true }}
-   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
-{{ end }}
 {{ if ne $isVertical true }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
 {{ else }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--vertical") }}
 {{ end }}
-{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide") }}
+{{ if eq .Params.banner.fade true }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "carousel-fade") }}
+{{ end }}
 
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
