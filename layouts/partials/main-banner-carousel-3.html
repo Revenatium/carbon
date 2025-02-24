@@ -26,7 +26,7 @@
 
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
       <div class="carousel-inner c-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ if $element.photos }}
@@ -39,6 +39,9 @@
                {{ partial "banner-with-background" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
             {{ end }}
          {{ end }}
+      </div>
+      <div class="itm-carousel-controls-new">
+         <button class="itm-carousel-controls-button" data-action="pause"><i class="fas fax-pause"></i></button>
       </div>
       <ol class="carousel-indicators">
          {{ range $index, $element := (where $banners "isActive" true) }}

@@ -107,6 +107,23 @@
          margin-bottom: 0;
       }
    }
+   .itm-carousel-controls-new{
+      position: absolute;
+      bottom: 0.5rem;
+      left: 0.5rem;
+      .itm-carousel-controls-button, .itm-carousel-controls-button:hover{
+         background: none;
+         border:none;
+         color: rgba(255,255,255,0.8);
+         text-shadow: 0 0 6px rgba(0,0,0,0.5);
+         outline: none;
+      }
+      .itm-carousel-controls-button:hover{
+         text-shadow: 0 0 10px rgba(0,0,0, 0.7);
+
+      }
+   }
+
    .itm-banner-info {
       display: inline-block;
       background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%,rgba(0,0,0,0) 70%);
@@ -115,7 +132,7 @@
       margin: 0;
    }
    .itm-banner-info-new{
-      color: $light-color;
+      color: $banner-solid-textcolor;
    }
    .itm-banner-info--shadow{
       .itm-banner-info-new{

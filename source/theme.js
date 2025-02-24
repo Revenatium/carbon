@@ -78,7 +78,24 @@ $(document).ready(function ($) {
       $("html, body").animate({ scrollTop: bookerTop }, 500);
    });
 
-   $(".carousel").carousel({ interval: 4000 });
+   $(".carousel").carousel({ interval: 4000, pause: "false" });
+   $(".itm-carousel-controls-button", ".carousel").on("click", function () {
+      var action = $(this).data("action");
+      switch (action) {
+         case "pause":
+            if ($(".carousel").carousel("pause")) {
+               $(this).data("action", "play");
+               $('i.fas', this).toggleClass("fax-play fax-pause");
+            }
+            break;
+         case "play":
+            if ($(".carousel").carousel("cycle")) {
+               $(this).data("action", "pause");
+               $('i.fas', this).toggleClass("fax-pause fax-play");
+            }
+            break;
+      }
+   });
 
    $(".contact-form").validate({
       messages: window.formMessages
