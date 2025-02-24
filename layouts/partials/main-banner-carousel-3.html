@@ -26,7 +26,7 @@
 
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if eq .Params.banner.carousel true }} data-ride="carousel" {{end}}>
       <div class="carousel-inner c-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ if $element.photos }}
@@ -40,14 +40,18 @@
             {{ end }}
          {{ end }}
       </div>
-      <div class="itm-carousel-controls-new">
-         <button class="itm-carousel-controls-button" data-action="pause"><i class="fas fax-pause"></i></button>
-      </div>
-      <ol class="carousel-indicators">
-         {{ range $index, $element := (where $banners "isActive" true) }}
-         <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+      {{ if gt (len (where $banners "isActive" true)) 1 }}
+         {{if eq .Params.banner.carousel true }}
+            <div class="itm-carousel-controls-new">
+               <button class="itm-carousel-controls-button" data-action="pause"><i class="fas fax-pause"></i></button>
+            </div>
          {{ end }}
-      </ol>
+         <ol class="carousel-indicators">
+            {{ range $index, $element := (where $banners "isActive" true) }}
+            <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+            {{ end }}
+         </ol>
+      {{ end}}
    </div>
    {{ partial "widget-container-3" . }}
 </div>

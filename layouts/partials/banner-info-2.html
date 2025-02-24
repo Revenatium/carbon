@@ -23,7 +23,7 @@
       {{ if and .lastValidDate .showBeforeFinish }}
          <div>
             <span class="badge badge-warning itm-timer-badge d-none">
-               <i class="far fax-clock mr-2" ></i>
+               <i class="far fax-clock" ></i>
                {{ i18n "hurryUp"}}
                <span class="font-weight-bold" data-countdown="{{.lastValidDate}}" data-includelastday="true"></span>
             </span>
@@ -31,7 +31,7 @@
       {{ end }}
       {{ if and .firstValidDate .showBeforeStart }}
          <div class="badge badge-success itm-timer-badge d-none">
-            <i class="far fax-clock mr-2" ></i>
+            <i class="far fax-clock" ></i>
             {{ i18n "promotionStarts"}}
             <span class="font-weight-bold" data-countdown="{{.firstValidDate}}"></span>
          </div>
@@ -48,9 +48,9 @@
    {{ end }}
    {{ if .showButton }}
       {{ if eq .isButtonUrlExternal true }}
-         <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-success">{{ .actionText | markdownify }}</a>
+         <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="itm-btn-pill">{{ .actionText | markdownify }}</a>
       {{ else }}
-         <a href="{{ .actionLink }}" class="btn btn-success">{{ .actionText | markdownify }}</a>
+         <a href="{{ .actionLink }}" class="itm-btn-pill">{{ .actionText | markdownify }}</a>
       {{ end }}
    {{ end}}
 </div>

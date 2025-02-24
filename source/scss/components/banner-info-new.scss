@@ -39,6 +39,19 @@
       letter-spacing: 0.1rem;
       margin-bottom: 1rem;
    }
+   .itm-btn-pill{
+      text-decoration: none;
+      background-color: $banner-solid-textcolor;
+      color: $banner-solid-bgcolor;
+      font-size: 0.85rem;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: 1.5rem;
+      margin-top: 1rem;
+      &:hover{
+         background-color: darken($color: $banner-solid-textcolor, $amount: 10);
+      }
+   }
 }
 
 // .itm-banner-info--extended{
