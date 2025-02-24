@@ -24,19 +24,20 @@
          {{ $segments := split $image.basePath "/"}}
          {{ $lastIndex := sub (len $segments) 2 }}
          {{ $bucket := index $segments $lastIndex }}
+         {{ $path := print $bucket "/" $image.path }}
       <img
          srcset='
-         {{print $base `f_auto,w_333,h_200,c_fill/` $bucket "/" $image.path }} 333w,
-         {{print $base `f_auto,w_360,h_200,c_fill/` $bucket "/" $image.path }} 360w,
-         {{print $base `f_auto,w_294,h_200,c_fill/` $bucket "/" $image.path }} 294w,
-         {{print $base `f_auto,w_354,h_200,c_fill/` $bucket "/" $image.path }} 354w,
-         {{print $base `f_auto,w_333,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 666w,
-         {{print $base `f_auto,w_360,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 720w,
-         {{print $base `f_auto,w_294,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 588w,
-         {{print $base `f_auto,w_354,h_200,c_fill,dpr_2/` $bucket "/" $image.path }} 708w
+         {{ (print $base `f_auto,w_333,h_200,c_fill/` $path) | safeURL }} 333w,
+         {{ (print $base `f_auto,w_360,h_200,c_fill/` $path) | safeURL }} 360w,
+         {{ (print $base `f_auto,w_294,h_200,c_fill/` $path) | safeURL }} 294w,
+         {{ (print $base `f_auto,w_354,h_200,c_fill/` $path) | safeURL }} 354w,
+         {{ (print $base `f_auto,w_333,h_200,c_fill,dpr_2/` $path) | safeURL }} 666w,
+         {{ (print $base `f_auto,w_360,h_200,c_fill,dpr_2/` $path) | safeURL }} 720w,
+         {{ (print $base `f_auto,w_294,h_200,c_fill,dpr_2/` $path) | safeURL }} 588w,
+         {{ (print $base `f_auto,w_354,h_200,c_fill,dpr_2/` $path) | safeURL }} 708w
          '
          sizes="(min-width: 1200px) 354px, (min-width: 992px) 294px, (min-width: 768px) 333px, (max-width: 575px) 360px"
-         src='{{ print $base "f_auto,h_200,w_354,c_fill/" $bucket "/" $image.path }}'
+         src='{{ (print $base "f_auto,h_200,w_354,c_fill/" $path) | safeURL }}'
       />
       {{ else }}
       <div class="item-image--empty"></div>
