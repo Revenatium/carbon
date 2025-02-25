@@ -6,6 +6,7 @@
 // selectively import components we need from bootstrap
 // see: node_modules/bootstrap/scss/bootstrap.scss
 @import 'vendor/bootstrap';
+@import 'vendor/swiper';
 
 @import 'components/icons';
 @import 'components/topbar';
@@ -43,4 +44,5 @@
 @import 'components/banner-info-new';
 @import 'components/banner-container-bg';
 @import 'components/grid-rooms';
-@import 'swiper/swiper-bundle';
+@import 'components/slider-gallery';
+@import 'components/gallery-with-thumbnails';

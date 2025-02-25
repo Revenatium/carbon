@@ -1,0 +1,91 @@
+{{ $spaceBetween := 30 }}
+{{ $thumbnailAspectRatio := "f_auto,h_800,c_fill" }}
+{{ $fullAspectRatio := "f_auto,h_800,c_fill" }}
+{{ $base := .Get "base" }}
+{{ $customClass := "" }}
+{{ $items := slice }}
+{{ $galleryDbId := "" }}
+{{ $navigation := "false" }}
+{{ $id := delimit (shuffle (seq 1 9)) "" }}
+{{$galleryId := print "sliderGallery-" $id }}
+{{ with .Get "spaceBetween" }}
+   {{ $spaceBetween = . }}
+{{ end }}
+{{ with .Get "thumbnailAspectRatio" }}
+   {{ $thumbnailAspectRatio = . }}
+{{ end }}
+{{ with .Get "fullAspectRatio" }}
+   {{ $fullAspectRatio = . }}
+{{ end }}
+{{ with .Get "customClass" }}
+   {{ $customClass = . }}
+{{ end }}
+{{ with .Get "pics" }}
+   {{ $items = split . "," }}
+{{ end }}
+{{ with .Get "id" }}
+   {{ $galleryDbId = . }}
+{{ end }}
+{{ with .Get "navigation" }}
+   {{ $navigation = . }}
+{{ end }}
+
+{{ if $galleryDbId }}
+   {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryDbId) }}
+   {{ range $index, $element := $gallery.photos }}
+   {{ $items = $items | append $element.path }}
+   {{ end }}
+{{ end }}
+
+<div id="{{$galleryId}}" class="itm-slider-gallery swiper">
+   <div class="swiper-wrapper">
+      {{ range $index, $element := $items }}
+         <div class="swiper-slide {{ $customClass }}">
+            <a href="{{ print $base $fullAspectRatio $element }}">
+               <img
+                  src="{{ print $base $thumbnailAspectRatio $element }}"
+                  loading="lazy"
+                  fetchPriority="low"
+               />
+            </a>
+         </div>
+      {{ end }}
+   </div>
+   <div id="{{$galleryId}}-scrollbar" class="swiper-scrollbar"></div>
+   <div id="{{$galleryId}}-next" class="swiper-button-next"></div>
+   <div id="{{$galleryId}}-prev" class="swiper-button-prev"></div>
+</div>
+
+<script>
+   window.addEventListener('load', function() {
+      const swiper = window.getSwiperInstance('#{{$galleryId}}', {
+         slidesPerView: "auto",
+         spaceBetween: parseInt("{{$spaceBetween}}"),
+         freeMode: true,
+         scrollbar: {
+            el: "#{{$galleryId}}-scrollbar",
+            hide: false,
+         },
+         navigation: {
+            enabled: "{{$navigation}}" === "true",
+            nextEl: "#{{$galleryId}}-next",
+            prevEl: "#{{$galleryId}}-prev",
+         },
+      });
+
+      $("#{{$galleryId}}").each(function () {
+         window.showMagnificGallery($(this), {
+            delegate: "a",
+            type: "image",
+            gallery: { enabled: true },
+            grabCursor: true,
+            callbacks: {
+               change: function() {
+                  const instance = $.magnificPopup.instance;
+                  swiper.slideTo(instance.index);
+               },
+            }
+         });
+      });
+   });
+</script>
