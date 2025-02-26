@@ -342,5 +342,13 @@
    {
       "id": "blog.noPost",
       "translation": "No post at Blog"
+   },
+   {
+      "id": "deal.seeNow",
+      "translation": "See offer"
+   },
+   {
+      "id":"deal2.vigency",
+      "translation":"Vigency {{.Day}} of {{.Month}} of {{.Year}}"
    }
 ]
