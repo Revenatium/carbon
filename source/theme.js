@@ -16,7 +16,7 @@ import "./addons/jquery.sticky";
 import "./addons/jquery.validate";
 
 import Swiper from "swiper";
-import { Navigation, Pagination, Scrollbar, Thumbs } from "swiper/modules";
+import { Navigation, Pagination, Scrollbar, Thumbs, Mousewheel } from "swiper/modules";
 // import "swiper/swiper-bundle.css";
 
 import { showMagnificGallery } from "./magnific";
@@ -244,7 +244,7 @@ $(document).ready(function ($) {
    window.getSwiperInstance = function getSwiperInstance(id, options) {
       const swiper = new Swiper(id, {
          ...options,
-         modules: [Navigation, Pagination, Scrollbar, Thumbs],
+         modules: [Navigation, Pagination, Scrollbar, Thumbs, Mousewheel],
       });
       return swiper;
    };
