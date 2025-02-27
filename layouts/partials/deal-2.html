@@ -25,7 +25,7 @@
     {{ $categories = print $categories "," .categoryPromotionId }}
   {{ end }}
 {{ end }}
-<div class="row listItem listItem-deal 
+<div class="row listItem listItem-deal playfair
    {{ if $alignment }}{{ if eq $alignment "right" }} listItem--right{{ else if eq $alignment "left" }} listItem--left{{ end }}{{ end }}
    {{ if eq $imageAsBackground "true" }} listItem--background{{ end }}" 
    data-categories="{{ $categories }}" 
@@ -33,16 +33,18 @@
 
   {{ if eq $imageAsBackground "true"  }}
     {{ $image := index .photos 0 }}
-    <div class="listItem-pic listItem-pic--background" style="background-image: url( {{ print $base `f_auto,h_252,w_448,c_fill/` $bucket `/` $image.path }})">
+    <div class="listItem-pic listItem-pic--background " style="background-image: url( {{ print $base `f_auto,h_252,w_448,c_fill/` $bucket `/` $image.path }})">
       {{ if and (.discountPercentage) (gt .discountPercentage 0) }}
         <p class="discount-amount">-{{ .discountPercentageComplete }}</p>
+        {{else if or (.isTwoForOne) (.isNightFree)}}
+        <p class="discount-amount">
+         {{ if .isTwoForOne }}2X1{{ else }}Noche Gratis{{ end }}
+     </p>
       {{ end }}
-      <div>
 
-      </div>
       <div class="listItem-content">
-        <h2 class="listItem-title">{{ .title | markdownify }}</h2>
-        <p class="listItemdeal-description">{{ .description | markdownify }}</p>
+         <p class="listItemdeal-description ">{{ .description | markdownify }}</p>
+        <h2 class="listItem-title playfair">{{ .title | markdownify }}</h2>
         <p class="deal2-inludes"><strong>{{ i18n "dealIncludes"}}</strong></p>
         <ul class="deal2-inludes-list">
            {{ range .includesDescription }}
@@ -52,41 +54,41 @@
         <p class="listItemdeal-vigency">
           {{ i18n "deal2.vigency" (dict "Day" $day "Month" $monthEs "Year" $year) }}
           </p>
-
+          <div class="deal-conditions dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span>{{ i18n "dealTerms"}}</span></a>
+            <div class="dropdown-menu">
+               <ul>
+                  {{ range .termsAndConditions}}
+                  <li>{{ . }}</li>
+                  {{ end }}
+                  <li>
+                     {{ i18n "bookingDates" }}:
+                     <ul>
+                        {{ range .bookingWindowPeriods }}
+                        <li>{{ .description | humanize }}</li>
+                        {{ end }}
+                     </ul>
+                  </li>
+                  <li>
+                     {{ i18n "travelDates" }}:
+                     <ul>
+                        {{ range .travelWindowPeriods }}
+                        <li>{{ .description | humanize }}</li>
+                        {{ end }}
+                     </ul>
+                  </li>
+               </ul>
+            </div>
+         </div>
          <a href="{{ $bookingEngineURL }}" class="btn btn-primary btn-deal-2">{{ i18n "deal.seeNow"}}</a>
-         <div class="deal-conditions dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <small>{{ i18n "dealTerms"}}</small></a>
-          <div class="dropdown-menu">
-             <ul>
-                {{ range .termsAndConditions}}
-                <li>{{ . }}</li>
-                {{ end }}
-                <li>
-                   {{ i18n "bookingDates" }}:
-                   <ul>
-                      {{ range .bookingWindowPeriods }}
-                      <li>{{ .description | humanize }}</li>
-                      {{ end }}
-                   </ul>
-                </li>
-                <li>
-                   {{ i18n "travelDates" }}:
-                   <ul>
-                      {{ range .travelWindowPeriods }}
-                      <li>{{ .description | humanize }}</li>
-                      {{ end }}
-                   </ul>
-                </li>
-             </ul>
-          </div>
-       </div>
+    
       </div>
     </div>
   {{ else }}
-    <div class="listItem-content listItem-content--{{ $alignment }}">
-      <h2 class="listItem-title">{{ .title | markdownify }}</h2>
-      <p class="listItemdeal-description">{{ .description | markdownify }}</p>
+    <div class="listItem-content listItem-content--{{ $alignment }} ">
+       <p class="listItemdeal-description ">{{ .description | markdownify }}</p>
+      <h2 class="listItem-title playfair">{{ .title | markdownify }}</h2>
       <p class="deal2-inludes"><strong>{{ i18n "dealIncludes"}}</strong></p>
       <ul class="deal2-inludes-list">
          {{ range .includesDescription }}
@@ -95,40 +97,47 @@
       </ul>       
       <p class="listItemdeal-vigency">{{ i18n "deal2.vigency" (dict "Day" $day "Month" $monthEs "Year" $year) }}
       </p>
-
+      <div class="deal-conditions dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         <span>{{ i18n "dealTerms"}}</span></a>
+         <div class="dropdown-menu">
+            <ul>
+               {{ range .termsAndConditions}}
+               <li>{{ . }}</li>
+               {{ end }}
+               <li>
+                  {{ i18n "bookingDates" }}:
+                  <ul>
+                     {{ range .bookingWindowPeriods }}
+                     <li>{{ .description | humanize }}</li>
+                     {{ end }}
+                  </ul>
+               </li>
+               <li>
+                  {{ i18n "travelDates" }}:
+                  <ul>
+                     {{ range .travelWindowPeriods }}
+                     <li>{{ .description | humanize }}</li>
+                     {{ end }}
+                  </ul>
+               </li>
+            </ul>
+         </div>
+      </div>
 
       <a href="{{ $bookingEngineURL }}" class="btn btn-primary btn-deal-2">{{ i18n "deal.seeNow"}}</a>
-      <div class="deal-conditions dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <small>{{ i18n "dealTerms"}}</small></a>
-        <div class="dropdown-menu">
-           <ul>
-              {{ range .termsAndConditions}}
-              <li>{{ . }}</li>
-              {{ end }}
-              <li>
-                 {{ i18n "bookingDates" }}:
-                 <ul>
-                    {{ range .bookingWindowPeriods }}
-                    <li>{{ .description | humanize }}</li>
-                    {{ end }}
-                 </ul>
-              </li>
-              <li>
-                 {{ i18n "travelDates" }}:
-                 <ul>
-                    {{ range .travelWindowPeriods }}
-                    <li>{{ .description | humanize }}</li>
-                    {{ end }}
-                 </ul>
-              </li>
-           </ul>
-        </div>
-     </div>
+    
     </div>
     <div class="listItem-pic listItem-pic--{{ $alignment }}">
       {{ $image := index .photos 0 }}
       <img src="{{ print $base `f_auto,h_252,w_448,c_fill/` $bucket `/` $image.path }}" alt="{{ .title }}">
+      {{ if and (.discountPercentage) (gt .discountPercentage 0) }}
+      <p class="discount-amount">-{{ .discountPercentageComplete }}</p>
+      {{else if or (.isTwoForOne) (.isNightFree)}}
+      <p class="discount-amount">
+       {{ if .isTwoForOne }}{{ i18n "deal2-2x1" }}{{ else }}{{ i18n "deal2-nightFree" }}{{ end }}
+   </p>
+    {{ end }}
     </div>
   {{ end }}
 

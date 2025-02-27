@@ -345,7 +345,7 @@
    },
    {
       "id": "deal.seeNow",
-      "translation": "See offer"
+      "translation": "See availability"
    },
    {
       "id": "deal2.vigency",
@@ -354,5 +354,14 @@
    {
       "id": "seeMore",
       "translation": "See more"
+   },
+   {
+      "id": "deal2-2x1",
+      "translation": "2X1"
+   },
+   {
+      "id": "deal2-nightFree",
+      "translation": "Night free"
    }
+
 ]
