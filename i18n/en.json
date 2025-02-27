@@ -348,7 +348,11 @@
       "translation": "See offer"
    },
    {
-      "id":"deal2.vigency",
-      "translation":"Vigency {{.Day}} of {{.Month}} of {{.Year}}"
+      "id": "deal2.vigency",
+      "translation": "Vigency {{.Day}} of {{.Month}} of {{.Year}}"
+   },
+   {
+      "id": "seeMore",
+      "translation": "See more"
    }
 ]
