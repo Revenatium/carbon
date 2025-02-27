@@ -1,0 +1,65 @@
+{{ $thumbnailAspectRatio := "f_auto,h_400,c_fill/hotel" }}
+{{ $fullAspectRatio := "f_auto,h_800,c_fill/hotel" }}
+{{ $base := .Get "base" }}
+{{ $customClass := "" }}
+{{ $items := slice }}
+{{ $galleryDbId := "" }}
+{{ $gridLenght := 8 }}
+{{ $containerType := "list--fullpage" }}
+{{ with .Get "thumbnailAspectRatio" }}
+   {{ $thumbnailAspectRatio = . }}
+{{ end }}
+{{ with .Get "fullAspectRatio" }}
+   {{ $fullAspectRatio = . }}
+{{ end }}
+{{ with .Get "customClass" }}
+   {{ $customClass = . }}
+{{ end }}
+{{ with .Get "pics" }}
+   {{ $items = split . "," }}
+{{ end }}
+{{ with .Get "id" }}
+   {{ $galleryDbId = . }}
+{{ end }}
+{{ with .Get "gridLenght" }}
+   {{ $gridLenght = . }}
+{{ end }}
+{{ with .Get "slidesPerView" }}
+   {{ $slidesPerView = . }}
+{{ end }}
+{{ with .Get "isFluid" }}
+   {{ $containerType = "list--fluid"}}
+{{ end }}
+
+{{ if $galleryDbId }}
+   {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryDbId) }}
+   {{ range $index, $element := $gallery.photos }}
+   {{ $items = $items | append $element.path }}
+   {{ end }}
+{{ end }}
+
+{{ $len := (len $items) }}
+
+<div class="{{ $containerType }} {{ $customClass }} grid-gallery">
+   {{ range $index, $element := $items }}
+      {{ if (lt $index (sub (float $gridLenght) 1)) }}
+      <div class="item-img">
+         <a href="{{ print $base $fullAspectRatio $element }}">
+            <img
+               src="{{ print $base $thumbnailAspectRatio $element }}"
+               loading="lazy"
+               fetchPriority="low"
+            />
+         </a>
+      </div>
+      {{ else if (eq $index $gridLenght) }}
+         <div class="item-img">
+            <a href="{{ print $base $fullAspectRatio $element }}">
+               <span> Ver mas</span>
+            </a>
+         </div>
+      {{ else if (gt $index (float $gridLenght)) }}
+         <a href="{{ print $base $fullAspectRatio $element }}" class="hidden"></a>
+      {{ end }}
+   {{ end }}
+</div>

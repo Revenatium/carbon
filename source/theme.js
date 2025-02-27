@@ -62,6 +62,14 @@ $(document).ready(function ($) {
       });
    });
 
+   $(".grid-gallery").each(function () {
+      showMagnificGallery($(this), {
+         delegate: "a",
+         type: "image",
+         gallery: { enabled: true }
+      });
+   });
+
    $(".video-link").each(function () {
       showMagnificGallery($(this), {
          disableOn: 700,
