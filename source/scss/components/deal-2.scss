@@ -131,10 +131,20 @@
 
 }
 @font-face {
-  font-family: 'playfair';
+  font-family: 'quicksand';
   src: url('#{$custom-font-path}/Quicksand-VariableFont_wght.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
+}
+@font-face {
+  font-family: 'playfair';
+  src: url('#{$custom-font-path}/PlayfairDisplay-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.quicksand {
+  font-family: 'quicksand', sans-serif !important;
 }
 
 .playfair {

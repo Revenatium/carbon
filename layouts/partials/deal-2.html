@@ -25,7 +25,7 @@
     {{ $categories = print $categories "," .categoryPromotionId }}
   {{ end }}
 {{ end }}
-<div class="row listItem listItem-deal playfair
+<div class="row listItem listItem-deal quicksand
    {{ if $alignment }}{{ if eq $alignment "right" }} listItem--right{{ else if eq $alignment "left" }} listItem--left{{ end }}{{ end }}
    {{ if eq $imageAsBackground "true" }} listItem--background{{ end }}" 
    data-categories="{{ $categories }}" 
