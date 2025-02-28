@@ -75,11 +75,8 @@
       }
    }
    .itm-modal-services-widget-container{
-      min-height: 100%;
+      min-height: 500px;
       position: relative;
-      @media(max-width: 991px){
-         min-height: 440px;
-      }
       iframe{
          border: none;
          position: absolute;
