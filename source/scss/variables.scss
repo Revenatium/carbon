@@ -28,13 +28,22 @@ $stage-bgcolor:               $light-bgcolor !default;
 $stage-color:                 $light-color !default;
 $banner-height:               250px;
 
-$banner-solid-bgcolor:        $dark-color !default;
-$banner-solid-textcolor:      $light-color !default;
+$theme-accent-color:          $dark-color !default;
+$theme-accent-a11y-color:     $light-color !default;
 
 $promo-bgcolor:               rgb(212, 40, 40) !default;
 $promo-txtcolor:              $light-color !default;
 $promo-navbar-bgcolor:        $brand-color !default;
 $promo-navbar-txtcolor:       $light-color !default;
+
+$promo-content-bgcolor:       $light-color !default;
+$promo-content-txtcolor:      $dark-color !default;
+$promo-button-bgcolor:        $theme-accent-color !default;
+$promo-button-txtcolor:       $theme-accent-a11y-color  !default;
+$promo-pill-bgcolor:          $light-color !default;
+$promo-pill-txtcolor:         $theme-accent-color  !default;
+
+
 
 $listItem-bgcolor:            $light-bgcolor !default;
 $listItem-color:              $dark-color !default;
