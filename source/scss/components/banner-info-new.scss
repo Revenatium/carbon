@@ -41,15 +41,15 @@
    }
    .itm-btn-pill{
       text-decoration: none;
-      background-color: $theme-accent-a11y-color;
-      color: $theme-accent-color;
+      background-color: $banner-solid-button-bgcolor;
+      color: $banner-solid-button-txtcolor;
       font-size: 0.85rem;
       font-weight: bold;
       padding: 0.5rem 1rem;
-      border-radius: 1.5rem;
+      border-radius: $banner-solid-button-radius;
       margin-top: 1rem;
       &:hover{
-         background-color: darken($color: $theme-accent-a11y-color, $amount: 10);
+         background-color: darken($color: $banner-solid-button-bgcolor, $amount: 10);
       }
    }
 }

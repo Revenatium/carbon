@@ -38,6 +38,7 @@ $breakpoint-md: 767px !default;
       @media screen and (max-width: $breakpoint-md){
          position: relative;
          height: 100%;
+         margin-bottom: 1rem;
          &::after {
             content: "";
             position: absolute;
@@ -72,6 +73,9 @@ $breakpoint-md: 767px !default;
             inset: 0;            
          }
          .listItem-2-deal-discount-amount{
+            @media screen and (max-width: $breakpoint-md) {
+               display: none;
+            }
             position: absolute;
             top: 1rem;
             left: 1rem;
@@ -108,7 +112,7 @@ $breakpoint-md: 767px !default;
          color: $promo-button-txtcolor;
          font-weight: bold;
          padding: 0.5rem 1rem;
-         border-radius: 1.5rem;
+         border-radius: $promo-button-radius;
          display: inline-block;
          &:hover{
             background-color: darken($color: $promo-button-bgcolor, $amount: 10);
@@ -150,5 +154,6 @@ $breakpoint-md: 767px !default;
    grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas grandes */
    @media (max-width: 991px) {
      grid-template-columns: 1fr; /* Una columna en móviles */
+     row-gap: 1rem;
    }
  }
