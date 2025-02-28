@@ -62,7 +62,10 @@
          slidesPerView: "auto",
          spaceBetween: parseInt("{{$spaceBetween}}"),
          freeMode: true,
-         mousewheel: true,
+         mousewheel: {
+            enabled: true,
+            forceToAxis: true,
+         },
          scrollbar: {
             el: "#{{$galleryId}}-scrollbar",
             hide: false,

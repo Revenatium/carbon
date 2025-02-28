@@ -94,7 +94,10 @@
          centeredSlides: galleryLenght > slidesPerView,
          centeredSlidesBounds: true,
          slidesPerView: slidesPerView - 1,
-         mousewheel: true,
+         mousewheel: {
+            enabled: true,
+            forceToAxis: true,
+         },
          scrollbar: {
             el: "#{{$galleryId}}-thumbnails-scrollbar",
             hide: false,
