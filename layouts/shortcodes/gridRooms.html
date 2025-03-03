@@ -33,6 +33,19 @@
 <div class="{{ $containerType }} grid-rooms">
    {{ range first $many (where $rooms "isActive" true) }}
       {{ $query2 := slice "rooms" "?weekday=" (urlize $weekday) "&nights=" $nights "&cutoff=" $cutoff "&roomId=" .id "&isDynamic=" "true" }}
+      {{ $tooltipText := "" }}
+      {{ if .summaryDetails.bedArrangements }}
+         {{ $bedArrangementsLenght := len .summaryDetails.bedArrangements }}
+         {{ range $index, $element := .summaryDetails.bedArrangements }}
+            {{ if eq $index 0 }}
+               {{ $tooltipText = print $tooltipText $element }}
+            {{ else if eq $index (sub $bedArrangementsLenght 1) }}
+               {{ $tooltipText = print $tooltipText " y " $element }}
+            {{ else }}
+               {{ $tooltipText = print $tooltipText ", " $element }}
+            {{ end }}
+         {{ end }}
+      {{ end }}
       <div class="grid-rooms-item">
          {{if .photos }}
             {{ $image := index .photos 0 }}
@@ -46,6 +59,23 @@
                {{ .description }}
             </div>
             <div class="item-room-details">
+               {{ if .summaryDetails }}
+               <span class="item-room-info">
+                  <i class="fas fax-user mr-1"></i>
+                  <span>{{ .summaryDetails.capacitySummary }}</span>
+               </span>
+               <span class="item-room-info">
+                  <i class="fas fax-bed mr-1"></i>
+                  <span>
+                     {{ .summaryDetails.bedResume }}
+                     {{ if $tooltipText }}
+                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="{{ $tooltipText }}">
+                        <sup class="info">&#9432;</sup>
+                     </span>
+                     {{ end }}
+                  </span>
+               </span>
+               {{ else }}
                <span class="item-room-info">
                   <i class="fas fax-user mr-1"></i>
                   <span>{{ .capacity }}</span>
@@ -54,6 +84,7 @@
                   <i class="fas fax-bed mr-1"></i>
                   <span>{{ .bedding }}</span>
                </span>
+               {{ end }}
             </div>
 
             <div class="item-room-actions">
@@ -97,6 +128,23 @@
                      <div class="swiper-button-prev"></div>
                   </div>
                   <div class="modal-details">
+                     {{ if .summaryDetails }}
+                     <span class="item-room-info">
+                        <i class="fas fax-user mr-1"></i>
+                        <span>{{ .summaryDetails.capacitySummary }}</span>
+                     </span>
+                     <span class="item-room-info">
+                        <i class="fas fax-bed mr-1"></i>
+                        <span>
+                           {{ .summaryDetails.bedResume }}
+                           {{ if $tooltipText }}
+                           <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="{{ $tooltipText }}">
+                              <sup class="info">&#9432;</sup>
+                           </span>
+                           {{ end }}
+                        </span>
+                     </span>
+                     {{ else }}
                      <span class="item-room-info">
                         <i class="fas fax-user mr-1"></i>
                         <span>{{ .capacity }}</span>
@@ -105,6 +153,7 @@
                         <i class="fas fax-bed mr-1"></i>
                         <span>{{ .bedding }}</span>
                      </span>
+                     {{ end }}
                   </div>
                   <div class="divider"></div>
                   <div class="modal-details">

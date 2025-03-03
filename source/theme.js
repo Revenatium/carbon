@@ -247,6 +247,8 @@ $(document).ready(function ($) {
       $("#hotel-filter-name").text($(this).text());
    });
 
+   $('[data-toggle="tooltip"]').tooltip();
+
    window.applyStickyHeader();
 
    window.getSwiperInstance = function getSwiperInstance(id, options) {
