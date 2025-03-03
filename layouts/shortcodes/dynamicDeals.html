@@ -165,7 +165,7 @@
 
   function formatDate(date) {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit'}
-    return date.toLocaleDateString("{{.Site.Params.languageCode}}", options).split('/').reverse().join('-')
+    return date.toLocaleDateString("es-mx", options).split('/').reverse().join('-')
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
