@@ -76,6 +76,7 @@
                         <iframe
                            src='{{ $url }}&only-show-form=SERVICES{{ if ge $hotelId 0 }}&hotel={{$hotelId}}{{ end }}{{ if $.Page.Params.serviceType }}&service-type={{ $.Page.Params.serviceType }}{{ end }}&service={{ .id }}'
                            frameborder="0"
+                           loading="lazy"
                         >
                         </iframe>
                      </div>
