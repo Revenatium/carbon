@@ -1,159 +1,210 @@
 $breakpoint-md: 767px !default;
 
-.listItem-2{
-   display: flex;
-   flex-wrap: wrap;
-   &.listItem-2--right {
-      flex-direction: row-reverse;
-   }
-   &.listItem-2--background {
-      &::after {
-         content: "";
-         position: absolute;
-         top: 0;
-         left: 0;
-         right: 0;
-         bottom: 0;
-         background: rgba(0, 0, 0, 0.5);
+.listItem-2 {
+  display: flex;
+  flex-wrap: wrap;
+
+  &.listItem-2--right {
+    flex-direction: row-reverse;
+  }
+
+  &.listItem-2--background {
+    position: relative;
+    height: 100%;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .listItem-2-content {
+      z-index: 1;
+      color: $light-color;
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
+
+    .listItem-2-pic {
+      flex: 0 0 100%;
+      max-width: 100%;
+      position: absolute;
+      inset: 0;
+
+      .listItem-2-deal-discount-amount {
+        display: none;
       }
+    }
+  }
+
+  &.listItem-2--sbs {
+    .listItem-2-content {
+      flex: 0 0 50%;
+      max-width: 50%;
+      background-color: $promo-content-bgcolor;
+      color: $promo-content-txtcolor;
+    }
+
+    .listItem-2-pic {
+      flex: 0 0 50%;
+      max-width: 50%;
       position: relative;
+
+      .listItem-2-deal-discount-amount {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        background: $promo-pill-bgcolor;
+        color: $promo-pill-txtcolor;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: 1.25rem;
+        z-index: 1;
+        box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.35);
+        
+        @media screen and (max-width: $breakpoint-md) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .listItem-2-content {
+    padding: 2rem;
+    text-align: center;
+    align-self: center;
+
+    .listItem-2-top {
+      font-size: .9rem;
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: .225rem;
+      margin-bottom: 1rem;
+    }
+
+    .listItem-2-title {
+      font-size: 2.25rem;
+      margin-bottom: 1rem;
+      line-height: 1.35;
+    }
+
+    .itm-btn-pill {
+      text-decoration: none;
+      background-color: $promo-button-bgcolor;
+      color: $promo-button-txtcolor;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+      border-radius: $promo-button-radius;
+      display: inline-block;
+
+      &:hover {
+        background-color: darken($promo-button-bgcolor, 10%);
+      }
+    }
+  }
+
+  .listItem-2-pic {
+    img {
+      width: 100%;
       height: 100%;
-      .listItem-2-content{
-         z-index: 1;
-         color: $light-color;
-         flex: 0 0 100%;
-         max-width: 100%;
-      }
-      .listItem-2-pic{
-         flex: 0 0 100%;
-         max-width: 100%;
-         position: absolute;
-         inset: 0;
-         .listItem-2-deal-discount-amount{
-            display: none;
-         }
-      }
-   }
-   &.listItem-2--sbs{
-      @media screen and (max-width: $breakpoint-md){
-         position: relative;
-         height: 100%;
-         margin-bottom: 1rem;
-         &::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-         }
-      }
-      .listItem-2-content{
-         flex: 0 0 50%;
-         max-width: 50%;
-         background-color: $promo-content-bgcolor;
-         color: $promo-content-txtcolor;
-         @media screen and (max-width: $breakpoint-md){
-            z-index: 1;
-            color: $light-color;
-            flex: 0 0 100%;
-            max-width: 100%;
-            background: none;
-         }
-      }
-      .listItem-2-pic{
-         flex: 0 0 50%;
-         max-width: 50%;
-         position: relative;
-         @media screen and (max-width: $breakpoint-md){
-            flex: 0 0 100%;
-            max-width: 100%;
-            position: absolute;
-            inset: 0;            
-         }
-         .listItem-2-deal-discount-amount{
-            @media screen and (max-width: $breakpoint-md) {
-               display: none;
-            }
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background: $promo-pill-bgcolor;
-            color: $promo-pill-txtcolor;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.25rem;
-            z-index: 1;
-            box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.35);
-         }
-      }
-   }
-   .listItem-2-content{
-      padding: 2rem;
-      text-align: center;
-      align-self: center;
-      .listItem-2-top{
-         font-size: .9rem;
-         font-weight: 300;
-         text-transform: uppercase;
-         letter-spacing: .225rem;
-         margin-bottom: 1rem;
-      }
-      .listItem-2-title{
-         font-size: 2.25rem;
-         margin-bottom: 1rem;
-         line-height: 1.35;
-      }
-      .itm-btn-pill{
-         text-decoration: none;
-         background-color: $promo-button-bgcolor;
-         color: $promo-button-txtcolor;
-         font-weight: bold;
-         padding: 0.5rem 1rem;
-         border-radius: $promo-button-radius;
-         display: inline-block;
-         &:hover{
-            background-color: darken($color: $promo-button-bgcolor, $amount: 10);
-         }
-      }
-   }
-   .listItem-2-pic{
-      img{
-         width: 100%;
-         height: 100%;
-         object-fit: cover;
-      }
-   }
-}
+      object-fit: cover;
+    }
+  }
 
-.listItem-2-deal-includes{
-   margin: 0
-}
+  @media screen and (max-width: $breakpoint-md) {
+    flex-direction: column !important;
+    flex-wrap: nowrap;
 
-.listItem-2-deal-terms-dropdown{
-   margin-bottom: 1rem;
-   .dropdown-toggle{
-      color: inherit;
-      font-weight: 600;
-      &::after{
+    &.listItem-2--sbs {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: auto;
+      margin-bottom: 1rem;
+
+      .listItem-2-pic {
+        flex: 0 0 100%;
+        max-width: 100% !important;
+        order: -1; // Imagen arriba
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .listItem-2-content {
+        flex: 0 0 100%;
+        max-width: 100% !important;
+        order: 1; // Texto abajo
+        background: none;
+      }
+    }
+
+    &.listItem-2--background {
+      position: relative;
+      height: auto;
+      &::after {
          display: none;
       }
-   }
+      .listItem-2-content {
+        z-index: 1;
+        color: $promo-content-txtcolor;
+        flex: 0 0 50%;
+        max-width: 100%;
+        width: 100%;
+        height: auto;
+      }
+
+      .listItem-2-pic {
+        flex: 0 0 50%;
+        max-width: 100%;
+        position: relative;
+        inset: 0;
+        order: -1;
+
+        .listItem-2-deal-discount-amount {
+          display: none;
+        }
+      }
+    }
+  }
 }
 
-.listItem-2-deal-includes-list{
-   display: inline-block;
-   text-align: left;
-   list-style: disc;
+.listItem-2-deal-includes {
+  margin: 0;
+}
+
+.listItem-2-deal-terms-dropdown {
+  margin-bottom: 1rem;
+
+  .dropdown-toggle {
+    color: inherit;
+    font-weight: 600;
+
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.listItem-2-deal-includes-list {
+  display: inline-block;
+  text-align: left;
+  list-style: disc;
 }
 
 .deals-grid {
-   display: grid;
-   grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas grandes */
-   @media (max-width: 991px) {
-     grid-template-columns: 1fr; /* Una columna en móviles */
-     row-gap: 1rem;
-   }
- }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Dos columnas en pantallas grandes */
+  grid-auto-rows: minmax(100px, auto);
+
+  @media (max-width: 991px) {
+    grid-template-columns: 1fr; /* Una columna en móviles */
+    row-gap: 1rem;
+  }
+
+  align-items: stretch;
+}
