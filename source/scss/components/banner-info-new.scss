@@ -13,6 +13,9 @@
 .itm-simple-info,
 .itm-banner-info-new{
    width: 80%;
+   @media screen and (max-width: 767px){
+      width: 90%;
+   }
    h1{
       font-size: 1.5rem;
    }
@@ -47,7 +50,7 @@
       font-weight: bold;
       padding: 0.5rem 1rem;
       border-radius: $banner-solid-button-radius;
-      margin-top: 1rem;
+      display: inline-block;
       &:hover{
          background-color: darken($color: $banner-solid-button-bgcolor, $amount: 10);
       }

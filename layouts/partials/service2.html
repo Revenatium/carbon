@@ -1,5 +1,6 @@
 {{ $url := .url }}
 {{ $base := .imageBase }}
+{{ $version := .version }}
 {{ $min := 0 }}
 {{ $currency := "" }}
 {{ $hotelId := "" }}
@@ -12,10 +13,10 @@
 {{ with .service}}
    {{ $chargeType := .chargeType }}
    {{ if gt (len .hotels) 0 }}
-   {{ $auxHotel := index .hotels 0}}
-   {{ $hotelId = $auxHotel.hotelId }}
+      {{ $auxHotel := index .hotels 0}}
+      {{ $hotelId = $auxHotel.hotelId }}
    {{ else }}
-   {{ $hotelId = $.Page.Params.id }}
+      {{ $hotelId = $.Page.Params.id }}
    {{ end }}
    <div class="list-item-grid-top">
    <div class="item-image-container">
@@ -73,11 +74,19 @@
                   </div>
                   <div class="itm-modal-services-widget">
                      <div class="itm-modal-services-widget-container">
+                        {{ if eq $version "2" }}
+                        <iframe
+                           src='{{ $url }}&dev-onlyShowForm=SERVICES{{ if ge $hotelId 0 }}&dev-hotel={{$hotelId}}{{ end }}{{ if $.Page.Params.serviceType }}&dev-serviceType={{ $.Page.Params.serviceType }}{{ end }}&dev-service={{ .id }}'
+                           frameborder="0"
+                           loading="lazy"
+                        >
+                        {{ else }}
                         <iframe
                            src='{{ $url }}&only-show-form=SERVICES{{ if ge $hotelId 0 }}&hotel={{$hotelId}}{{ end }}{{ if $.Page.Params.serviceType }}&service-type={{ $.Page.Params.serviceType }}{{ end }}&service={{ .id }}'
                            frameborder="0"
                            loading="lazy"
                         >
+                        {{ end }}
                         </iframe>
                      </div>
                   </div>

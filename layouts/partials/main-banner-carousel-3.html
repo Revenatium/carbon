@@ -13,13 +13,16 @@
    {{ $isVertical = false }}
 {{ end }}
 
-{{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new" "itm-stage-3") }}
+{{ if eq .Params.banner.fullscreen true }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
+{{ end }}
 {{ if ne $isVertical true }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
 {{ else }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--vertical") }}
 {{ end }}
-{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "itm-carousel-3") }}
 {{ if eq .Params.banner.fade true }}
 {{ $customScratch.Add "bannerContainerClasses" (slice "carousel-fade") }}
 {{ end }}

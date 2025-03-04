@@ -20,9 +20,11 @@
       {{ $serviceId = . }}
    {{ end }}
    {{ $url := "" }}
+   {{ $version := "1" }}
    {{ if .Site.Params.newBookerURL }}
    {{ $url = replace .Site.Params.newBookerURL "[file]" "" }}
    {{ $url = print $url "&dev-account=" .Site.Params.account }}
+   {{ $version = "2"}}
    {{ else }}
    {{ $url = .Site.Params.bookerURL }}
    {{ $url = replace $url "bundle.js" "index.html?embeded=true" }}
@@ -32,7 +34,7 @@
          {{ range where (where $items "isActive" true) "addonType" . }}
             {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
                <div class="list-item-grid">
-                  {{ partial "service2" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "url" $url) }}
+                  {{ partial "service2" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "url" $url "version" $version) }}
                </div>
             {{ end }}
          {{ end }}
@@ -40,7 +42,7 @@
          {{ range where $items "isActive" true }}
             {{ if or (eq (int $serviceId) 0) (eq (int .id) (int $serviceId)) }}
                <div class="list-item-grid">
-                  {{ partial "service2" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "url" $url) }}
+                  {{ partial "service2" (dict "service" . "bookingEngineURL" $.Site.Params.bookingEngineURL "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "url" $url "version" $version) }}
                </div>
             {{ end }}
          {{ end }}

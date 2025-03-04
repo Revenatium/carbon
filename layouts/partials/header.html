@@ -1,6 +1,6 @@
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "headerClasses" (slice "itm-header") }}
-{{ if eq .Params.bannerFullScreen true }}
+{{ if or (eq .Params.bannerFullScreen true) (eq .Params.banner.fullscreen true) }}
    {{ $customScratch.Add "headerClasses" (slice "itm-header--fullscreen") }}
 {{ end }}
 {{ if eq .Params.topbarTransparent true }}
