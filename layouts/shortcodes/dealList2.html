@@ -5,6 +5,15 @@
    {{ $containerType := "list--fullpage"}}
    {{ $alignment := "" }}
    {{ $imageAsBackground := false }}
+   {{ with .Get "label" }}
+{{ $labels = $labels | append . }}
+{{ end }}
+{{ $hotelIds := slice  }}
+{{ if and .Site.Params.api.promotions.hotelsIds }}
+  {{ range .Site.Params.api.promotions.hotelsIds }}
+    {{ $hotelIds = $hotelIds | append . }}
+  {{ end }}
+{{ end }}
    {{ with .Get "items" }}
       {{ $many = . }}
    {{ end }}
@@ -39,23 +48,25 @@
    {{ if eq $imageAsBackground "true" }}
       <div class="deals-grid">
       {{ range $index, $deal := first $many (where $deals "isActive" true) }}
+      {{ $url := partial "buildUrl" (dict "deal" $deal "bookingEngineURL" $.Site.Params.bookingEngineURL) }}
          <div class="deal-item">
-            {{ partial "deal2" (dict "deal" $deal "imageAsBackground" "true" "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+            {{ partial "deal2" (dict "deal" $deal "url" $url "imageAsBackground" "true" "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
          </div>
       {{ end }}
       </div>
    {{ else }}
       {{ range $index, $deal := first $many (where $deals "isActive" true) }}
+      {{ $url := partial "buildUrl" (dict "deal" .deal "bookingEngineURL" $.Site.Params.bookingEngineURL) }}
          {{ if eq $alignment "both" }}
             {{ if not (modBool $index 2) }}
-               {{ partial "deal2" (dict "deal" $deal "alignment" "right"  "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+               {{ partial "deal2" (dict "deal" $deal "url" $url "alignment" "right"  "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "bookingEngineURL" $.Site.Params.bookingEngineURL) }}
             {{ else }}
-               {{ partial "deal2" (dict "deal" $deal "alignment" "left"  "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+               {{ partial "deal2" (dict "deal" $deal "url" $url "alignment" "left"  "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
             {{ end }}
          {{ else if or (eq $alignment "left") (eq $alignment "right") }}
-            {{ partial "deal2" (dict "deal" $deal "alignment" $alignment  "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket) }}
+            {{ partial "deal2" (dict "deal" $deal "url" $url "alignment" $alignment  "version" $version "imageBase" $.Site.Params.imageBase "imageBucket" $.Site.Params.imageBucket "bookingEngineURL" $.Site.Params.bookingEngineURL) }}
          {{ end }}
       {{ end }}
    {{ end }}
 </div>
-{{ end }}
+ {{ end }}

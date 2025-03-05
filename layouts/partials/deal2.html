@@ -4,7 +4,7 @@
 {{ $showHotel := .showHotel }}
 {{ $alignment := .alignment }}
 {{ $imageAsBackground := .imageAsBackground }}
-
+{{ $url := .url }}
 {{ with .deal }}
 {{ $lastTravelDate := time .lastTravelWindowDate }}
 {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
@@ -68,7 +68,7 @@
             </ul>
          </div>
       </div>
-      <a href="{{ $bookingEngineURL }}" class="itm-btn-pill">{{ i18n "deal.seeNow"}}</a>
+      <a href="{{ $url}}" class="itm-btn-pill">{{ i18n "deal.seeNow"}}</a>
    </div>
    <div class="listItem-2-pic">
       {{ if and (.discountPercentage) (gt .discountPercentage 0) }}
