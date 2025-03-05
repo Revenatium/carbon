@@ -1,0 +1,209 @@
+{{ $many := 20 }}
+{{ $alignment := "both" }}
+{{ $imageAsBackground := "false" }}
+{{ with .Get "items" }}
+{{ $many = . }}
+{{ end }}
+{{  with .Get "alignment" }}
+{{ $alignment = . }}
+{{ end }}
+{{ with .Get "imageAsBackground" }}
+{{ $imageAsBackground = . }}
+{{ end }}
+{{ $labels := slice }}
+{{ with .Get "label" }}
+{{ $labels = $labels | append . }}
+{{ end }}
+{{ $hotelIds := slice  }}
+{{ if and .Site.Params.api.promotions.hotelsIds }}
+  {{ range .Site.Params.api.promotions.hotelsIds }}
+    {{ $hotelIds = $hotelIds | append . }}
+  {{ end }}
+{{ end }}
+
+<div class="container container-promos">
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+  {{ with .Get "showCategories"}}
+    <div class="deal-categories-container hidden">
+      <ul class="nav nav-tabs deal-categories-list">
+        <li class="nav-item">
+            <a class="itm-cat-nav nav-link active">{{ i18n "allPromotions"}}</a>
+        </li>
+      </ul>
+    </div>
+  {{ end }}
+  {{ with .Get "showHotelFilter"}}
+    <div id="itm-promotions-hotel-selector" class="itm-promotions-dropdown dropdown mb-4 hidden">
+      <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ i18n "hotel"}}: <strong id="hotel-filter-name">{{ i18n "allHotels"}}</strong>
+      </button>
+      <div id="itm-hotels-options" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a id="itm-all-hotels-in-promotion" class="itm-promotions-dropdown-item dropdown-item">{{ i18n "allHotels" }}</a>
+      </div>
+    </div>
+  {{ end }}
+  <div id="promotions" class="dealList-2">
+   
+  </div>
+</div>
+
+<script type="text/javascript">
+  const resources = {
+    promotion: '{{ i18n "promotion" }}',
+    dealTerms: '{{ i18n "dealTerms" }}',
+    bookingDates: '{{ i18n "bookingDates" }}',
+    travelDates: '{{ i18n "travelDates" }}',
+    bookNow: '{{ i18n "bookNow" }}',
+    dealIncludes: '{{ i18n "dealIncludes" }}',
+    seeNow: '{{ i18n "deal.seeNow" }}'
+  };
+
+  window.addEventListener("DOMContentLoaded", async () => {
+    const labels = "{{$labels}}".replace(/\[|\]/g,'');
+    const hotelList = "{{$hotelIds}}".replace(/\[|\]/g,'');
+    const alignment = "{{$alignment}}";
+    const imageAsBackground = "{{$imageAsBackground}}";
+    const max = parseInt("{{$many}}" || 20);
+    const markup = await $.ajax({ method: "GET", url: "/promotion2.handlebars"});
+    const template = Handlebars.compile(markup);
+    let promotions = (await $.ajax({
+        method: "GET",
+        url: "{{ .Site.Params.api.promotions.url }}",
+    })).filter(p => p.isActive);
+
+    if (labels) {
+      const validLables = labels.split(',');
+      promotions = promotions.filter(p => p.labels.some(l => validLables.includes(l)));
+    }
+
+    if (hotelList) {
+      const validHotelList = hotelList.split(' ').map(h => parseInt(h));
+      promotions = promotions.filter(p => hotelList.includes(p.hotel.id)).sort((a, b) => {
+        const aIndex = validHotelList.indexOf(a?.hotel?.id);
+        const bIndex = validHotelList.indexOf(b?.hotel?.id);
+        return aIndex - bIndex;
+      });
+    }
+
+    promotions = promotions.slice(0, max);
+
+    $(".loader-container").hide();
+    buildCategories(promotions);
+    buildHotelsOptions(promotions);
+
+    Handlebars.registerHelper('eq', function(a, b) {
+      if (a == b) {
+        return true; 
+      } else {
+        return false 
+      }
+    });
+    Handlebars.registerHelper('modBool', function(value, divisor) {
+      return value % divisor === 0;
+    });
+
+   
+    $("#promotions").append(template({
+      promotions: promotions.map(promotion => ({
+        base: "{{$.Site.Params.imageBase}}",
+        bucket: "{{$.Site.Params.imageBucket}}",
+        photo: promotion.photos?.[0]?.path ?? "",
+        categories: promotion.categories.map(c => c.categoryPromotionId).join(","),
+        hotelId: promotion.hotel.id,
+        hasDiscountPercentage: promotion.discountPercentage > 0,
+        discountPercentageComplete: promotion.discountPercentageComplete,
+        title: promotion.title,
+        description: promotion.description,
+        showHotel: "{{.Site.Params.promotionsShowHotel}}" === "true",
+        hotel: promotion.hotel,
+        travelWindowPeriods: promotion.travelWindowPeriods,
+        bookingWindowPeriods: promotion.bookingWindowPeriods,
+        termsAndConditions: promotion.termsAndConditions,
+        includesDescription: promotion.includesDescription,
+        termsAndConditions: promotion.termsAndConditions,
+        url: buildUrl(promotion),
+        alignment: "{{$alignment}}",
+        imageAsBackground: "{{$imageAsBackground}}" === "true" ,
+        resources
+      })),
+    
+      alignment: "{{$alignment}}",
+      imageAsBackground: "{{$imageAsBackground}}" === "true" 
+    }));
+    
+   
+   
+  });
+
+
+  function buildHotelsOptions(promotions) {
+    let hotels = new Map();
+    promotions.forEach(promotion => {
+      hotels.set(promotion.hotel.id, promotion.hotel.name)
+    });
+
+    hotels.forEach((value, key) => {
+      $("#itm-hotels-options").append(`<a class="itm-promotions-dropdown-item dropdown-item" data-hotelId="${key}">${value}</a>`)
+    });
+
+    if (hotels.size > 0) {
+      $("#itm-promotions-hotel-selector").show();
+    }
+  }
+
+  function buildCategories(promotions) {
+    let categories = new Map();
+    promotions.forEach(promotion => {
+      promotion.categories.forEach(cat => {
+        categories.set(cat.categoryPromotionId, cat.text)
+      });
+    });
+
+    [...categories.entries()].forEach(([key, value]) => {
+      $(".deal-categories-list").append(`
+        <a class="itm-cat-nav nav-link" data-categoryId="${key}">${value}</a>
+      `);
+    });
+
+    if (categories.size > 0) {
+      $(".deal-categories-container").show();
+    }
+  }
+
+  function buildUrl(promotion) {
+    const showHotel =  "{{.Site.Params.promotionsShowHotel}}" === "true";
+    const bookingEngineURL = "{{.Site.Params.bookingEngineURL}}";
+    let url = `${bookingEngineURL}${showHotel ? `${promotion.hotel.id}/` : ""}`;
+
+    const [year, month, day] = promotion.lastTravelWindowDate.split("-")
+    const lastTravelWindowDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    const startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+    startDate.setTime(startDate.getTime() - ((24*60*60*1000) * 2));
+
+    if (promotion.externalUrl) {
+      return promotion.externalUrl
+        .replace("{startDate}", formatDate(startDate))
+        .replace("{endDate}", formatDate(lastTravelWindowDate))
+        .replace("{rooms}", 1)
+        .replace("{adults}", 2)
+        .replace("{children}", 0)
+        .replace("{childrenAges}", "");
+    }
+
+    url = `${url}rooms?checkIn=${formatDate(startDate)}&checkOut=${formatDate(lastTravelWindowDate)}&rooms[0].adults=2&rooms[0].children=0`;
+
+    if (promotion.promotionCode) {
+      url = `${url}&pc=${promotion.promotionCode}`;
+    }
+
+    return url;
+  }
+
+  function formatDate(date) {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit'}
+    return date.toLocaleDateString("es-mx", options).split('/').reverse().join('-')
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>

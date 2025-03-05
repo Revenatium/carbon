@@ -1,0 +1,303 @@
+
+<div class=" dealList-2">
+   {{#if imageAsBackground}}
+      <div class="deals-grid">
+         {{#each promotions as |promotion index|}}
+            <div class="deal-item listItem-deal"  data-categories="{{ categories }}" data-hotelId="{{hotelId}}">
+
+                <div class="listItem-2
+      {{#if (eq alignment 'right')}} listItem-2--right{{/if}}
+      {{#if  imageAsBackground }} listItem-2--background{{else}} listItem-2--sbs{{/if}}"
+      data-categories="{{categories}}" 
+      data-hotelId="{{hotelId}}">
+  
+      <div class="listItem-2-content">
+        <h2 class="listItem-2-top">{{{description}}}</h2>
+        <p class="listItem-2-title">{{{title}}}</p>
+        <p class="listItem-2-deal-includes">{{resources/dealIncludes}}</p>
+        <ul class="listItem-2-deal-includes-list">
+          {{#each includesDescription}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+        <div class="dropdown listItem-2-deal-terms-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           {{resources/dealTerms}}</a>
+          <div class="dropdown-menu">
+             <ul>
+              {{#each termsAndConditions}}
+                <li>{{this}}</li>
+              {{/each}}
+              <li>
+                {{resources/bookingDates}}:
+                <ul>
+                  {{#each bookingWindowPeriods}}
+                    <li>{{description}}</li>
+                  {{/each}}
+                </ul>
+              </li>
+              <li>
+                {{resources/travelDates }}:
+                <ul>
+                  {{#each travelWindowPeriods}}
+                    <li>{{description}}</li>
+                  {{/each}}
+                </ul>
+              </li>
+            </ul> 
+          </div> 
+        </div>
+        <a href="{{url}}" class="itm-btn-pill">{{resources/seeNow}}</a>
+      </div>
+  
+      <div class="listItem-2-pic">
+        {{#if discountPercentage}}
+          {{#if (gt discountPercentage 0)}}
+            <p class="listItem-2-deal-discount-amount">{{discountPercentageComplete}}</p>
+          {{/if}}
+        {{/if}}
+          <img src="{{base}}f_auto,h_252,w_448,c_fill/{{bucket}}/{{photo}}" alt="{{title}}">
+      </div>
+    </div>
+            </div>
+         {{/each}}
+      </div>
+   {{else}}
+      {{#each promotions as |promotion index|}}
+         {{#if (eq alignment "both")}}
+            {{#if (eq (modBool index 2) 0)}}
+            <div class="deal-item " data-categories="{{ categories }}" data-hotelId="{{hotelId}}">
+               
+                <div class="listItem-2
+      {{#if (eq alignment "right")}} listItem-2--right{{/if}}
+      {{#if  imageAsBackground }} listItem-2--background{{else}} listItem-2--sbs{{/if}}"
+      data-categories="{{categories}}" 
+      data-hotelId="{{hotelId}}">
+  
+      <div class="listItem-2-content">
+        <h2 class="listItem-2-top">{{{description}}}</h2>
+        <p class="listItem-2-title">{{{title}}}</p>
+        <p class="listItem-2-deal-includes">{{resources/dealIncludes}}</p>
+        <ul class="listItem-2-deal-includes-list">
+          {{#each includesDescription}}
+            <li>{{this}}</li>
+          {{/each}}
+        </ul>
+        <div class="dropdown listItem-2-deal-terms-dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           {{resources/dealTerms}}</a>
+          <div class="dropdown-menu">
+             <ul>
+              {{#each termsAndConditions}}
+                <li>{{this}}</li>
+              {{/each}}
+              <li>
+                {{resources/bookingDates}}:
+                <ul>
+                  {{#each bookingWindowPeriods}}
+                    <li>{{description}}</li>
+                  {{/each}}
+                </ul>
+              </li>
+              <li>
+                {{resources/travelDates }}:
+                <ul>
+                  {{#each travelWindowPeriods}}
+                    <li>{{description}}</li>
+                  {{/each}}
+                </ul>
+              </li>
+            </ul> 
+          </div> 
+        </div>
+        <a href="{{url}}" class="itm-btn-pill">{{resources/seeNow}}</a>
+      </div>
+  
+      <div class="listItem-2-pic">
+        {{#if discountPercentage}}
+          {{#if (gt discountPercentage 0)}}
+            <p class="listItem-2-deal-discount-amount">{{discountPercentageComplete}}</p>
+          {{/if}}
+        {{/if}}
+          <img src="{{base}}f_auto,h_252,w_448,c_fill/{{bucket}}/{{photo}}" alt="{{title}}">
+      </div>
+    </div>
+            </div>
+            {{else}}
+               <div class="deal-item " data-categories="{{ categories }}" data-hotelId="{{hotelId}}">          
+                     <div class="listItem-2
+                      listItem-2--right
+                     {{#if  imageAsBackground }} listItem-2--background{{else}} listItem-2--sbs{{/if}}"
+                     data-categories="{{categories}}" 
+                     data-hotelId="{{hotelId}}">
+               
+                     <div class="listItem-2-content">
+                     <h2 class="listItem-2-top">{{{description}}}</h2>
+                     <p class="listItem-2-title">{{{title}}}</p>
+                     <p class="listItem-2-deal-includes">{{resources/dealIncludes}}</p>
+                     <ul class="listItem-2-deal-includes-list">
+                        {{#each includesDescription}}
+                           <li>{{this}}</li>
+                        {{/each}}
+                     </ul>
+                     <div class="dropdown listItem-2-deal-terms-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{resources/dealTerms}}</a>
+                        <div class="dropdown-menu">
+                           <ul>
+                           {{#each termsAndConditions}}
+                              <li>{{this}}</li>
+                           {{/each}}
+                           <li>
+                              {{resources/bookingDates}}:
+                              <ul>
+                                 {{#each bookingWindowPeriods}}
+                                 <li>{{description}}</li>
+                                 {{/each}}
+                              </ul>
+                           </li>
+                           <li>
+                              {{resources/travelDates }}:
+                              <ul>
+                                 {{#each travelWindowPeriods}}
+                                 <li>{{description}}</li>
+                                 {{/each}}
+                              </ul>
+                           </li>
+                           </ul> 
+                        </div> 
+                     </div>
+                     <a href="{{url}}" class="itm-btn-pill">{{resources/seeNow}}</a>
+                     </div>
+               
+                     <div class="listItem-2-pic">
+                     {{#if discountPercentage}}
+                        {{#if (gt discountPercentage 0)}}
+                           <p class="listItem-2-deal-discount-amount">{{discountPercentageComplete}}</p>
+                        {{/if}}
+                     {{/if}}
+                        <img src="{{base}}f_auto,h_252,w_448,c_fill/{{bucket}}/{{photo}}" alt="{{title}}">
+                     </div>
+                  </div>
+            </div>
+            {{/if}}
+             {{/if}}
+         {{#if (eq alignment "right") }}
+            <div class="deal-item listItem-deal"  data-categories="{{ categories }}" data-hotelId="{{hotelId}}">          
+                  <div class="listItem-2
+                  {{#if (eq alignment 'right')}} listItem-2--right{{/if}}
+                  {{#if  imageAsBackground }} listItem-2--background{{else}} listItem-2--sbs{{/if}}"
+                  data-categories="{{categories}}" 
+                  data-hotelId="{{hotelId}}">
+            
+                  <div class="listItem-2-content">
+                  <h2 class="listItem-2-top">{{{description}}}</h2>
+                  <p class="listItem-2-title">{{{title}}}</p>
+                  <p class="listItem-2-deal-includes">{{resources/dealIncludes}}</p>
+                  <ul class="listItem-2-deal-includes-list">
+                     {{#each includesDescription}}
+                        <li>{{this}}</li>
+                     {{/each}}
+                  </ul>
+                  <div class="dropdown listItem-2-deal-terms-dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     {{resources/dealTerms}}</a>
+                     <div class="dropdown-menu">
+                        <ul>
+                        {{#each termsAndConditions}}
+                           <li>{{this}}</li>
+                        {{/each}}
+                        <li>
+                           {{resources/bookingDates}}:
+                           <ul>
+                              {{#each bookingWindowPeriods}}
+                              <li>{{description}}</li>
+                              {{/each}}
+                           </ul>
+                        </li>
+                        <li>
+                           {{resources/travelDates }}:
+                           <ul>
+                              {{#each travelWindowPeriods}}
+                              <li>{{description}}</li>
+                              {{/each}}
+                           </ul>
+                        </li>
+                        </ul> 
+                     </div> 
+                  </div>
+                  <a href="{{url}}" class="itm-btn-pill">{{resources/seeNow}}</a>
+                  </div>
+            
+                  <div class="listItem-2-pic">
+                  {{#if discountPercentage}}
+                     {{#if (gt discountPercentage 0)}}
+                        <p class="listItem-2-deal-discount-amount">{{discountPercentageComplete}}</p>
+                     {{/if}}
+                  {{/if}}
+                     <img src="{{base}}f_auto,h_252,w_448,c_fill/{{bucket}}/{{photo}}" alt="{{title}}">
+                  </div>
+               </div>
+            </div>
+         {{/if}}
+         {{#if (eq alignment "left") }}
+            <div class="deal-item listItem-deal" data-categories="{{ categories }}" data-hotelId="{{hotelId}}">          
+                  <div class="listItem-2
+                  {{#if  imageAsBackground }} listItem-2--background{{else}} listItem-2--sbs{{/if}}"
+                  data-categories="{{categories}}" 
+                  data-hotelId="{{hotelId}}">
+            
+                  <div class="listItem-2-content">
+                  <h2 class="listItem-2-top">{{{description}}}</h2>
+                  <p class="listItem-2-title">{{{title}}}</p>
+                  <p class="listItem-2-deal-includes">{{resources/dealIncludes}}</p>
+                  <ul class="listItem-2-deal-includes-list">
+                     {{#each includesDescription}}
+                        <li>{{this}}</li>
+                     {{/each}}
+                  </ul>
+                  <div class="dropdown listItem-2-deal-terms-dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     {{resources/dealTerms}}</a>
+                     <div class="dropdown-menu">
+                        <ul>
+                        {{#each termsAndConditions}}
+                           <li>{{this}}</li>
+                        {{/each}}
+                        <li>
+                           {{resources/bookingDates}}:
+                           <ul>
+                              {{#each bookingWindowPeriods}}
+                              <li>{{description}}</li>
+                              {{/each}}
+                           </ul>
+                        </li>
+                        <li>
+                           {{resources/travelDates }}:
+                           <ul>
+                              {{#each travelWindowPeriods}}
+                              <li>{{description}}</li>
+                              {{/each}}
+                           </ul>
+                        </li>
+                        </ul> 
+                     </div> 
+                  </div>
+                  <a href="{{url}}" class="itm-btn-pill">{{resources/seeNow}}</a>
+                  </div>
+            
+                  <div class="listItem-2-pic">
+                  {{#if discountPercentage}}
+                     {{#if (gt discountPercentage 0)}}
+                        <p class="listItem-2-deal-discount-amount">{{discountPercentageComplete}}</p>
+                     {{/if}}
+                  {{/if}}
+                     <img src="{{base}}f_auto,h_252,w_448,c_fill/{{bucket}}/{{photo}}" alt="{{title}}">
+                  </div>
+               </div>
+             </div>
+         {{/if}}
+      {{/each}}
+   {{/if}}
+</div>
+
