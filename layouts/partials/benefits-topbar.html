@@ -1,0 +1,21 @@
+{{ $benefits := getJSON $.Site.Params.api.benefits.name }}
+{{ if (gt (len $benefits) 1) }}
+<div class="benefits-topbar">
+   {{ range  $benefits }}
+   <span class="hidden">{{ .text }}</span>
+   {{ end }}
+</div>
+<script>
+   window.addEventListener("DOMContentLoaded", () => {
+      const benefits = $('.benefits-topbar span');
+      $(benefits[0]).fadeIn( "slow" );
+      let current = 0;
+
+      setInterval(() => {
+         $(benefits[current]).hide();
+         current = (current + 1) % benefits.length;
+         $(benefits[current]).fadeIn( "slow" );
+      }, 4_000)
+   });
+</script>
+{{ end }}

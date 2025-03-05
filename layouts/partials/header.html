@@ -9,8 +9,10 @@
 {{ if eq .Params.navbarTransparent true }}
    {{ $customScratch.Add "headerClasses" (slice "itm-header--navbar-transparent") }}
 {{ end }}
-
 <header class="{{ delimit ($customScratch.Get `headerClasses`) ` ` }}">
+   {{ if (eq $.Site.Params.showBenefitsTopbar true) }}
+      {{ partial "benefits-topbar" . }}
+   {{ end }}
    <!--TOP-->
    {{ partial "topbar" . }}
    <!--NAVBAR-->
