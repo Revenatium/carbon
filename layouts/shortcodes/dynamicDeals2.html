@@ -67,6 +67,10 @@
     const imageAsBackground = "{{$imageAsBackground}}";
     const max = parseInt("{{$many}}" || 20);
     const markup = await $.ajax({ method: "GET", url: "/promotion2.handlebars"});
+
+    const dealItem = await $.ajax({ method: "GET", url: "/dealItem.handlebars"});
+  Handlebars.registerPartial("dealItem", dealItem);
+
     const template = Handlebars.compile(markup);
     let promotions = (await $.ajax({
         method: "GET",
@@ -86,25 +90,16 @@
         return aIndex - bIndex;
       });
     }
-
     promotions = promotions.slice(0, max);
-
     $(".loader-container").hide();
     buildCategories(promotions);
     buildHotelsOptions(promotions);
 
-    Handlebars.registerHelper('eq', function(a, b) {
-      if (a == b) {
-        return true; 
-      } else {
-        return false 
-      }
-    });
+    Handlebars.registerHelper('eq', (a, b) => a == b);
     Handlebars.registerHelper('modBool', function(value, divisor) {
       return value % divisor === 0;
     });
 
-   
     $("#promotions").append(template({
       promotions: promotions.map(promotion => ({
         base: "{{$.Site.Params.imageBase}}",
