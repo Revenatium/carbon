@@ -126,6 +126,8 @@
         url: buildUrl(promotion),
         alignment: "{{$alignment}}",
         imageAsBackground: "{{$imageAsBackground}}" === "true" ,
+        discountPercentage: promotion.discountPercentage,
+        discountPercentageComplete: promotion.discountPercentageComplete,
         resources
       })),
     
