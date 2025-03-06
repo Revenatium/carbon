@@ -204,7 +204,8 @@ $breakpoint-md: 767px !default;
   @media (max-width: 991px) {
     grid-template-columns: 1fr; /* Una columna en móviles */
     row-gap: 1rem;
+    align-items: baseline;
   }
 
-  align-items: stretch;
+  
 }
