@@ -76,7 +76,7 @@
                      <div class="itm-modal-services-widget-container">
                         {{ if eq $version "2" }}
                         <iframe
-                           src='{{ $url }}&dev-onlyShowForm=SERVICES{{ if ge $hotelId 0 }}&dev-hotel={{$hotelId}}{{ end }}{{ if $.Page.Params.serviceType }}&dev-serviceType={{ $.Page.Params.serviceType }}{{ end }}&dev-service={{ .id }}'
+                           src='{{ $url }}&embeded=true&dev-onlyShowForm=SERVICES{{ if ge $hotelId 0 }}&dev-hotel={{$hotelId}}{{ end }}{{ if $.Page.Params.serviceType }}&dev-serviceType={{ $.Page.Params.serviceType }}{{ end }}&dev-service={{ .id }}'
                            frameborder="0"
                            loading="lazy"
                         >
