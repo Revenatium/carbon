@@ -1,0 +1,68 @@
+{{ $galleryPosition := .Get "galleryPosition" }}
+{{ $galleryContainerClass := "col-md-6" }}
+{{ if .Get "galleryContainerClass" }}
+{{ $galleryContainerClass = .Get "galleryContainerClass" }}
+{{ end }}
+{{ $contentContainerClass := "col-md-6" }}
+{{ if .Get "contentContainerClass" }}
+{{ $contentContainerClass = .Get "contentContainerClass" }}
+{{ end }}
+{{ $content := split .Inner "</separator>" }}
+{{ $leftContent := index $content 0 }}
+{{ $gallery := index $content 1 }}
+{{ $id := delimit (shuffle (seq 1 9)) "" }}
+{{$galleryId := print "pageSectionWithSlides-" $id }}
+{{ $spaceBetween := 30 }}
+{{ with .Get "spaceBetween" }}
+   {{ $spaceBetween = . }}
+{{ end }}
+{{ $navigation := "false" }}
+{{ with .Get "navigation" }}
+   {{ $navigation = . }}
+{{ end }}
+{{ $customClass := "" }}
+{{ with .Get "customClass" }}
+   {{ $customClass = . }}
+{{ end }}
+
+<div class="page-section-container page-section-with-slides {{ $customClass }}">
+   <div class="row page-section">
+      <div class="{{ $contentContainerClass }} page-section-content">
+         {{ $leftContent | safeHTML }}
+      </div>
+      <div
+         class="{{ $galleryContainerClass }} page-section-{{ cond (eq $galleryPosition `left`) `order-first` `` }}">
+         {{ if $gallery }}
+            <div id="{{$galleryId}}" class="itm-page-section-gallery swiper">
+               {{ $gallery | safeHTML }}
+               <div id="{{$galleryId}}-scrollbar" class="swiper-scrollbar"></div>
+               <div id="{{$galleryId}}-next" class="swiper-button-next"></div>
+               <div id="{{$galleryId}}-prev" class="swiper-button-prev"></div>
+            </div>
+         {{ end }}
+      </div>
+   </div>
+</div>
+<script>
+   window.addEventListener('load', function() {
+      const swiper = window.getSwiperInstance('#{{$galleryId}}', {
+         slidesPerView: "auto",
+         spaceBetween: parseInt("{{$spaceBetween}}"),
+         freeMode: true,
+         mousewheel: {
+            enabled: true,
+            forceToAxis: true,
+            sensitivity: 0,
+         },
+         scrollbar: {
+            el: "#{{$galleryId}}-scrollbar",
+            hide: false,
+         },
+         navigation: {
+            enabled: "{{$navigation}}" === "true",
+            nextEl: "#{{$galleryId}}-next",
+            prevEl: "#{{$galleryId}}-prev",
+         },
+      });
+   });
+</script>
