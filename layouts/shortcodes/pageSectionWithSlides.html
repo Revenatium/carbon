@@ -31,7 +31,7 @@
          {{ $leftContent | safeHTML }}
       </div>
       <div
-         class="{{ $galleryContainerClass }} page-section-{{ cond (eq $galleryPosition `left`) `order-first` `` }}">
+         class="{{ $galleryContainerClass }} page-section {{ cond (eq $galleryPosition `left`) `order-first` `` }}">
          {{ if $gallery }}
             <div id="{{$galleryId}}" class="itm-page-section-gallery swiper">
                {{ $gallery | safeHTML }}
