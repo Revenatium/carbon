@@ -105,7 +105,8 @@
           .replace("{rooms}", 1)
           .replace("{adults}", 2)
           .replace("{children}", 0)
-          .replace("{childrenAges}", "");
+          .replace("{childrenAges}", "")
+          .replace("&promo={promoCode}", "");
       }
 
       const bookingEngineURL = "{{.Site.Params.bookingEngineURL}}";
