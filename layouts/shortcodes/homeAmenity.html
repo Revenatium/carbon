@@ -1,7 +1,11 @@
 {{ $base := .Get "base" }}
 {{ $path := .Get "path" }}
+{{ $alt := .Get "title" }}
+{{ with .Get "alt" }}
+   {{ $alt = . }}
+{{ end }}
 <a class="home-amenity" href="{{.Get `url`}}">
-    <img class="amenity-img" alt="{{.Get "title"}}" loading="lazy" 
+    <img class="amenity-img" {{with $alt }}alt="{{.}}"{{end}} loading="lazy" 
         src="{{print $base `f_auto,w_635,h_320,c_fill/` $path }}"
         srcset="{{print $base `f_auto,w_635,h_320,c_fill/` $path }} 635w,
              {{print $base `f_auto,w_445,h_320,c_fill/` $path }} 445w,

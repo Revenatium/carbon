@@ -1,5 +1,9 @@
 {{ $base := .Get "base" }}
 {{ $path := .Get "path" }}
+{{ $alt := .Get "title" }}
+{{ with .Get "alt" }}
+   {{ $alt = . }}
+{{ end }}
 {{ $customImgHeight := .Get "imgHeight" }}
 {{ $imgHeight := (cond (ne $customImgHeight ``) $customImgHeight `400`) }}
 {{ $imgHeightNum := (float $imgHeight) }}
@@ -10,7 +14,7 @@
 <div class="row listItem">
    {{ if and $base $path }}
    <div class="listItem-pic">
-      <img class="amenity-img" alt="{{.Get "title"}}" loading="lazy" 
+      <img class="amenity-img" {{with $alt }}alt="{{.}}"{{end}} loading="lazy" 
         src="{{ print $base `f_auto,w_` $imgWidth `,h_` $imgHeight `,c_fill/`  $path }}"
         srcset="{{ print $base `f_auto,w_` $imgWidth `,h_` $imgHeight `,c_fill/` $path }} {{ print $imgWidth `w` }},
                 {{ print $base `f_auto,w_` $imgWidthSmall `,h_` $imgHeightSmall `,c_fill/` $path }} {{ print $imgWidthSmall `w` }}"

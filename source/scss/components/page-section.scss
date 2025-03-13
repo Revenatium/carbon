@@ -8,9 +8,21 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.page-section-img-container {
+    position: relative;
+    min-height: 250px;
+}
+.page-section-img-component{
+   position: absolute;
+   top: 0;
+   object-fit: cover;
+   left: 0;
+   width: 100%;
+   height: 100%;
+}
 @media (min-width:760px) {
     .page-section {
         overflow: hidden;
-        min-height: 60vh;
+        min-height: 300px;
     }
 }

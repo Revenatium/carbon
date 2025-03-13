@@ -28,7 +28,7 @@
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
-   {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) }}
+   {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) "alt" .Params.featured_image.alt }}
    {{ partial "banner2" (dict "banner" $banner "version" $version "main" $) }}
    </div>
    <div class="container itm-banner-info-container itm-banner-info-container--dark">
