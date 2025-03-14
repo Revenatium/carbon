@@ -17,7 +17,7 @@
 <div class="page-section-container">
     <div class="row page-section" style="background-color:{{ .Get `bgColor` }}">
         <div class="page-section-img-container {{ $imageContainerClass }} {{ cond (eq $imgPosition `right`) `order-first order-md-last` `` }}" >
-         <img src="{{print $base `f_auto,w_800,h_600,c_fill` $path }}" {{with $alt }}alt="{{.}}"{{end}} class="page-section-img-component" loading="lazy" />
+         <img src="{{print $base `f_auto,w_800,h_600,c_fill/` $path }}" {{with $alt }}alt="{{.}}"{{end}} class="page-section-img-component" loading="lazy" />
         </div>
         <div class="{{ $contentContainerClass }} page-section-content">
             <div class="p-5">

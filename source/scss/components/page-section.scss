@@ -3,14 +3,14 @@
     padding-right:15px;
 }
 .page-section-img {
-    min-height: 300px;
+    min-height: 40vh;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 .page-section-img-container {
     position: relative;
-    min-height: 250px;
+    min-height: 40vh;
 }
 .page-section-img-component{
    position: absolute;
@@ -23,6 +23,6 @@
 @media (min-width:760px) {
     .page-section {
         overflow: hidden;
-        min-height: 300px;
+        min-height: 60vh;
     }
 }
