@@ -1,5 +1,9 @@
 {{ $base := .Get "bgImgBase" }}
 {{ $path := .Get "bgImgPath" }}
+{{ $alt := .Get "title" }}
+{{ with .Get "alt" }}
+   {{ $alt = . }}
+{{ end }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "classes" (slice "interstitial") }}
 {{ if eq (.Get "bgTheme") "dark" }}
@@ -10,10 +14,13 @@
 {{ if eq (.Get "roundCorners") "true" }}
    {{ $customScratch.Add "classes" (slice "rounded") }}
 {{ end }}
-<div class="{{ delimit ($customScratch.Get `classes`) ` ` }}" {{ if and $base $path }} style="background-image:url({{print $base `f_auto,w_1200,h_800,c_fill/` $path }});" {{ end }}>
+<div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+   {{ if and $base $path }}
+   <img src="{{print $base `f_auto,w_1200,h_800,c_fill/` $path }}" {{with $alt }}alt="{{.}}"{{end}} class="interstitial-img" loading="lazy" />
+   {{ end }}
    <div class="container">
-      {{ if .Get "title" }}
-      <h3>{{ .Get "title" }}</h3>
+      {{ with .Get "title" }}
+      <h3>{{ . }}</h3>
       {{ end }}
       <div class="lead">{{ .Inner }}</div>
       <p><a href="{{ .Get "btnURL" }}" class="btn btn-primary">{{ .Get "btnText" }}</a></p>
