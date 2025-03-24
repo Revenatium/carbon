@@ -28,26 +28,29 @@
    {{ $containerType = "list--fluid"}}
 {{ end }}
 
-{{ if $galleryDbId }}
-   {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryDbId) }}
-   {{ range $index, $element := $gallery.photos }}
-   {{ $items = $items | append $element.path }}
+{{ if and .Site.Params.api .Site.Params.api.gallery.url }}
+
+   {{ if $galleryDbId }}
+      {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryDbId) }}
+      {{ range $index, $element := $gallery.photos }}
+      {{ $items = $items | append $element.path }}
+      {{ end }}
    {{ end }}
-{{ end }}
 
-{{ $len := (len $items) }}
+   {{ $len := (len $items) }}
 
-<div class="{{ $containerType }} {{ $customClass }} grid-gallery">
-   {{ range $index, $element := $items }}
-   <div class="item-img">
-      <a href="{{ print $base $fullAspectRatio $element }}">
-         <img
-            src="{{ print $base $thumbnailAspectRatio $element }}"
-            loading="lazy"
-            fetchPriority="low"
-         />
-         <span>{{ i18n "seeMore"}}</span>
-      </a>
+   <div class="{{ $containerType }} {{ $customClass }} grid-gallery">
+      {{ range $index, $element := $items }}
+      <div class="item-img">
+         <a href="{{ print $base $fullAspectRatio $element }}">
+            <img
+               src="{{ print $base $thumbnailAspectRatio $element }}"
+               loading="lazy"
+               fetchPriority="low"
+            />
+            <span>{{ i18n "seeMore"}}</span>
+         </a>
+      </div>
+      {{ end }}
    </div>
-   {{ end }}
-</div>
+{{ end }}

@@ -38,108 +38,111 @@
    {{ $slidesPerView = . }}
 {{ end }}
 
-{{ if $galleryDbId }}
-   {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryDbId) }}
-   {{ range $index, $element := $gallery.photos }}
-   {{ $items = $items | append $element.path }}
+   {{ if and .Site.Params.api .Site.Params.api.gallery.url }}
+
+   {{ if $galleryDbId }}
+      {{ $gallery := getJSON (replace .Site.Params.api.gallery.name "{galleryId}" $galleryDbId) }}
+      {{ range $index, $element := $gallery.photos }}
+      {{ $items = $items | append $element.path }}
+      {{ end }}
    {{ end }}
-{{ end }}
 
-{{ $len := (len $items) }}
+   {{ $len := (len $items) }}
 
-<div class="itm-gallery-with-thumbnails-container">
-   <div id="{{$galleryId}}" class="itm-gallery-with-thumbnails swiper">
-      <div class="swiper-wrapper">
-         {{ range $index, $element := $items }}
-            <div class="swiper-slide {{ $customClass }}">
-               <a href="{{ print $base $fullAspectRatio $element }}">
+   <div class="itm-gallery-with-thumbnails-container">
+      <div id="{{$galleryId}}" class="itm-gallery-with-thumbnails swiper">
+         <div class="swiper-wrapper">
+            {{ range $index, $element := $items }}
+               <div class="swiper-slide {{ $customClass }}">
+                  <a href="{{ print $base $fullAspectRatio $element }}">
+                     <img
+                        src="{{ print $base $galleryAspectRatio $element }}"
+                        loading="lazy"
+                        fetchPriority="low"
+                     />
+                  </a>
+               </div>
+            {{ end }}
+         </div>
+         <div id="{{$galleryId}}-next" class="swiper-button-next"></div>
+         <div id="{{$galleryId}}-prev" class="swiper-button-prev"></div>
+      </div>
+      <div id="{{$galleryId}}-thumbnails" class="itm-gallery-thumbnails swiper">
+         <div class="swiper-wrapper">
+            {{ range $index, $element := $items }}
+               <div class="swiper-slide">
                   <img
-                     src="{{ print $base $galleryAspectRatio $element }}"
+                     src="{{ print $base $thumbnailAspectRatio $element }}"
                      loading="lazy"
                      fetchPriority="low"
                   />
-               </a>
-            </div>
-         {{ end }}
+               </div>
+            {{ end }}
+         </div>
+         <div id="{{$galleryId}}-thumbnails-scrollbar" class="swiper-scrollbar"></div>
       </div>
-      <div id="{{$galleryId}}-next" class="swiper-button-next"></div>
-      <div id="{{$galleryId}}-prev" class="swiper-button-prev"></div>
    </div>
-   <div id="{{$galleryId}}-thumbnails" class="itm-gallery-thumbnails swiper">
-      <div class="swiper-wrapper">
-         {{ range $index, $element := $items }}
-            <div class="swiper-slide">
-               <img
-                  src="{{ print $base $thumbnailAspectRatio $element }}"
-                  loading="lazy"
-                  fetchPriority="low"
-               />
-            </div>
-         {{ end }}
-      </div>
-      <div id="{{$galleryId}}-thumbnails-scrollbar" class="swiper-scrollbar"></div>
-   </div>
-</div>
 
-<script>
-   window.addEventListener('load', function() {
-      const galleryLenght = Number("{{$len}}");
-      const slidesPerView = Number("{{$slidesPerView}}");
+   <script>
+      window.addEventListener('load', function() {
+         const galleryLenght = Number("{{$len}}");
+         const slidesPerView = Number("{{$slidesPerView}}");
 
-      const swiperThumbnails = window.getSwiperInstance('#{{$galleryId}}-thumbnails', {
-         loop: true,
-         spaceBetween: 10,
-         watchSlidesProgress: true,
-         slideToClickedSlide: true,
-         centeredSlides: galleryLenght > slidesPerView,
-         centeredSlidesBounds: true,
-         slidesPerView: slidesPerView - 1,
-         mousewheel: {
-            enabled: true,
-            forceToAxis: true,
-            sensitivity: 0,
-         },
-         scrollbar: {
-            el: "#{{$galleryId}}-thumbnails-scrollbar",
-            hide: false,
-         },
-      });
+         const swiperThumbnails = window.getSwiperInstance('#{{$galleryId}}-thumbnails', {
+            loop: true,
+            spaceBetween: 10,
+            watchSlidesProgress: true,
+            slideToClickedSlide: true,
+            centeredSlides: galleryLenght > slidesPerView,
+            centeredSlidesBounds: true,
+            slidesPerView: slidesPerView - 1,
+            mousewheel: {
+               enabled: true,
+               forceToAxis: true,
+               sensitivity: 0,
+            },
+            scrollbar: {
+               el: "#{{$galleryId}}-thumbnails-scrollbar",
+               hide: false,
+            },
+         });
 
-      const swiper = window.getSwiperInstance('#{{$galleryId}}', {
-         loop: true,
-         slidesPerView: 1,
-         spaceBetween: parseInt("{{$spaceBetween}}"),
-         freeMode: true,
-         scrollbar: {
-            el: "#{{$galleryId}}-scrollbar",
-            hide: false,
-         },
-         navigation: {
-            enabled: "{{$navigation}}" === "true",
-            nextEl: "#{{$galleryId}}-next",
-            prevEl: "#{{$galleryId}}-prev",
-         },
-         thumbs: {
-            autoScrollOffset: 10,
-            multipleActiveThumbs: false,
-            swiper: swiperThumbnails,
-         },
-      });
+         const swiper = window.getSwiperInstance('#{{$galleryId}}', {
+            loop: true,
+            slidesPerView: 1,
+            spaceBetween: parseInt("{{$spaceBetween}}"),
+            freeMode: true,
+            scrollbar: {
+               el: "#{{$galleryId}}-scrollbar",
+               hide: false,
+            },
+            navigation: {
+               enabled: "{{$navigation}}" === "true",
+               nextEl: "#{{$galleryId}}-next",
+               prevEl: "#{{$galleryId}}-prev",
+            },
+            thumbs: {
+               autoScrollOffset: 10,
+               multipleActiveThumbs: false,
+               swiper: swiperThumbnails,
+            },
+         });
 
-      $("#{{$galleryId}}").each(function () {
-         window.showMagnificGallery($(this), {
-            delegate: "a",
-            type: "image",
-            gallery: { enabled: true },
-            grabCursor: true,
-            callbacks: {
-               change: function() {
-                  const instance = $.magnificPopup.instance;
-                  swiper.slideTo(instance.index);
-                  swiperThumbnails.slideTo(instance.index);
-               },
-            }
+         $("#{{$galleryId}}").each(function () {
+            window.showMagnificGallery($(this), {
+               delegate: "a",
+               type: "image",
+               gallery: { enabled: true },
+               grabCursor: true,
+               callbacks: {
+                  change: function() {
+                     const instance = $.magnificPopup.instance;
+                     swiper.slideTo(instance.index);
+                     swiperThumbnails.slideTo(instance.index);
+                  },
+               }
+            });
          });
       });
-   });
-</script>
+   </script>
+{{ end }}
