@@ -86,7 +86,7 @@
          {{print .image.base `f_auto,w_768,h_600,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
          <source media="(max-width: 767px)" srcset="{{print .image.base `f_auto,w_375,h_433,c_fill,g_auto/` .image.path}},
          {{print .image.base `f_auto,w_375,h_433,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
-         <img src="{{print .image.base `f_auto,w_1280,h_600,c_fill,g_auto/` .image.path}}" {{with $alt }}alt="{{.}}"{{end}} />
+         <img src="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .image.path}}" {{with $alt }}alt="{{.}}"{{end}} />
 
       </picture>
       {{ end }}

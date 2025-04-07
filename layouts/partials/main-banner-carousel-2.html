@@ -23,6 +23,9 @@
 {{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade") }}
 
 
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
       <div class="carousel-inner c-inner">
@@ -44,5 +47,11 @@
          {{ end }}
       </ol>
    </div>
+   {{ if ne .Params.widgetOutsideBanner true }}
    {{ partial "widget-container-2" . }}
+   {{ end}}
 </div>
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "widget-container" . }}
+</div>
+{{ end }}

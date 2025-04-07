@@ -28,7 +28,9 @@
 {{ if .Site.Params.newBookerURL }}
    {{ $version = "2"}}
 {{ end}}
-
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
       <div class="carousel-inner c-inner">
@@ -57,7 +59,11 @@
          {{end}}
       </div>
    </div>
-   {{ if not $isVertical }}
+   {{ if and (not $isVertical) (ne .Params.widgetOutsideBanner true) }}
    {{ partial "widget-container-2" . }}
    {{ end }}
 </div>
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "widget-container" . }}
+</div>
+{{ end }}
