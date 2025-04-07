@@ -68,7 +68,7 @@
    <div 
       class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
       {{ if eq $disableOpacity true }}
-         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,c_fill/` .image.path }})">
+         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,c_fill,dpr_2/` .image.path }})">
       {{ else }}
          style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
       {{ end }}

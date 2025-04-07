@@ -18,6 +18,10 @@
    {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
 {{ end }}
 
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--fullscreen") }}
+{{ end }}
+
 {{ $isVertical := .Site.Params.widgetVertical }}
 {{ if eq .Params.widgetMode "vertical" }}
    {{ $isVertical = true }}
@@ -33,7 +37,9 @@
 {{ if .Site.Params.newBookerURL }}
    {{ $version = "2"}}
 {{ end}}
-
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
       <div class="carousel-inner">
@@ -73,7 +79,11 @@
          {{end}}
       </div>
    </div>
-   {{ if not $isVertical }}
+   {{ if and (not $isVertical) (ne .Params.widgetOutsideBanner true) }}
    {{ partial "widget-container" . }}
    {{ end }}
 </div>
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "widget-container" . }}
+</div>
+{{ end }}
