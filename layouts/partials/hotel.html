@@ -26,7 +26,11 @@
       <p class="listItem-description">{{ . | markdownify }}</p>
       {{ end }}
       <div class="listItem-actions">
-         <a href="{{ .url | absLangURL }}" class="btn btn-outline-secondary">{{ i18n "viewDetails"}}</a>
+         {{ if .externalUrl }}
+            <a href="{{ .externalUrl }}" class="btn btn-outline-secondary">{{ i18n "viewDetails"}}</a>
+         {{ else }}
+            <a href="{{ .url | absLangURL }}" class="btn btn-outline-secondary">{{ i18n "viewDetails"}}</a>
+         {{ end }}
       </div>
    </div>
    <div class="listItem-rates" data-hotelid="{{ .id }}">
