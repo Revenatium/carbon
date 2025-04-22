@@ -2,8 +2,6 @@
 {{ $items := split (.Get "pics") ","}}
 {{ $alts := split (.Get "alts") "|"}}
 {{ $len := (len $items) }}
-
-{{ if and .Site.Params.api .Site.Params.api.gallery.url }}
 <div>
    {{ with .Get "showTitle" }}
    <h2>{{ i18n "photoGallery"}}</h2>
@@ -29,4 +27,3 @@
       </div>
    </div>
 </div>
-{{ end }}
