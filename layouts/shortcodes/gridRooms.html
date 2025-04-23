@@ -253,7 +253,14 @@ window.addEventListener("DOMContentLoaded", async () => {
 });
 
 function initGallery() {
-   window.addEventListener('load', function() {
+   let intervalId;
+
+   function init() {
+      if (!window.getSwiperInstance) {
+         return;
+      }
+
+      clearInterval(intervalId);
       const swiper = window.getSwiperInstance('.room-gallery-container', {
          slidesPerView: 1,
          navigation: {
@@ -264,7 +271,9 @@ function initGallery() {
             el: ".swiper-pagination",
          }
       });
-   });
+   }
+
+   intervalId = setInterval(init, 100);
 }
 
 function buildUrl({ externalUrl, date }) {

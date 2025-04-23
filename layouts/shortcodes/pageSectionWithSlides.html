@@ -45,24 +45,36 @@
 </div>
 <script>
    window.addEventListener('load', function() {
-      const swiper = window.getSwiperInstance('#{{$galleryId}}', {
-         slidesPerView: "auto",
-         spaceBetween: parseInt("{{$spaceBetween}}"),
-         freeMode: true,
-         mousewheel: {
-            enabled: true,
-            forceToAxis: true,
-            sensitivity: 0,
-         },
-         scrollbar: {
-            el: "#{{$galleryId}}-scrollbar",
-            hide: false,
-         },
-         navigation: {
-            enabled: "{{$navigation}}" === "true",
-            nextEl: "#{{$galleryId}}-next",
-            prevEl: "#{{$galleryId}}-prev",
-         },
-      });
+      let intervalId;
+
+      function intitGallery() {
+         if (!window.getSwiperInstance) {
+            console.log("getSwiperInstance not available yet");
+            return;
+         }
+
+         clearInterval(intervalId);
+         const swiper = window.getSwiperInstance('#{{$galleryId}}', {
+            slidesPerView: "auto",
+            spaceBetween: parseInt("{{$spaceBetween}}"),
+            freeMode: true,
+            mousewheel: {
+               enabled: true,
+               forceToAxis: true,
+               sensitivity: 0,
+            },
+            scrollbar: {
+               el: "#{{$galleryId}}-scrollbar",
+               hide: false,
+            },
+            navigation: {
+               enabled: "{{$navigation}}" === "true",
+               nextEl: "#{{$galleryId}}-next",
+               prevEl: "#{{$galleryId}}-prev",
+            },
+         });
+      }
+
+      intervalId = setInterval(intitGallery, 100);
    });
 </script>

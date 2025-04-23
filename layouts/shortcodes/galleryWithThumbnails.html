@@ -85,64 +85,75 @@
 
    <script>
       window.addEventListener('load', function() {
-         const galleryLenght = Number("{{$len}}");
-         const slidesPerView = Number("{{$slidesPerView}}");
+         let intervalId;
 
-         const swiperThumbnails = window.getSwiperInstance('#{{$galleryId}}-thumbnails', {
-            loop: true,
-            spaceBetween: 10,
-            watchSlidesProgress: true,
-            slideToClickedSlide: true,
-            centeredSlides: galleryLenght > slidesPerView,
-            centeredSlidesBounds: true,
-            slidesPerView: slidesPerView - 1,
-            mousewheel: {
-               enabled: true,
-               forceToAxis: true,
-               sensitivity: 0,
-            },
-            scrollbar: {
-               el: "#{{$galleryId}}-thumbnails-scrollbar",
-               hide: false,
-            },
-         });
+         function intitGallery() {
+            if (!window.getSwiperInstance) {
+               return;
+            }
 
-         const swiper = window.getSwiperInstance('#{{$galleryId}}', {
-            loop: true,
-            slidesPerView: 1,
-            spaceBetween: parseInt("{{$spaceBetween}}"),
-            freeMode: true,
-            scrollbar: {
-               el: "#{{$galleryId}}-scrollbar",
-               hide: false,
-            },
-            navigation: {
-               enabled: "{{$navigation}}" === "true",
-               nextEl: "#{{$galleryId}}-next",
-               prevEl: "#{{$galleryId}}-prev",
-            },
-            thumbs: {
-               autoScrollOffset: 10,
-               multipleActiveThumbs: false,
-               swiper: swiperThumbnails,
-            },
-         });
+            clearInterval(intervalId);
+            const galleryLenght = Number("{{$len}}");
+            const slidesPerView = Number("{{$slidesPerView}}");
 
-         $("#{{$galleryId}}").each(function () {
-            window.showMagnificGallery($(this), {
-               delegate: "a",
-               type: "image",
-               gallery: { enabled: true },
-               grabCursor: true,
-               callbacks: {
-                  change: function() {
-                     const instance = $.magnificPopup.instance;
-                     swiper.slideTo(instance.index);
-                     swiperThumbnails.slideTo(instance.index);
-                  },
-               }
+            const swiperThumbnails = window.getSwiperInstance('#{{$galleryId}}-thumbnails', {
+               loop: true,
+               spaceBetween: 10,
+               watchSlidesProgress: true,
+               slideToClickedSlide: true,
+               centeredSlides: galleryLenght > slidesPerView,
+               centeredSlidesBounds: true,
+               slidesPerView: slidesPerView - 1,
+               mousewheel: {
+                  enabled: true,
+                  forceToAxis: true,
+                  sensitivity: 0,
+               },
+               scrollbar: {
+                  el: "#{{$galleryId}}-thumbnails-scrollbar",
+                  hide: false,
+               },
             });
-         });
+
+            const swiper = window.getSwiperInstance('#{{$galleryId}}', {
+               loop: true,
+               slidesPerView: 1,
+               spaceBetween: parseInt("{{$spaceBetween}}"),
+               freeMode: true,
+               scrollbar: {
+                  el: "#{{$galleryId}}-scrollbar",
+                  hide: false,
+               },
+               navigation: {
+                  enabled: "{{$navigation}}" === "true",
+                  nextEl: "#{{$galleryId}}-next",
+                  prevEl: "#{{$galleryId}}-prev",
+               },
+               thumbs: {
+                  autoScrollOffset: 10,
+                  multipleActiveThumbs: false,
+                  swiper: swiperThumbnails,
+               },
+            });
+
+            $("#{{$galleryId}}").each(function () {
+               window.showMagnificGallery($(this), {
+                  delegate: "a",
+                  type: "image",
+                  gallery: { enabled: true },
+                  grabCursor: true,
+                  callbacks: {
+                     change: function() {
+                        const instance = $.magnificPopup.instance;
+                        swiper.slideTo(instance.index);
+                        swiperThumbnails.slideTo(instance.index);
+                     },
+                  }
+               });
+            });
+         }
+
+         intervalId = setInterval(intitGallery, 100);
       });
    </script>
 {{ end }}
