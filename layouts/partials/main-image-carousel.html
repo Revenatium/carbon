@@ -41,7 +41,7 @@
 <div class="widget-outside-banner">
 {{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
       <div class="carousel-inner">
          {{ range $index, $element := $banners }}
             {{ $banner := dict "image" (dict "path" $element "base" $base) }}

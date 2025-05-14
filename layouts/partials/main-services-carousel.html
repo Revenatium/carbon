@@ -37,7 +37,7 @@
 {{ end}}
 
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
       <div class="carousel-inner">
          {{ $index := 0 }}
          {{ range $element := where $services "isActive" true }}

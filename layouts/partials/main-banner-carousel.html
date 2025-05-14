@@ -33,7 +33,7 @@
 <div class="widget-outside-banner">
 {{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
-   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" data-ride="carousel">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
       <div class="carousel-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ if $element.photos }}
