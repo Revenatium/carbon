@@ -60,6 +60,10 @@
       "translation": "Book now"
    },
    {
+      "id": "menu",
+      "translation": "Menu"
+   },
+   {
       "id": "roomDetails",
       "translation": "Details"
    },
@@ -363,5 +367,4 @@
       "id": "deal2-nightFree",
       "translation": "Night free"
    }
-
 ]

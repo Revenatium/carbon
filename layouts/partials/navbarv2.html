@@ -1,0 +1,75 @@
+{{ $lang := upper (substr .Site.Language.LanguageName 0 2) }}
+<div class="navbarv2">
+   <a class="logo" href="{{ .Site.Home.Permalink | absLangURL }}">
+   {{ if (and .Site.Params.logoBase .Site.Params.logoPath)}}
+      <picture>
+         <source media="(max-width: 320px)" srcset="{{ .Site.Params.logoBase }}f_auto,q_auto,w_150,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
+         <source media="(max-width: 425px)" srcset="{{ .Site.Params.logoBase }}f_auto,q_auto,w_180,h_45,dpr_2.0,c_pad/{{ .Site.Params.logoPath }}" />
+         <img src="{{ .Site.Params.logoBase }}f_auto,q_auto,h_45,dpr_2.0/{{ .Site.Params.logoPath }}" alt="{{ .Site.Title | safeHTML }}" loading="lazy" />
+      </picture>
+   {{ else if .Site.Params.logoURL }}
+      <img src="{{ .Site.Params.logoURL }}" alt="{{ .Site.Title | safeHTML }}" loading="lazy">
+   {{ else }}
+      {{ .Site.Title | safeHTML }}
+   {{ end }}
+   </a>
+   <div class="content">
+      <div class="upper-content">
+         {{ with .Site.Params.hotelPhone }}
+            <a href="tel:{{.}}" class="list-inline-item phone btn btn-outline-primary"><i class="fas fax-phone"></i>{{.}}</a>
+         {{ end }}
+         <div class="itm-header-top-lang">
+            {{ if .IsTranslated }}
+            <div class="dropdown">
+               <a class="dropdown-toggle px-3 py-2 px-md-1 py-md-1 d-block btn btn-outline-primary" href="#" role="button" id="lang-selector" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{ $lang}}
+               </a>
+               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="lang-selector">
+                  {{ range .Translations }}
+                     <a class="dropdown-item" href="{{ .Permalink }}?dr=true">{{ .Site.Language.LanguageName }}</a>
+                  {{ end}}
+               </div>
+            </div>
+            {{ else }}
+            <div>
+               <a>{{ .Site.Language.LanguageName }}</a>
+            </div>
+            {{ end }}
+         </div>
+         <button class="navbarv2-menu btn btn-outline-primary" type="button" data-toggle="collapse">
+            <span class="fas fax-bars"></span> {{ i18n "menu"}}
+         </button>
+         <button class="navbarv2-book-btn btn btn-primary" type="button" data-toggle="collapse">
+            {{ i18n "book"}}
+         </button>
+      </div>
+      <nav class="navbarv2-menu-items">
+         {{ $currentPage := .URL | absLangURL }}
+         {{ $navbarMaxItems := .Site.Params.navbarMaxItems | default 5 }}
+         <ul>
+            {{ range first $navbarMaxItems (.Site.Menus.main) }}
+               {{ $menuURL := .URL | absLangURL }}
+                  <li class="nav-item{{ if eq $menuURL $currentPage }} active{{ end }}">
+                     <a class="nav-link" href="{{ $menuURL }}">
+                        {{ .Name }}
+                     </a>
+                  </li>
+            {{ end }}
+         </ul>
+      </nav>
+   </div>
+   <div class="menu-background"></div>
+   <div class="menu-panel">
+      <i class="fas fax-times navbarv2-menu-close-button"></i>
+      <ul>
+         {{ range .Site.Menus.main }}
+            {{ $menuURL := .URL | absLangURL }}
+               <li class="nav-item{{ if eq $menuURL $currentPage }} active{{ end }}">
+                  <a class="nav-link" href="{{ $menuURL }}">
+                     {{ .Name }}
+                  </a>
+               </li>
+         {{ end }}
+      </ul>
+   </div>
+</div>

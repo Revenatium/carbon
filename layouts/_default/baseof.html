@@ -83,7 +83,24 @@
 
     <main>{{ block "main" . }}{{end}}</main>
 
-    <section class="sticky-bottom d-block d-md-none">{{ partial "sticky-bottom" . }}</section>
+    {{ if eq .Site.Params.navbarVersion 2 }}
+      <section class="reserve-bottom">{{ partial "sticky-bottom" . }}</section>
+      <div class="navbarv2-booker">
+        <div
+            class="itm-booker itm-booker-horizontal"
+            {{ if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
+            {{ if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
+            data-vertical="false"
+            data-account="{{.Site.Params.account}}"
+            data-language="{{.Site.Params.languageCode}}"
+            {{ if .Site.Params.customUri }} data-custom-uri="{{.Site.Params.customUri}}" {{ end }}
+            {{ if .Site.Params.forceDestinationIdOnUrl }} data-force-destination-id-on-url="true" {{ end }}
+        >
+        </div>
+      </div>
+    {{ else }}
+      <section class="sticky-bottom d-block d-md-none">{{ partial "sticky-bottom" . }}</section>
+    {{ end }}
 
     {{ block "footer" . }}{{ partial "footer" . }}{{end}}
 
