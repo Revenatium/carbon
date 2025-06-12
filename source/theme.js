@@ -190,6 +190,8 @@ $(document).ready(function ($) {
          }
       }
    });
+
+
    $("[data-toggle=popover]").popover({
       html: true,
       content: function () {
@@ -260,4 +262,84 @@ $(document).ready(function ($) {
    };
 
    window.showMagnificGallery = showMagnificGallery;
+
+
+
+   /* Navbar v2 functions */
+
+   window.applyNavBar2HeaderStyles = function() {
+      if (window.innerWidth >= 769) {
+         $(".navbarv2").sticky({ topSpacing: 0, zIndex: 200 });
+      }
+   };
+
+   const classSticky = "is-sticky";
+
+   window.applyStickyStyles = function() {
+      if ($(".itm-widget-card").length > 0 && window.innerWidth >= 769) {
+         const cardBottom = $(".itm-widget-card").offset().top + $(".itm-widget-card").outerHeight();
+         if (cardBottom < $(document).scrollTop()) {
+            $(".navbarv2").addClass(classSticky);
+            $(".navbarv2-menu").addClass(classSticky);
+            $(".navbarv2-book-btn").addClass(classSticky);
+            $(".navbarv2-menu-items").addClass(classSticky);
+         } else {
+            $(".navbarv2").removeClass(classSticky);
+            $(".navbarv2-menu").removeClass(classSticky);
+            $(".navbarv2-book-btn").removeClass(classSticky);
+            $(".navbarv2-menu-items").removeClass(classSticky);
+         }
+      }
+   }
+
+   $(window).resize(function () {
+      $(".navbarv2").unstick();
+      $(".menu-background").removeClass("show");
+      $(".menu-panel").removeClass("show");
+      $("body").removeClass("overflow-hidden");
+      $(".navbarv2-booker").css("display", "none");
+
+
+      if (window.innerWidth < 769) {
+         $(".navbarv2").removeClass(classSticky);
+         $(".navbarv2-menu").removeClass(classSticky);
+         $(".navbarv2-book-btn").removeClass(classSticky);
+         $(".navbarv2-menu-items").removeClass(classSticky);
+      }
+
+      setTimeout(function () {
+         window.applyNavBar2HeaderStyles();
+         window.applyStickyStyles();
+      }, 0);
+   });
+
+   $(document).on("scroll", function () {
+      window.applyStickyStyles();
+   });
+
+   $(document).on("click", ".navbarv2-menu", function () {
+      $(".menu-background").addClass("show");
+      $(".menu-panel").addClass("show");
+      $("body").addClass("overflow-hidden");
+   });
+
+    $(document).on("click", ".menu-background, .navbarv2-menu-close-button", function () {
+      $(".menu-background").removeClass("show");
+      $(".menu-panel").removeClass("show");
+      $("body").removeClass("overflow-hidden");
+   });
+
+   $(document).on("click", ".navbarv2-book-btn, .navbar-overlay", function () {
+      if ($(".navbarv2-booker").css("display") === "none") {
+         $("body").addClass("overflow-hidden");
+         $(".navbarv2-booker").css("display", "block");
+      } else {
+         $("body").removeClass("overflow-hidden");
+         $(".navbarv2-booker").css("display", "none");
+      }
+   });
+
+   window.applyNavBar2HeaderStyles();
+   window.applyStickyStyles();
+   /* end Navbar v2 functions */
 });

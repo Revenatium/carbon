@@ -1,0 +1,11 @@
+.reserve-bottom {
+   display: none;
+
+   @media (max-width: 768px){
+      display: block;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: hsla(0,0%,100%,.85);
+   }
+}

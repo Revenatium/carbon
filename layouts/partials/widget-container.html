@@ -20,7 +20,7 @@
    {{ end }}
 {{ end }}
 
-{{ if and (eq .Site.Params.stickyWidget true) (ne $isVertical true) }}
+{{ if and (eq .Site.Params.stickyWidget true) (ne $isVertical true)  (not (eq .Site.Params.navbarVersion 2)) }}
    {{ $customScratch.Add "outerClasses" (slice "widget-sticky") }}
 {{ end }}
 

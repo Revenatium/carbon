@@ -1,6 +1,10 @@
 {{ $customScratch := newScratch }}
+{{ $navbarVersion := 1 }}
+{{ if .Site.Params.navbarVersion }}
+   {{ $navbarVersion = .Site.Params.navbarVersion }}
+{{ end }}
 {{ $customScratch.Add "headerClasses" (slice "itm-header") }}
-{{ if or (eq .Params.bannerFullScreen true) (eq .Params.banner.fullscreen true) }}
+{{ if and  (or (eq .Params.bannerFullScreen true) (eq .Params.banner.fullscreen true)) (not (eq $navbarVersion 2)) }}
    {{ $customScratch.Add "headerClasses" (slice "itm-header--fullscreen") }}
 {{ end }}
 {{ if eq .Params.topbarTransparent true }}
@@ -13,8 +17,11 @@
    {{ if (eq $.Site.Params.showBenefitsTopbar true) }}
       {{ partial "benefits-topbar" . }}
    {{ end }}
-   <!--TOP-->
-   {{ partial "topbar" . }}
-   <!--NAVBAR-->
-   {{ partial "navbar" . }}
+
+   {{ if eq $navbarVersion 2 }}
+      {{ partial "navbarv2" . }}
+   {{ else  }}
+      {{ partial "topbar" . }}
+      {{ partial "navbar" . }}
+   {{ end}}
 </header>

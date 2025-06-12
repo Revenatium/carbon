@@ -1,0 +1,233 @@
+.navbarv2 {
+   background-color: #fff;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 40px;
+   position: sticky;
+   min-height: 120px;
+   z-index: 200;
+
+   .logo {
+      & img {
+         max-height: 100px;
+         width: auto;
+      }
+   }
+
+   &.is-sticky {
+      min-height: unset;
+      height: 80px;
+
+      & img {
+         max-height: 60px;
+      }
+
+      .upper-content {
+         margin-top: 0;
+      }
+   }
+
+   .content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end
+   }
+
+   .phone {
+      margin-right: 0;
+   }
+
+   .upper-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 16px;
+      color: $primary;
+      margin-top: 20px;
+   }
+
+   .navbar-toggler {
+      display: flex;
+      gap: 8px;
+      font-weight: 400;
+      font-size: 16px;
+   }
+
+   .phone, .navbarv2-menu, .dropdown-toggle, .navbarv2-book-btn {
+      padding: 8px 15px !important;
+      border-radius: 20px;
+   }
+
+   .navbarv2-menu, .navbarv2-book-btn {
+      display: none;
+
+      &.is-sticky {
+         display: block;
+      }
+   }
+
+   .menu-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 120;
+      background-color: rgba(0, 0, 0, 0.5);
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0s linear .8s, opacity .8s;
+
+      &.show {
+         visibility: visible;
+         opacity: 1;
+         transition: visibility 0s linear 0s, opacity .8s;
+      }
+   }
+
+   .menu-panel {
+      width: 400px;
+      right: -400px;
+      height: 100vh;
+      position: fixed;
+      top: 0px;
+      background-color: #fff;
+      -webkit-transition: all .6s ease-in-out;
+      transition: all .6s ease-in-out;
+      z-index: 250;
+      padding: 40px;
+
+      &.show {
+         right: 0px;
+         -webkit-transition: all .6s ease-in-out;
+         transition: all .6s ease-in-out;
+      }
+
+      .navbarv2-menu-close-button {
+         position: absolute;
+         top: 20px;
+         right: 20px;
+         font-size: 24px;
+         color: $primary;
+         cursor: pointer;
+
+         &:hover {
+            color: darken($primary, 10%);
+         }
+      }
+
+      ul {
+         padding: 0;
+         list-style: none;
+      }
+
+      .nav-link {
+         padding: 12px 0;
+      }
+   }
+
+   .navbarv2-menu-items {
+      margin-top: 20px;
+
+      &.is-sticky {
+         display: none;
+      }
+
+      ul {
+         display: flex;
+         flex-direction: row;
+         list-style: none;
+         padding: 0;
+      }
+
+      .nav-item {
+         a {
+            &:hover {
+               color: $accent-color;
+            }
+         }
+
+         &.active {
+            a {
+               color: $accent-color;
+            }
+         }
+      }
+   }
+
+   @media (max-width: 768px){
+      padding: 0 20px;
+
+      .logo {
+         & img {
+            max-height: 55px;
+            width: auto;
+         }
+      }
+
+      .phone {
+         display: none;
+      }
+
+      .navbarv2-menu {
+         display: block;
+      }
+
+      .upper-content {
+         margin-top: 0;
+      }
+
+      .navbarv2-menu-items {
+         display: none;
+      }
+   }
+
+   @media (max-width: 450px) {
+      .menu-panel {
+         width: 100vw;
+         right: -100vw;
+      }
+   }
+}
+
+.navbarv2-booker{
+   position: fixed;
+   left: 0;
+   top: 0;
+   height: 100%;
+   width: 100%;
+   z-index: 100;
+   display: none;
+
+   .navbar-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+   }
+
+   .itm-booker {
+      position: absolute;
+      margin: 0 auto;
+      top: 0;
+      left: 50%;
+      width: calc(100% - 100px);
+      max-width: 900px;
+      z-index: 250;
+      transform: translate(-50%, 150px);
+
+      .itm-btn-primary {
+         background-color: $primary;
+         border-color: $primary;
+      }
+   }
+
+   .itm-promotion-code-modal-link {
+      span {
+         color:#fff
+      }
+   }
+}
