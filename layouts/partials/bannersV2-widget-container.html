@@ -1,0 +1,33 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "containerClasses" (slice "itm-widget-container") }}
+{{ $customScratch.Add "columnClasses" (slice "col-12") }}
+{{ $customScratch.Add "outerClasses" (slice "w-outer-container") }}
+{{ $customScratch.Add "containerClasses" (slice "itm-widget-container--bottom") }}
+{{ if .Site.Params.centerWidget }}
+  {{ $customScratch.Add "columnClasses" (slice "col-lg-9" ) }}
+{{ end }}
+
+
+{{ if and (eq .Site.Params.stickyWidget true) (not (eq .Site.Params.navbarVersion 2)) }}
+  {{ $customScratch.Add "outerClasses" (slice "widget-sticky") }}
+{{ end }}
+
+{{ if and (ne .Params.keepAspectRatio true) (.Scratch.Get "banners") }}
+  {{ $customScratch.Add "containerClasses" (slice "itm-widget-container--margin") }}
+{{ end }}
+
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+{{ if and (ne .Params.hideBooker true) (eq $widgetLocation "top")}}
+<div class="{{ delimit ($customScratch.Get `containerClasses`) ` ` }}">
+  <div class="{{ delimit ($customScratch.Get `outerClasses`) ` ` }}">
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="{{ delimit ($customScratch.Get `columnClasses`) ` ` }}">
+          {{ partial "widget-card-bannersV2" . }}
+        </div>
+    </div>
+  </div>
+  </div>
+</div>
+{{ end }}
+

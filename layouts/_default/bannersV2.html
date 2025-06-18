@@ -1,11 +1,17 @@
 {{ define "main" }}
    {{ .Scratch.Set "widgetLocation" "top" }}
    {{ .Scratch.Set "banners" "" }}
-   {{ if and .Params.showBanners (and .Site.Params.api .Site.Params.api.banners) }}
-      {{ .Scratch.Set "banners" (getJSON .Site.Params.api.banners.name) }}
+   {{ if and .Params.showBanners (and .Site.Params.api .Site.Params.api.bannersV2) }}
+      {{ .Scratch.Set "banners" (getJSON .Site.Params.api.bannersV2.name) }}
    {{ end }}
    {{ if .Scratch.Get "banners" }}
       {{ partial "bannersV2-carousel" . }}
+   {{ else if isset .Params "slider" }}
+      {{ partial "main-image-carousel" . }}
+   {{ else if (or (isset .Params "featured_image") (isset .Params "featured_video")) }}
+      {{ partial "main-image-single" . }}
+   {{ else }}
+      {{ partial "main-text" . }}
    {{ end }}
    <section class="itm-body">
       {{ .Content }}

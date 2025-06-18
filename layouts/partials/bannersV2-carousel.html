@@ -6,45 +6,24 @@
    {{ $version = "2"}}
 {{ end}}
 {{ $customScratch := newScratch }}
-{{ $customScratch.Add "stageClasses" (slice "itm-stage" ) }}
-{{ $customScratch.Add "bannerContainerClasses" (slice "carousel" "slide" "carousel-fade" "itm-banner-container" "itm-banner-container--extrainfo") }}
-
-{{ if eq .Params.keepAspectRatio true }}
-   {{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
-   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--aspectRatio") }}
-   {{ if ne .Params.bannerFullWidth true }}
-      {{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
-   {{ end }}
-{{ else }}
-   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
-{{ end }}
-
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
 {{ if eq .Params.bannerFullScreen true }}
-   {{ $customScratch.Add "stageClasses" (slice "itm-stage--fullscreen") }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
 {{ end }}
-{{ if eq .Params.bannerFullscreenTheme "light" }}
-   {{ $customScratch.Add "stageClasses" (slice "itm-stage--light") }}
-{{ end }}
-{{ if eq .Params.bannerFullscreenTheme "dark" }}
-   {{ $customScratch.Add "stageClasses" (slice "itm-stage--dark") }}
-{{ end }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade" "itm-carousel-new--bannersV2") }}
 
 {{ if eq .Params.widgetOutsideBanner true }}
 <div class="widget-outside-banner">
 {{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
-      <div class="carousel-inner">
+      <div class="carousel-inner  c-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
-            <!-- {{ if $element.photos }}
-               {{ $image := index .photos 0 }}
-               {{ $bannerImage := (dict "path" (print $bucket `/` $image.path) "base" $base) }}
-               {{ if $image.bannerImage }}
-                  {{ $bannerImage = $image.bannerImage }}
-               {{ end }}
-               {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal }}
-               {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
-            {{ end }} -->
+            {{ $desktop := (dict "path" (print $bucket `/` $element.desktop.path) "base" $base "type" $element.desktop.type "styles" $element.desktop.styles ) }}
+            {{ $mobile := (dict "path" (print $bucket `/` $element.mobile.path) "base" $base "type" $element.mobile.type "styles" $element.mobile.styles ) }}
+            {{ $banner := (dict "desktop" $desktop "mobile" $mobile "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal "textAlignDesktop" $element.textAlignDesktop "textAlignMobile" $element.textAlignMobile) }}
+            {{ partial "bannersV2-banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }} 
          {{ end }}
       </div>
       <ol class="carousel-indicators">
@@ -54,10 +33,10 @@
       </ol>
    </div>
    {{ if ne .Params.widgetOutsideBanner true }}
-   {{ partial "widget-container" . }}
+   {{ partial "bannersV2-widget-container" . }}
    {{ end }}
 </div>
 {{ if eq .Params.widgetOutsideBanner true }}
-{{ partial "widget-container" . }}
+{{ partial "bannersV2-widget-container" . }}
 </div>
 {{ end }}
