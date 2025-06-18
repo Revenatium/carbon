@@ -1,0 +1,13 @@
+{{ define "main" }}
+   {{ .Scratch.Set "widgetLocation" "top" }}
+   {{ .Scratch.Set "banners" "" }}
+   {{ if and .Params.showBanners (and .Site.Params.api .Site.Params.api.banners) }}
+      {{ .Scratch.Set "banners" (getJSON .Site.Params.api.banners.name) }}
+   {{ end }}
+   {{ if .Scratch.Get "banners" }}
+      {{ partial "bannersV2-carousel" . }}
+   {{ end }}
+   <section class="itm-body">
+      {{ .Content }}
+   </section>
+{{ end }}

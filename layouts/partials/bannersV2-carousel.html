@@ -1,0 +1,63 @@
+{{ $base := .Site.Params.imageBase }}
+{{ $bucket := .Site.Params.imageBucket }}
+{{ $banners := .Scratch.Get "banners" }}
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage" ) }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "carousel" "slide" "carousel-fade" "itm-banner-container" "itm-banner-container--extrainfo") }}
+
+{{ if eq .Params.keepAspectRatio true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--vconstrained") }}
+   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--aspectRatio") }}
+   {{ if ne .Params.bannerFullWidth true }}
+      {{ $customScratch.Add "stageClasses" (slice "itm-stage--hconstrained") }}
+   {{ end }}
+{{ else }}
+   {{ $customScratch.Add "bannerContainerClasses" (slice "itm-banner-container--absolute") }}
+{{ end }}
+
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--fullscreen") }}
+{{ end }}
+{{ if eq .Params.bannerFullscreenTheme "light" }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--light") }}
+{{ end }}
+{{ if eq .Params.bannerFullscreenTheme "dark" }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage--dark") }}
+{{ end }}
+
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
+      <div class="carousel-inner">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+            <!-- {{ if $element.photos }}
+               {{ $image := index .photos 0 }}
+               {{ $bannerImage := (dict "path" (print $bucket `/` $image.path) "base" $base) }}
+               {{ if $image.bannerImage }}
+                  {{ $bannerImage = $image.bannerImage }}
+               {{ end }}
+               {{ $banner := dict "image" $bannerImage "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal }}
+               {{ partial "banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
+            {{ end }} -->
+         {{ end }}
+      </div>
+      <ol class="carousel-indicators">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+         <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+         {{ end }}
+      </ol>
+   </div>
+   {{ if ne .Params.widgetOutsideBanner true }}
+   {{ partial "widget-container" . }}
+   {{ end }}
+</div>
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "widget-container" . }}
+</div>
+{{ end }}
