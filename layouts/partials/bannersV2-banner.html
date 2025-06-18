@@ -1,0 +1,75 @@
+{{ $ := .main }}
+{{ $version := .version }}
+{{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "itm-banner-item-new") }}
+{{ if .isCarousel }}
+   {{ $customScratch.Add "classes" (slice "carousel-item c-item") }}
+{{ end }}
+{{ if .active }}
+   {{ $customScratch.Add "classes" (slice "active") }}
+{{ end }}
+{{ $customScratch.Add "infoClasses" (slice "col-12 col-md-12") }}
+
+{{ with .banner }}
+
+{{ $actionLink := $bookingEngineUrl }}
+{{ if eq .showButton true }}
+   {{ if and (eq .isPromotion true) .promotion }}
+      {{ $showHotel := $.Site.Params.promotionsShowHotel }}
+      {{ $lastTravelDate := time .promotion.lastTravelWindowDate }}
+      {{ $startDate := dateFormat "2006-01-02" ($lastTravelDate.AddDate 0 0 -2) }}
+      {{ if eq $version "2" }}
+         {{ $params2 := slice  "rooms" "?checkIn=" $startDate "&checkOut=" .promotion.lastTravelWindowDate "&rooms[0].adults=2&rooms[0].children=0" }}
+         {{ $query2 := delimit $params2 "" }}
+         {{ if and $showHotel .hotel }}
+            {{ $actionLink = print $bookingEngineUrl .promotion.hotel.id "/" ($query2 | safeURL) }}
+         {{ else }}
+            {{ $actionLink = print $bookingEngineUrl ($query2 | safeURL) }}
+         {{end}}
+      {{ else }}
+         {{ $params := slice "/" (i18n "roomsUri") "/" $startDate "/" .promotion.lastTravelWindowDate "?r[0].adults=2&r[0].children=0" }}
+         {{ $query := delimit $params "" }}
+         {{ if and $showHotel .promotion.hotel }}
+            {{ $actionLink = print $bookingEngineUrl "#/s/" .promotion.hotel.id ($query | safeURL) }}
+         {{ else }}
+            {{ $actionLink = print $bookingEngineUrl "#" ($query | safeURL) }}
+         {{ end }}
+      {{ end}}
+   {{ else if and (eq .isPromotion false) .buttonUrl }}
+      {{ $actionLink = (.buttonUrl | safeURL)}}
+   {{ end }}
+{{ end }}
+
+{{ $desktopInfoAlign := print "desktop-align-" (.textAlignDesktop | default "left") }}
+{{ $mobileInfoAlign := print "mobile-align-" (.textAlignMobile | default "left") }}
+{{ $customScratch.Add "infoClasses" (slice "itm-banner-info-container itm-banner-info-container--dark info-container" $desktopInfoAlign $mobileInfoAlign) }}
+
+<div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+   <picture class="desktop-image">
+      <source media="(min-width: 1200px)" srcset="{{print .desktop.base `f_auto,w_1200,h_600,c_fill,g_auto/` .desktop.path}},
+      {{print .desktop.base `f_auto,w_1200,h_600,c_fill,g_auto,dpr_2/` .desktop.path}} 2x" >
+      <source media="(min-width: 820px)" srcset="{{print .desktop.base `f_auto,w_992,h_480,c_fill,g_auto/` .desktop.path}},
+      {{print .desktop.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .desktop.path}} 2x" >
+      <source media="(min-width: 768px)" srcset="{{print .desktop.base `f_auto,w_768,h_600,c_fill,g_auto/` .desktop.path}},
+      {{print .desktop.base `f_auto,w_768,h_600,c_fill,g_auto,dpr_2/` .desktop.path}} 2x" >
+      <source media="(max-width: 767px)" srcset="{{print .desktop.base `f_auto,w_375,h_433,c_fill,g_auto/` .desktop.path}},
+      {{print .desktop.base `f_auto,w_375,h_433,c_fill,g_auto,dpr_2/` .desktop.path}} 2x" >
+      <img src="{{print .desktop.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .image.path}}" style="{{.desktop.styles | safeCSS}}" />
+   </picture>
+   <picture class="mobile-image">
+      <source media="(max-width: 767px)" srcset="{{print .mobile.base `f_auto,w_375,h_433,c_fill,g_auto/` .mobile.path}},
+      {{print .mobile.base `f_auto,w_375,h_433,c_fill,g_auto,dpr_2/` .mobile.path}} 2x" >
+      <img src="{{print .mobile.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .mobile.path}}" style="{{.desktop.styles | safeCSS}}" />
+   </picture>
+   {{if .desktop.opacity}}<div class="desktop-image opacity" style="opacity: {{ div (float (.desktop.opacity | default 0)) 100 }}"></div>{{end}}
+   {{if .mobile.opacity}}<div class="mobile-image opacity" style="opacity: {{ div (float (.mobile.opacity | default 0)) 100 }}"></div>{{end}}
+   {{if (or .title .subTitle .labelText .actionText) }}
+      <div class="{{ delimit ($customScratch.Get `infoClasses`) ` ` }}">
+         {{ partial "bannersV2-banner-info" (dict "title" .title "subTitle" .subTitle "actionText" .actionText "labelText" .labelText "actionLink" $actionLink "promotion" .promotion "showButton" .showButton "isButtonUrlExternal" .isButtonUrlExternal "main" $) }}
+      </div>
+   </div>
+   {{end}}
+</div>
+
+{{ end }}

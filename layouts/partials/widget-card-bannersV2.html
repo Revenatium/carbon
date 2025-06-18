@@ -1,0 +1,45 @@
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "widgetClasses" (slice "itm-booker") }}
+{{ $customScratch.Add "cardClasses" (slice "card" "itm-widget-card") }}
+
+{{ if eq .Params.keepAspectRatio true }}
+  {{ $customScratch.Add "cardClasses" (slice "itm-widget-card--bordered") }}
+{{ else }}
+  {{ $customScratch.Add "cardClasses" (slice "itm-widget-card--transparent") }}
+{{ end }}
+
+{{ $customScratch.Add "widgetClasses" (slice "itm-booker-horizontal") }}
+{{ $customScratch.Add "cardClasses" (slice "itm-widget-card--horizontal") }}
+{{ $widgetLocation := .Scratch.Get "widgetLocation" }}
+
+{{ if and (ne .Params.hideBooker true) (eq $widgetLocation "top") }}
+<div class="booking-modal" id="bookerModal" tabindex="-1" aria-labelledby="bookerModalLabel" aria-hidden="true">
+    <div class="booking-modal-dialog">
+      <div class="booking-modal-content">
+        <div class="modal-header d-flex d-md-none">
+          <h5 class="modal-title" id="bookerModalLabel">{{ i18n "bookNow"}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+    <div class="{{ delimit ($customScratch.Get `cardClasses`) ` ` }}">
+    <div class="card-body">
+        <div
+            id="rvm-booker-container"
+            {{ if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
+            {{ if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
+            class="{{ delimit ($customScratch.Get `widgetClasses`) ` ` }}"
+            {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
+            data-account="{{.Site.Params.account}}"
+            data-language="{{.Site.Params.languageCode}}"
+            {{ if .Site.Params.customUri }} data-custom-uri="{{.Site.Params.customUri}}" {{ end }}
+            {{ if .Site.Params.forceDestinationIdOnUrl }} data-force-destination-id-on-url="true" {{ end }}
+        >
+        </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+{{ end }}
