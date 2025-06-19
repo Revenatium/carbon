@@ -26,8 +26,14 @@
 
 {{ $widgetLocation := .Scratch.Get "widgetLocation" }}
 
+{{ $customScratch.Add "bookerClases" (slice "booking-modal") }}
+
+{{ if (eq .Site.Params.navbarVersion 2)}}
+   {{ $customScratch.Add "bookerClases" (slice "booking-modal-v2") }}
+{{ end }}
+
 {{ if and (ne .Params.hideBooker true) (eq $widgetLocation "top") }}
-<div class="booking-modal" id="bookerModal" tabindex="-1" aria-labelledby="bookerModalLabel" aria-hidden="true">
+<div class="{{ delimit ($customScratch.Get `bookerClases`) ` ` }}" id="bookerModal" tabindex="-1" aria-labelledby="bookerModalLabel" aria-hidden="true">
     <div class="booking-modal-dialog">
       <div class="booking-modal-content">
         <div class="modal-header d-flex d-md-none">

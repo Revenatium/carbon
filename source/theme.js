@@ -268,7 +268,7 @@ $(document).ready(function ($) {
    /* Navbar v2 functions */
 
    window.applyNavBar2HeaderStyles = function() {
-      if (window.innerWidth >= 769) {
+      if (window.innerWidth >= 768) {
          $(".navbarv2").sticky({ topSpacing: 0, zIndex: 200 });
       }
    };
@@ -276,7 +276,7 @@ $(document).ready(function ($) {
    const classSticky = "is-sticky";
 
    window.applyStickyStyles = function() {
-      if ($(".itm-widget-card").length > 0 && window.innerWidth >= 769) {
+      if ($(".itm-widget-card").length > 0 && window.innerWidth >= 768) {
          const cardBottom = $(".itm-widget-card").offset().top + $(".itm-widget-card").outerHeight();
          if (cardBottom < $(document).scrollTop()) {
             $(".navbarv2").addClass(classSticky);
@@ -300,7 +300,7 @@ $(document).ready(function ($) {
       $(".navbarv2-booker").css("display", "none");
 
 
-      if (window.innerWidth < 769) {
+      if (window.innerWidth < 768) {
          $(".navbarv2").removeClass(classSticky);
          $(".navbarv2-menu").removeClass(classSticky);
          $(".navbarv2-book-btn").removeClass(classSticky);

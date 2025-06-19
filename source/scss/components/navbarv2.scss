@@ -26,6 +26,10 @@
       .upper-content {
          margin-top: 0;
       }
+
+      .phone {
+         display: none;
+      }
    }
 
    .content {
@@ -157,21 +161,23 @@
    }
 
    @media (max-width: 768px){
-      padding: 0 20px;
-
       .logo {
          & img {
             max-height: 55px;
             width: auto;
          }
       }
+   }
 
-      .phone {
-         display: none;
-      }
+   @media (max-width: 767px){
+      padding: 0 20px;
 
       .navbarv2-menu {
          display: block;
+      }
+
+      .phone {
+         display: none;
       }
 
       .upper-content {
