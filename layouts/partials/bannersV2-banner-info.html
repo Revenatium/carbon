@@ -1,0 +1,43 @@
+{{ $ := .main }}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "classes" (slice "itm-banner-info" "itm-banner-info--extended") }}
+{{ if .customClass }}
+  {{ $customScratch.Add "classes" (slice .customClass) }}
+{{ end }}
+
+<div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
+{{ with .promotion}}
+    {{ if and .lastValidDate .showBeforeFinish }}
+      <div>
+          <span class="badge badge-warning itm-timer-badge d-none">
+            <i class="far fax-clock mr-2" ></i>
+            {{ i18n "hurryUp"}}
+            <span class="font-weight-bold" data-countdown="{{.lastValidDate}}" data-includelastday="true"></span>
+          </span>
+      </div>
+    {{ end }}
+    {{ if and .firstValidDate .showBeforeStart }}
+      <div class="badge badge-success itm-timer-badge d-none">
+          <i class="far fax-clock mr-2" ></i>
+          {{ i18n "promotionStarts"}}
+          <span class="font-weight-bold" data-countdown="{{.firstValidDate}}"></span>
+      </div>
+    {{ end }}
+{{ end }}
+{{ if .labelText }}
+    <div class="badge badge-primary" style="{{.labelText.styles | safeCSS}}">{{ .labelText.text | markdownify }}</div>
+{{ end }}
+{{ if .title }}
+    <h1 style="{{.title.styles | safeCSS}}">{{.title.text | markdownify}}</h1>
+{{ end }}
+{{ if .subTitle }}
+    <p class="lead" style="{{.subTitle.styles | safeCSS}}">{{ .subTitle.text | markdownify }}</p>
+{{ end }}
+{{ if .showButton }}
+    {{ if eq .isButtonUrlExternal true }}
+      <a rel="nofollow" target="_blank" href="{{ .actionLink }}" class="btn btn-primary">{{ .actionText | markdownify }}</a>
+    {{ else }}
+      <a href="{{ .actionLink }}" class="btn btn-primary">{{ .actionText | markdownify }}</a>
+    {{ end }}
+{{ end}}
+</div>

@@ -11,7 +11,7 @@
    {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
 {{ end }}
 {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
-{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade" "itm-carousel-new--bannersV2") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade" "itm-carousel-new__bannersV2") }}
 
 {{ if eq .Params.widgetOutsideBanner true }}
 <div class="widget-outside-banner">
@@ -20,8 +20,8 @@
    <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
       <div class="carousel-inner  c-inner">
          {{ range $index, $element := (where $banners "isActive" true) }}
-            {{ $desktop := (dict "path" (print $bucket `/` $element.desktop.path) "base" $base "type" $element.desktop.type "styles" $element.desktop.styles ) }}
-            {{ $mobile := (dict "path" (print $bucket `/` $element.mobile.path) "base" $base "type" $element.mobile.type "styles" $element.mobile.styles ) }}
+            {{ $desktop := (dict "path" (print $bucket `/` $element.desktop.path) "base" $base "type" $element.desktop.type "styles" $element.desktop.styles "opacity" $element.desktop.opacity) }}
+            {{ $mobile := (dict "path" (print $bucket `/` $element.mobile.path) "base" $base "type" $element.mobile.type "styles" $element.mobile.styles "opacity" $element.mobile.opacity) }}
             {{ $banner := (dict "desktop" $desktop "mobile" $mobile "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal "textAlignDesktop" $element.textAlignDesktop "textAlignMobile" $element.textAlignMobile) }}
             {{ partial "bannersV2-banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }} 
          {{ end }}
