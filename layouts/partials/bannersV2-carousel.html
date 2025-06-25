@@ -1,0 +1,42 @@
+{{ $base := .Site.Params.imageBase }}
+{{ $bucket := .Site.Params.imageBucket }}
+{{ $banners := .Scratch.Get "banners" }}
+{{ $version := "1" }}
+{{ if .Site.Params.newBookerURL }}
+   {{ $version = "2"}}
+{{ end}}
+{{ $customScratch := newScratch }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new") }}
+{{ if eq .Params.bannerFullScreen true }}
+   {{ $customScratch.Add "stageClasses" (slice "itm-stage-new--fullscreen") }}
+{{ end }}
+{{ $customScratch.Add "stageClasses" (slice "itm-stage-new--horizontal") }}
+{{ $customScratch.Add "bannerContainerClasses" (slice "itm-carousel-new" "carousel" "slide" "carousel-fade" "itm-carousel-new__bannersV2") }}
+
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
+<div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
+   <div id="itm-ap-slider" class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}" {{if ne .Params.stop_carousel true }} data-ride="carousel" {{end}}>
+      <div class="carousel-inner  c-inner">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+            {{ $desktop := (dict "path" (print $bucket `/` $element.desktop.path) "base" $base "type" $element.desktop.type "styles" $element.desktop.styles "opacity" $element.desktop.opacity "position" $element.desktop.position) }}
+            {{ $mobile := (dict "path" (print $bucket `/` $element.mobile.path) "base" $base "type" $element.mobile.type "styles" $element.mobile.styles "opacity" $element.mobile.opacity "position" $element.mobile.position) }}
+            {{ $banner := (dict "desktop" $desktop "mobile" $mobile "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal "textAlignDesktop" $element.textAlignDesktop "textAlignMobile" $element.textAlignMobile) }}
+            {{ partial "bannersV2-banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }} 
+         {{ end }}
+      </div>
+      <ol class="carousel-indicators">
+         {{ range $index, $element := (where $banners "isActive" true) }}
+         <li data-target="#itm-ap-slider" data-slide-to="{{$index}}" class="{{if eq $index 0}}active{{end}}"></li>
+         {{ end }}
+      </ol>
+   </div>
+   {{ if ne .Params.widgetOutsideBanner true }}
+   {{ partial "bannersV2-widget-container" . }}
+   {{ end }}
+</div>
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "bannersV2-widget-container" . }}
+</div>
+{{ end }}
