@@ -333,9 +333,11 @@ $(document).ready(function ($) {
       if ($(".navbarv2-booker").css("display") === "none") {
          $("body").addClass("overflow-hidden");
          $(".navbarv2-booker").css("display", "block");
+         $(".booking-modal-dialog").addClass("fixed");
       } else {
          $("body").removeClass("overflow-hidden");
          $(".navbarv2-booker").css("display", "none");
+         $(".booking-modal-dialog").removeClass("fixed");
       }
    });
 

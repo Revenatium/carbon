@@ -203,7 +203,7 @@
    top: 0;
    height: 100%;
    width: 100%;
-   z-index: 100;
+   z-index: 1;
    display: none;
 
    .navbar-overlay {
@@ -214,9 +214,12 @@
       height: 100%;
       background-color: rgba(0, 0, 0, 0.5);
    }
+}
 
-   .itm-booker {
-      position: absolute;
+.booking-modal-dialog.fixed {
+   z-index: 300;
+    .itm-booker {
+      position: fixed;
       margin: 0 auto;
       top: 0;
       left: 50%;

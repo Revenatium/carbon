@@ -14,13 +14,6 @@
     <link rel="dns-prefetch" href="https://assets.revenatium.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-    {{ if and .Site.Params.api .Site.Params.api.bannersV2Fonts }}
-      {{ $fonts := getJSON .Site.Params.api.bannersV2Fonts.name }}
-      {{ if $fonts.googleFontUrl }}
-        <link rel="preload" crossorigin href="{{ $fonts.googleFontUrl  | safeURL }}" />
-      {{ end }}
-
-    {{ end }}
 
     {{ $stylesheet := .Site.Data.webpack.main }}
     {{ if and .IsHome (eq (getenv "CONTEXT") "production") }}
@@ -94,18 +87,6 @@
       <section class="reserve-bottom">{{ partial "sticky-bottom" . }}</section>
       <div class="navbarv2-booker">
         <div class="navbar-overlay"></div>
-        <div
-            class="itm-booker itm-booker-horizontal"
-            {{ if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
-            {{ if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
-            data-vertical="false"
-            data-account="{{.Site.Params.account}}"
-            data-language="{{.Site.Params.languageCode}}"
-            {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
-            {{ if .Site.Params.customUri }} data-custom-uri="{{.Site.Params.customUri}}" {{ end }}
-            {{ if .Site.Params.forceDestinationIdOnUrl }} data-force-destination-id-on-url="true" {{ end }}
-        >
-        </div>
       </div>
     {{ else }}
       <section class="sticky-bottom d-block d-md-none">{{ partial "sticky-bottom" . }}</section>
