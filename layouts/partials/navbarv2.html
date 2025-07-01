@@ -45,11 +45,13 @@
       </div>
       <nav class="navbarv2-menu-items">
          {{ $currentPage := .URL | absLangURL }}
+         {{ $slashlessCurrentPage := replace $currentPage "/" "" }}
          {{ $navbarMaxItems := .Site.Params.navbarMaxItems | default 5 }}
          <ul>
             {{ range first $navbarMaxItems (.Site.Menus.main) }}
                {{ $menuURL := .URL | absLangURL }}
-                  <li class="nav-item{{ if eq $menuURL $currentPage }} active{{ end }}">
+               {{ $slashlessMenuURL := replace $menuURL "/" "" }}
+                  <li class="nav-item{{ if eq $slashlessMenuURL $slashlessCurrentPage }} active{{ end }}">
                      <a class="nav-link" href="{{ $menuURL }}">
                         {{ .Name }}
                      </a>
@@ -64,7 +66,8 @@
       <ul>
          {{ range .Site.Menus.main }}
             {{ $menuURL := .URL | absLangURL }}
-               <li class="nav-item{{ if eq $menuURL $currentPage }} active{{ end }}">
+            {{ $slashlessMenuURL := replace $menuURL "/" "" }}
+               <li class="nav-item{{ if eq $slashlessMenuURL $slashlessCurrentPage }} active{{ end }}">
                   <a class="nav-link" href="{{ $menuURL }}">
                      {{ .Name }}
                   </a>

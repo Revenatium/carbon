@@ -30,10 +30,12 @@
       <div class="collapse navbar-collapse" id="navbar">
          <ul class="navbar-nav ml-auto">
             {{- $currentURL := .URL | absLangURL -}}
+            {{- $slashlessCurrentURL := replace $currentURL "/" "" -}}
             {{ if .Site.Params.custom_navbar }}
                {{ range .Site.Menus.main }}
                   {{ $menuURL := .URL | absLangURL }}
-            <li class="nav-item{{ if eq $menuURL $currentURL }} active{{ end }}">
+                  {{ $slashlessMenuURL := replace $menuURL "/" "" }}
+            <li class="nav-item{{ if eq $slashlessMenuURL $slashlessCurrentURL }} active{{ end }}">
                <a class="nav-link" href="{{.URL | absURL }}">{{ .Name }}</a>
             </li>
                {{ end }}
@@ -43,7 +45,8 @@
             </li>
                {{ range where (where .Site.RegularPages "Type" "==" "page") ".Params.weight" ">=" 1 }}
                   {{ $permalinkURL := .Permalink | absLangURL }}
-            <li class="nav-item{{ if eq $permalinkURL $currentURL }} active{{ end }}">
+                  {{ $slashlessURL := replace $permalinkURL "/" "" }}
+            <li class="nav-item{{ if eq $slashlessURL $slashlessCurrentURL }} active{{ end }}">
                <a class="nav-link" href="{{ .Permalink }}">{{ .Title }}</a>
             </li>
                {{ end }}
