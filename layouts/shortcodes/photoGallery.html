@@ -13,9 +13,9 @@
          {{ $alt := index $alts $index }}
          <a href="{{ print $base `f_auto,w_1200,h_800,c_fit/` $element }}" class="gallery-link{{if (gt $index 4)}} d-none{{end}}">
          {{ if (eq $index 0) }}
-            <img src="{{ print $base `f_auto,w_600,h_430,c_fill/` $element }}" loading="lazy" {{with $alt }}alt="{{.}}"{{end}} />
+            <img width="0" height="0" src="{{ print $base `f_auto,w_600,h_430,c_fill/` $element }}" loading="lazy" {{with $alt }}alt="{{.}}"{{end}} />
          {{ else if (lt $index 5) }}
-            <img src="{{ print $base `f_auto,w_300,h_215,c_fill/` $element }}" loading="lazy" {{with $alt }}alt="{{.}}"{{end}}/>
+            <img width="0" height="0" src="{{ print $base `f_auto,w_300,h_215,c_fill/` $element }}" loading="lazy" {{with $alt }}alt="{{.}}"{{end}}/>
          {{ end }}
          {{ if (eq $index 4) }}
             <span class="gallery-count">

@@ -14,7 +14,7 @@
     <link rel="dns-prefetch" href="https://assets.revenatium.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />
-
+    {{ partial "extra-fonts"}}
      {{ if and .Site.Params.api .Site.Params.api.bannersV2Fonts }}
       {{ $fonts := getJSON .Site.Params.api.bannersV2Fonts.name }}
       {{ if $fonts.googleFontUrl }}
@@ -41,6 +41,20 @@
          {{ end }}
       {{ end }}
     {{ end }}
+
+    
+    {{ if and .Params.showBanners (and .Site.Params.api .Site.Params.api.banners) }}
+      {{ $banners := (getJSON .Site.Params.api.banners.name) }}
+      {{ $base := .Site.Params.imageBase }}
+      {{ $bucket := .Site.Params.imageBucket }}
+      {{ range $index, $element := (where $banners "isActive" true) }}
+        {{ $image := index .photos 0 }}
+        {{ $bannerImage := (dict "path" (print $bucket `/` $image.path) "base" $base) }}
+        {{ $currentImage := print $bannerImage.base `f_auto,w_1280,h_600,c_fill,dpr_2/` $bannerImage.path }}
+        <link rel="preload" as="image" href="{{ $currentImage }}" />
+      {{ end }}
+    {{ end }}
+
 
     {{ if .Params.agencyForm }}
     {{ with .Site.Params.agenciesFormWidgetUrl }}
