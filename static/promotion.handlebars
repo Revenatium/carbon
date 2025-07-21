@@ -10,9 +10,9 @@
         {{/if}}
 
         {{#if title}}
-          <h2 class="listItem-title">{{ title }} {{#if showHotel }}<div class="listItem-subtitle">{{hotel/name}}</div>{{/if}}</h2>
+          <h2 class="listItem-title">{{ title }} {{#if showHotel }}<div class="listItem-subtitle">{{description}}</div>{{/if}}</h2>
         {{else}}
-          <h2 class="listItem-title">{{ resources/promotion }} {{#if showHotel }}<div class="listItem-subtitle">{{hotel/name}}</div>{{/if}}</h2>
+          <h2 class="listItem-title">{{ resources/promotion }} {{#if showHotel }}<div class="listItem-subtitle">{{description}}</div>{{/if}}</h2>
         {{/if}}
 
         <div class="listItem-actions w-100">
