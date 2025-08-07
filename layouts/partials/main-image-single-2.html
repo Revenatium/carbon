@@ -26,6 +26,9 @@
    {{ $version = "2"}}
 {{ end}}
 
+{{ if eq .Params.widgetOutsideBanner true }}
+<div class="widget-outside-banner">
+{{ end }}
 <div class="{{ delimit ($customScratch.Get `stageClasses`) ` ` }}">
    <div class="{{ delimit ($customScratch.Get `bannerContainerClasses`) ` ` }}">
    {{ $banner := dict "image" (dict "path" .Params.featured_image.path "base" .Params.featured_image.base) "alt" .Params.featured_image.alt }}
@@ -38,14 +41,14 @@
             {{ partial "banner-info" (dict "title" .Title "subTitle" .Description "main" $) }}
             {{ end }}
          </div>
-         {{ if $isVertical }}
+         {{ if and $isVertical (ne .Params.widgetOutsideBanner true) }}
          <div class="col-12 col-md-6 col-lg-5 col-xl-4">
             {{ partial "widget-card" . }}              
          </div>
          {{end}}
       </div>
    </div>
-   {{ if not $isVertical }}
+   {{ if and (not $isVertical) (ne .Params.widgetOutsideBanner true) }}
    {{ partial "widget-container-2" . }}
    {{ end }}
 
@@ -55,7 +58,10 @@
    </a>
    {{ end }}
 </div>
-
+{{ if eq .Params.widgetOutsideBanner true }}
+{{ partial "widget-container" . }}
+</div>
+{{ end }}
 {{ if eq .Params.showScrollButton true }}
 <div id="content"></div>
 {{ end }}
