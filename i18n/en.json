@@ -366,5 +366,17 @@
    {
       "id": "deal2-nightFree",
       "translation": "Night free"
+   },
+   {
+      "id": "perNight",
+      "translation": "per night"
+   },
+   {
+      "id": "priceFrom",
+      "translation": "Price from:"
+   },
+   {
+      "id": "priceFromFull",
+      "translation": "Price per night from:"
    }
 ]

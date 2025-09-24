@@ -2,6 +2,7 @@
 {{ if and .Site.Params.api .Site.Params.api.rooms.url }}
    {{ $many := 20 }}
    {{ $version := "2" }}
+   {{ $roomsVersion := "1" }}
    {{ $isDynamic := false }}
    {{ $hotelId := "" }}
    {{ $containerType := "list--fullpage" }}
@@ -31,6 +32,9 @@
    {{ end }}
    {{ with .Get "version" }}
       {{ $version = . }}
+   {{ end }}
+   {{ with .Get "roomsVersion" }}
+      {{ $roomsVersion = . }}
    {{ end }}
    {{ $rooms := getJSON (replace .Site.Params.api.rooms.name "{hotelId}" $hotelId) }}
 
@@ -63,6 +67,9 @@
             <div class="item-description">
                {{ .description }}
             </div>
+
+            <!-- inicio detalles de habitacion version 1 -->
+            {{ if (eq $roomsVersion "1") }}
             <div class="item-room-details">
                {{ if .summaryDetails }}
                <span class="item-room-info">
@@ -91,6 +98,89 @@
                </span>
                {{ end }}
             </div>
+            {{ end }}
+            <!-- fin detalles de habitacion version 1 -->
+
+            <!-- inicio detalles de habitacion version 2 -->
+            {{ if (eq $roomsVersion "2") }}
+            <div class="item-room-details with-details">
+               {{ if .summaryDetails }}
+               <span class="item-room-info">
+                  <i class="fas fax-user mr-1"></i>
+                  <span>{{ .summaryDetails.capacitySummary }}</span>
+               </span>
+               <span class="item-room-info">
+                  <i class="fas fax-bed mr-1"></i>
+                  <span>
+                     {{ .summaryDetails.bedResume }}
+                     {{ if $tooltipText }}
+                     <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="{{ $tooltipText }}">
+                        <sup class="info">&#9432;</sup>
+                     </span>
+                     {{ end }}
+                  </span>
+               </span>
+               {{ else }}
+               <span class="item-room-info">
+                  <i class="fas fax-user mr-1"></i>
+                  <span>{{ .capacity }}</span>
+               </span>
+               <span class="item-room-info">
+                  <i class="fas fax-bed mr-1"></i>
+                  <span>{{ .bedding }}</span>
+               </span>
+               {{ end }}
+               <button type="button" class="btn btn-link " data-toggle="modal" data-target="#roomModal{{.id}}">
+                  {{ i18n "viewRoomDetails"}}
+               </button>
+            </div>
+            {{ end }}
+            <!-- fin detalles de habitacion version 2 -->
+
+            <!-- inicio detalles de habitacion version 3 -->
+            {{ if (eq $roomsVersion "3") }}
+            <div class="item-room-details with-price">
+               <div class="item-room-info-container">
+                  {{ if .summaryDetails }}
+                  <span class="item-room-info">
+                     <i class="fas fax-user mr-1"></i>
+                     <span>{{ .summaryDetails.capacitySummary }}</span>
+                  </span>
+                  <span class="item-room-info">
+                     <i class="fas fax-bed mr-1"></i>
+                     <span>
+                        {{ .summaryDetails.bedResume }}
+                        {{ if $tooltipText }}
+                        <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="bottom" title="{{ $tooltipText }}">
+                           <sup class="info">&#9432;</sup>
+                        </span>
+                        {{ end }}
+                     </span>
+                  </span>
+                  {{ else }}
+                  <span class="item-room-info">
+                     <i class="fas fax-user mr-1"></i>
+                     <span>{{ .capacity }}</span>
+                  </span>
+                  <span class="item-room-info">
+                     <i class="fas fax-bed mr-1"></i>
+                     <span>{{ .bedding }}</span>
+                  </span>
+                  {{ end }}
+               </div>
+               <div class="item-room-details-price">
+                  <span class="from">
+                     {{ i18n "priceFromFull"}}
+                  </span>
+                  <span class="price">
+                     ${{ lang.NumFmt 0 .lowestRateDetail.amount "- . ," }}
+                  </span>
+               </div>
+            </div>
+            {{ end }}
+            <!-- fin detalles de habitacion version 3 -->
+
+            {{ if or (eq $roomsVersion "1") (eq $roomsVersion "3") }}
             <div class="item-room-actions">
                {{ if eq $version "2" }}
                   {{ if and $showHotel $hotelId }}
@@ -117,6 +207,46 @@
                   {{ i18n "viewRoomDetails"}}
                </button>
             </div>
+            {{ end }}
+            {{ if (eq $roomsVersion "2") }}
+            <div class="item-room-actions with-price">
+               <div class="divider"></div>
+               <div class="content">
+                  <div class="item-room-actions-price">
+                     <span class="from">
+                        {{ i18n "priceFrom"}}
+                     </span>
+                     <span class="price">
+                        ${{ lang.NumFmt 0 .lowestRateDetail.amount "- . ," }}
+                     </span>
+                     <span class="per-night">
+                        {{ i18n "perNight"}}
+                     </span>
+                  </div>
+                  {{ if eq $version "2" }}
+                     {{ if and $showHotel $hotelId }}
+                        <a href="{{ $bookingEngineURL }}{{ $hotelId }}/{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
+                           {{ i18n "book"}}
+                        </a>
+                     {{ else }}
+                        <a href="{{ $bookingEngineURL }}{{ delimit $query2 `` | safeURL }}" class="btn btn-primary">
+                           {{ i18n "book"}}
+                        </a>
+                     {{ end }}
+                  {{ else }}
+                     {{ if and $showHotel $hotelId }}
+                        <a href="{{ $bookingEngineURL }}#/{{ $hotelId }}/{{ delimit $query `` | safeURL }}" class="btn btn-primary">
+                           {{ i18n "book"}}
+                        </a>
+                     {{ else }}
+                        <a href="{{ $bookingEngineURL }}#/{{ delimit $query `` | safeURL }}" class="btn btn-primary">
+                           {{ i18n "book"}}
+                        </a>
+                     {{ end }}
+                  {{ end  }}
+               </div>
+            </div>
+            {{ end }}
          </div>
       </div>
       <div class="modal fade" id="roomModal{{.id}}" tabindex="-1" role="dialog"  aria-hidden="true">
