@@ -1,0 +1,107 @@
+@mixin booker-nav() {
+   .itm-booker {
+      .nav {
+         background-color: transparent;
+         border-color: transparent;
+         > li > a {
+            padding: 5px;
+            margin-left: 5px;
+         }
+         > li > a:hover{
+            border-color: lighten($brand-color, 10%);
+            background-color: transparent;
+         }
+         > li.active > a {
+            border-color: $brand-color;
+            background-color: transparent;
+         }
+      }
+      .itm-btn-primary {
+         background-color: $widget-button-bgColor;
+         border-color: $widget-button-bgColor;
+      }
+   }
+}
+@mixin booker-nav-2() {
+   .itm-booker {
+      ul {
+         > li > a.itm-booker-navItem {
+            padding: 5px;
+            margin-left: 5px;
+         }
+         > li > a.itm-booker-navItem:hover{
+            border-color: lighten($brand-color, 10%);
+            background-color: transparent;
+            text-decoration: none;
+         }
+         > li.active > a.itm-booker-navItem {
+            border-color: $brand-color;
+            background-color: transparent;
+         }
+      }
+      .itm-btn-primary {
+         background-color: $widget-button-bgColor;
+         border-color: $widget-button-bgColor;
+      }
+   }
+}
+@mixin booker-nav-text($color, $shadow: null) {
+   .itm-booker {
+      .nav {
+         > li > a {
+            color: rgba($color,.75);
+            @if $shadow {
+            text-shadow: 0 1px 2px rgba($shadow, 0.4);
+            }@else{
+            text-shadow: none;
+            }
+         }
+         > li > a:hover {
+            color: rgba($color,1);
+            border-bottom-color: lighten($brand-color, 10%);
+         }
+         > li.active > a {
+            color: rgba($color,1);
+            cursor: default;
+         }
+      }
+      .itm-promotion-code-modal-link span{
+         color: $color;
+         @if $shadow {
+         text-shadow: 0 0 15px rgba($shadow,0.5), 0 0 50px rgba($shadow,0.4), 0 1px 1px rgba($shadow,0.3);
+         }@else{
+         text-shadow: none;
+         }
+      }
+   }
+}
+@mixin booker-nav-text-2($color, $shadow: null) {
+   .itm-booker {
+      ul {
+         > li > a.itm-booker-navItem {
+            color: rgba($color,.75);
+            @if $shadow {
+            text-shadow: 0 1px 2px rgba($shadow, 0.4);
+            }@else{
+            text-shadow: none;
+            }
+         }
+         > li > a.itm-booker-navItem:hover {
+            color: rgba($color,1);
+            border-bottom-color: lighten($brand-color, 10%);
+         }
+         > li.active > a.itm-booker-navItem {
+            color: rgba($color,1);
+            cursor: default;
+         }
+      }
+      .itm-booker-promoCode{
+         color: $color;
+         @if $shadow {
+            text-shadow: 0 0 15px rgba($shadow,0.5), 0 0 50px rgba($shadow,0.4), 0 1px 1px rgba($shadow,0.3);
+         }@else{
+         text-shadow: none;
+         }
+      }
+   }
+}
