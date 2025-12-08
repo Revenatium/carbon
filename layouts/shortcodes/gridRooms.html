@@ -42,19 +42,7 @@
    {{ range first $many (where $rooms "isActive" true) }}
       {{ $query2 := slice "rooms" "?weekday=" (urlize $weekday) "&nights=" $nights "&cutoff=" $cutoff "&roomId=" .id "&isDynamic=" "true" }}
       {{ $query := slice (i18n "roomsNextUri") "/" (urlize (i18n $weekday)) "/" $nights "/" $cutoff "?ro=" .id }}
-      {{ $tooltipText := "" }}
-      {{ if .summaryDetails.bedArrangements }}
-         {{ $bedArrangementsLenght := len .summaryDetails.bedArrangements }}
-         {{ range $index, $element := .summaryDetails.bedArrangements }}
-            {{ if eq $index 0 }}
-               {{ $tooltipText = print $tooltipText $element }}
-            {{ else if eq $index (sub $bedArrangementsLenght 1) }}
-               {{ $tooltipText = print $tooltipText " y " $element }}
-            {{ else }}
-               {{ $tooltipText = print $tooltipText ", " $element }}
-            {{ end }}
-         {{ end }}
-      {{ end }}
+      {{ $tooltipText := .bedding }}
       <div class="grid-rooms-item">
          {{if .photos }}
             {{ $image := index .photos 0 }}
