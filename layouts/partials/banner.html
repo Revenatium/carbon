@@ -65,13 +65,18 @@
 {{ end }}
 
 {{ if .image }}
+   {{ $isVideo := false}}
+   {{ if or (or (strings.HasSuffix .image.path ".mp4") (strings.HasSuffix .image.path ".webm")) (strings.HasSuffix .image.path ".mpeg") }}
+   {{ $isVideo = true}}
+   {{ end }}
    <div 
       class="{{ delimit ($customScratch.Get `classes`) ` ` }}"
-      {{ if eq $disableOpacity true }}
-         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,c_fill,dpr_2/` .image.path }})">
-      {{ else }}
-         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})">
+      {{ if and (eq $disableOpacity true) (not $isVideo) }}
+         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,c_fill,dpr_2/` .image.path }})"
+      {{ else if not $isVideo }}
+         style="background-image: url({{ print .image.base `f_auto,w_1280,h_600,b_black,o_70,c_fill/` .image.path }})"
       {{ end }}
+      >
       {{ if $video }}
       <div class="itm-video-background">
          <div class="itm-video-foreground">
@@ -79,6 +84,17 @@
                <source src="{{ print $video.base `upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $video.path `.mp4` }}" type="video/mp4; codecs=hvc1">
                <source src="{{ print $video.base `upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $video.path `.webm` }}" type="video/webm; codecs=vp9">
                <source src="{{ print $video.base `upload/c_limit,q_auto,w_1280/` $video.path `.mp4` }}" type="video/mp4">
+            </video>
+         </div>
+      </div>
+      {{ else if $isVideo }}
+      {{ $path := replaceRE `\.(mp4|webm|mpeg)$` "" .image.path}}
+      <div class="itm-video-background">
+         <div class="itm-video-foreground">
+            <video playsinline autoplay loop muted class="itm-video">
+               <source src="{{ print .image.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $path `.mp4` }}" type="video/mp4; codecs=hvc1">
+               <source src="{{ print .image.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $path `.webm` }}" type="video/webm; codecs=vp9">
+               <source src="{{ print .image.base `video/upload/c_limit,q_auto,w_1280/` $path `.mp4` }}" type="video/mp4">
             </video>
          </div>
       </div>

@@ -77,6 +77,18 @@
          </div>
       </div>
       {{ else }}
+      {{ if or (or (strings.HasSuffix .image.path ".mp4") (strings.HasSuffix .image.path ".webm")) (strings.HasSuffix .image.path ".mpeg") }}
+      {{ $path := replaceRE `\.(mp4|webm|mpeg)$` "" .image.path}}
+      <div class="itm-video-background">
+         <div class="itm-video-foreground">
+            <video playsinline autoplay loop muted class="itm-video">
+               <source src="{{ print .image.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $path `.mp4` }}" type="video/mp4; codecs=hvc1">
+               <source src="{{ print .image.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $path `.webm` }}" type="video/webm; codecs=vp9">
+               <source src="{{ print .image.base `video/upload/c_limit,q_auto,w_1280/` $path `.mp4` }}" type="video/mp4">
+            </video>
+         </div>
+      </div>
+      {{ else }}
       <picture>
          <source media="(min-width: 1200px)" srcset="{{print .image.base `f_auto,w_1200,h_600,c_fill,g_auto/` .image.path}},
          {{print .image.base `f_auto,w_1200,h_600,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
@@ -89,6 +101,7 @@
          <img src="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .image.path}}" {{with $alt }}alt="{{.}}"{{end}} />
 
       </picture>
+      {{ end}}
       {{ end }}
       {{ if (or .title .subTitle) }}
       <div class="container itm-banner-info-container itm-banner-info-container--dark">
