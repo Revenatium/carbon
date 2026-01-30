@@ -1,7 +1,9 @@
 {{ define "main" }}
    {{ .Scratch.Set "widgetLocation" "top" }}
    {{ .Scratch.Set "banners" "" }}
-   {{ if and .Params.showBanners (and .Site.Params.api .Site.Params.api.bannersV2) }}
+   {{ if and .Params.sliderId (and .Site.Params.api .Site.Params.api.sliders) }}
+      {{ .Scratch.Set "banners" (getJSON (replace .Site.Params.api.sliders.name "{sliderId}" .Params.sliderId)) }}
+   {{ else if and .Params.showBanners (and .Site.Params.api .Site.Params.api.bannersV2) }}
       {{ .Scratch.Set "banners" (getJSON .Site.Params.api.bannersV2.name) }}
    {{ end }}
    {{ if .Scratch.Get "banners" }}

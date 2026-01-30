@@ -42,50 +42,63 @@
 {{ $desktopInfoAlign := print "desktop-align-" (.textAlignDesktop | default "left") }}
 {{ $mobileInfoAlign := print "mobile-align-" (.textAlignMobile | default "left") }}
 {{ $customScratch.Add "infoClasses" (slice "container itm-banner-info-container itm-banner-info-container--dark" $desktopInfoAlign $mobileInfoAlign) }}
+{{ $hasDestopVideo := or (or (strings.HasSuffix .desktop.path ".mp4") (strings.HasSuffix .desktop.path ".webm")) (strings.HasSuffix .desktop.path ".mpeg") }}
+{{ $hasMobileVideo := or (or (strings.HasSuffix .mobile.path ".mp4") (strings.HasSuffix .mobile.path ".webm")) (strings.HasSuffix .mobile.path ".mpeg") }}
 
 <div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
-   {{ if or (or (strings.HasSuffix .desktop.path ".mp4") (strings.HasSuffix .desktop.path ".webm")) (strings.HasSuffix .desktop.path ".mpeg") }}
+   {{ if or $hasDestopVideo $hasMobileVideo }}
    {{ $desktopPath := replaceRE `\.(mp4|webm|mpeg)$` "" .desktop.path}}
-   <div class="itm-video-background desktop-image">
+   {{ $mobilePath := replaceRE `\.(mp4|webm|mpeg)$` "" .mobile.path}}
+   <div class="itm-video-background itm-background {{ if $hasDestopVideo }}desktop-show{{ end }} {{ if $hasMobileVideo }}mobile-show{{ end }}">
       <div class="itm-video-foreground">
          <video playsinline autoplay loop muted class="itm-video">
-            <source src="{{ print .desktop.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_1920/` $desktopPath `.mp4` }}" type="video/mp4; codecs=hvc1">
-            <source src="{{ print .desktop.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_1920/` $desktopPath `.webm` }}" type="video/webm; codecs=vp9">
-            <source src="{{ print .desktop.base `video/upload/c_limit,q_auto,w_1280/` $desktopPath `.mp4` }}" type="video/mp4">
+            {{ if $hasDestopVideo }}
+            <source media="(min-width:1200px)" src="{{ print .desktop.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_1200/` $desktopPath `.mp4` }}" type="video/mp4; codecs=hvc1">
+            <source media="(min-width:1200px)" src="{{ print .desktop.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_1200/` $desktopPath `.webm` }}" type="video/webm; codecs=vp9">
+            <source media="(min-width:1200px)" src="{{ print .desktop.base `video/upload/c_limit,q_auto,w_1200/` $desktopPath `.mp4` }}" type="video/mp4">
+            <source media="(min-width:820px)" src="{{ print .desktop.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_992/` $desktopPath `.mp4` }}" type="video/mp4; codecs=hvc1">
+            <source media="(min-width:820px)" src="{{ print .desktop.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_992/` $desktopPath `.webm` }}" type="video/webm; codecs=vp9">
+            <source media="(min-width:820px)" src="{{ print .desktop.base `video/upload/c_limit,q_auto,w_992/` $desktopPath `.mp4` }}" type="video/mp4">
+            <source media="(min-width:768px)" src="{{ print .desktop.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_768/` $desktopPath `.mp4` }}" type="video/mp4; codecs=hvc1">
+            <source media="(min-width:768px)" src="{{ print .desktop.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_768/` $desktopPath `.webm` }}" type="video/webm; codecs=vp9">
+            <source media="(min-width:768px)" src="{{ print .desktop.base `video/upload/c_limit,q_auto,w_768/` $desktopPath `.mp4` }}" type="video/mp4">
+            {{ end }}
+            {{ if $hasMobileVideo }}
+            <source media="(max-width:767px)" src="{{ print .mobile.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_425/` $mobilePath `.mp4` }}" type="video/mp4; codecs=hvc1">
+            <source media="(max-width:767px)" src="{{ print .mobile.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_425/` $mobilePath `.webm` }}" type="video/webm; codecs=vp9">
+            <source media="(max-width:767px)" src="{{ print .mobile.base `video/upload/c_limit,q_auto,w_425/` $mobilePath `.mp4` }}" type="video/mp4">
+            {{ end }}
+            {{ if $hasDestopVideo }}
+            <source src="{{ print .desktop.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_1200/` $desktopPath `.mp4` }}" type="video/mp4; codecs=hvc1">
+            <source src="{{ print .desktop.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_1200/` $desktopPath `.webm` }}" type="video/webm; codecs=vp9">
+            <source src="{{ print .desktop.base `video/upload/c_limit,q_auto,w_1200/` $desktopPath `.mp4` }}" type="video/mp4">
+            {{ else }}
+            <source src="{{ print .mobile.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_1200/` $mobilePath `.mp4` }}" type="video/mp4; codecs=hvc1">
+            <source src="{{ print .mobile.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_1200/` $mobilePath `.webm` }}" type="video/webm; codecs=vp9">
+            <source src="{{ print .mobile.base `video/upload/c_limit,q_auto,w_1200/` $mobilePath `.mp4` }}" type="video/mp4">
+            {{ end }}
          </video>
       </div>
    </div>
-   {{ else }}
-   <picture class="desktop-image">
+   {{ end }}
+   {{ if not (and $hasDestopVideo $hasMobileVideo) }}
+   <picture class="itm-background {{ if not $hasDestopVideo }}desktop-show{{ end }} {{ if not $hasMobileVideo }}mobile-show{{ end }}">
       <source media="(min-width: 1200px)" srcset="{{print .desktop.base `f_auto,w_1200,h_600,` .desktop.position `/` .desktop.path}},
       {{print .desktop.base `f_auto,w_1200,h_600,` .desktop.position `,dpr_2/` .desktop.path}} 2x" >
       <source media="(min-width: 820px)" srcset="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `/` .desktop.path}},
       {{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `,dpr_2/` .desktop.path}} 2x" >
       <source media="(min-width: 768px)" srcset="{{print .desktop.base `f_auto,w_768,h_600,` .desktop.position `/` .desktop.path}},
       {{print .desktop.base `f_auto,w_768,h_600,` .desktop.position `,dpr_2/` .desktop.path}} 2x" >
-      <source media="(max-width: 767px)" srcset="{{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `/` .desktop.path}},
+      {{ if .mobile }}
+      <source data-source="mobile" media="(max-width: 767px)" srcset="{{print .mobile.base `f_auto,w_375,h_433,` .mobile.position `/` .mobile.path}},
+      {{print .mobile.base `f_auto,w_375,h_433,` .mobile.position `,dpr_2/` .mobile.path}} 2x" >
+      {{ else }}
+      <source data-source="desktop" media="(max-width: 767px)" srcset="{{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `/` .desktop.path}},
       {{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `,dpr_2/` .desktop.path}} 2x" >
+      {{ end }}
       <img src="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `,dpr_2/` .desktop.path}}" />
    </picture>
    {{ end }}
-   {{ if or (or (strings.HasSuffix .mobile.path ".mp4") (strings.HasSuffix .mobile.path ".webm")) (strings.HasSuffix .mobile.path ".mpeg") }}
-   {{ $mobilePath := replaceRE `\.(mp4|webm|mpeg)$` "" .mobile.path}}
-   <div class="itm-video-background mobile-image">
-      <div class="itm-video-foreground">
-         <video playsinline autoplay loop muted class="itm-video">
-            <source src="{{ print .mobile.base `video/upload/c_limit,f_mp4,q_auto,vc_h265,w_375/` $mobilePath `.mp4` }}" type="video/mp4; codecs=hvc1">
-            <source src="{{ print .mobile.base `video/upload/c_limit,f_webm,q_auto,vc_vp9,w_375/` $mobilePath `.webm` }}" type="video/webm; codecs=vp9">
-            <source src="{{ print .mobile.base `video/upload/c_limit,q_auto,w_375/` $mobilePath `.mp4` }}" type="video/mp4">
-         </video>
-      </div>
-   </div>
-   {{ else }}
-   <picture class="mobile-image">
-      <source media="(max-width: 767px)" srcset="{{print .mobile.base `f_auto,w_375,h_433,` .mobile.position `/` .mobile.path}},
-      {{print .mobile.base `f_auto,w_375,h_433,` .mobile.position `,dpr_2/` .mobile.path}} 2x" >
-      <img src="{{print .mobile.base `f_auto,w_992,h_480,` .mobile.position `,dpr_2/` .mobile.path}}" />
-   </picture>
-   {{ end}}
    {{if .desktop.opacity}}<div class="desktop-image opacity" style="opacity: {{ div (float (.desktop.opacity | default 0)) 100 }}"></div>{{end}}
    {{if .mobile.opacity}}<div class="mobile-image opacity" style="opacity: {{ div (float (.mobile.opacity | default 0)) 100 }}"></div>{{end}}
    {{if (or .title .subTitle .labelText .actionText) }}
