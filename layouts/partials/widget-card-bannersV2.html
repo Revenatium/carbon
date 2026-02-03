@@ -29,6 +29,7 @@
             id="rvm-booker-container"
             {{ if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
             {{ if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}
+            {{ if .Params.onlyShowForm }} data-only-show-form="{{ .Params.onlyShowForm }}" {{ end }}
             class="{{ delimit ($customScratch.Get `widgetClasses`) ` ` }}"
             {{ if .Site.Params.hideWidgetBar }} data-loadingnavbar="false" {{ end }}
             data-account="{{.Site.Params.account}}"

@@ -40,6 +40,9 @@
                      <div id="rvm-booker-container"
                         data-vertical="true"
                         data-account="{{.Site.Params.account}}"
+                        {{ if .Params.onlyShowForm }}
+                        data-only-show-form="{{ .Params.onlyShowForm }}"
+                        {{ end }}
                         {{if .Params.id }}
                         data-hotel="{{ .Params.id }}"
                         {{ end }}
