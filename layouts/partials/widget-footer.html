@@ -12,7 +12,10 @@
              <div id="rvm-booker-container"
                data-account="{{.Site.Params.account}}"
                data-language="{{.Site.Params.languageCode}}"
-               {{ if .Params.onlyShowForm }} data-only-show-form="{{ .Params.onlyShowForm }}" {{ end }}
+               {{ if eq .Params.onlyShowForm "HOTEL_FLIGHT" }} data-only-show-form="HOTEL_FLIGHT"
+               {{ else if eq .Params.onlyShowForm "HOTEL" }} data-only-show-form="HOTEL"
+               {{ else if eq .Params.onlyShowForm "SERVICES" }} data-only-show-form="SERVICES"
+               {{ end }}
                {{ if .Site.Params.customUri }} data-custom-uri="{{.Site.Params.customUri}}" {{ end }}
                {{ if .Params.id }} data-hotel="{{ .Params.id }}" {{ end }}
                {{ if .Params.selectedForm }} data-selected-form="{{ .Params.selectedForm }}" {{ end }}

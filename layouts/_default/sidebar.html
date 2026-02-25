@@ -40,8 +40,12 @@
                      <div id="rvm-booker-container"
                         data-vertical="true"
                         data-account="{{.Site.Params.account}}"
-                        {{ if .Params.onlyShowForm }}
-                        data-only-show-form="{{ .Params.onlyShowForm }}"
+                        {{ if eq .Params.onlyShowForm "HOTEL_FLIGHT" }}
+                        data-only-show-form="HOTEL_FLIGHT"
+                        {{ else if eq .Params.onlyShowForm "HOTEL" }}
+                        data-only-show-form="HOTEL"
+                        {{ else if eq .Params.onlyShowForm "SERVICES" }}
+                        data-only-show-form="SERVICES"
                         {{ end }}
                         {{if .Params.id }}
                         data-hotel="{{ .Params.id }}"
