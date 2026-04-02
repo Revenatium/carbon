@@ -25,13 +25,13 @@
     {{ end }}
 {{ end }}
 {{ if .labelText }}
-    <div class="badge badge-primary" style="{{.labelText.styles | safeCSS}}">{{ .labelText.text | markdownify }}</div>
+    <div class="itm-badge itm-badge-primary" style="{{.labelText.styles | safeCSS}}">{{ .labelText.text | markdownify }}</div>
 {{ end }}
 {{ if .title }}
-    <h1 style="{{.title.styles | safeCSS}}">{{.title.text | markdownify}}</h1>
+    <h1 class="itm-banner-title" style="{{.title.styles | safeCSS}}">{{.title.text | markdownify}}</h1>
 {{ end }}
 {{ if .subTitle }}
-    <p class="lead" style="{{.subTitle.styles | safeCSS}}">{{ .subTitle.text | markdownify }}</p>
+    <p class="lead itm-banner-subtitle" style="{{.subTitle.styles | safeCSS}}">{{ .subTitle.text | markdownify }}</p>
 {{ end }}
 {{ if .showButton }}
     {{ if eq .isButtonUrlExternal true }}
