@@ -54,6 +54,10 @@
       margin-bottom: 0.75rem;
     }
 
+    .itm-badge:empty {
+      display: none;
+    }
+
     .itm-badge-primary {
       --color: 0, 0, 0;
       color: white;
