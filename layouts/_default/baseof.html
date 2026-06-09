@@ -10,7 +10,7 @@
     {{ end }} {{ if .Site.Params.bookingEngineURL }}
     <link rel="prefetch" href="{{ .Site.Params.bookingEngineURL }}" />
     {{ end }}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    {{ partial "head-fonts.html" . }}
     <link rel="dns-prefetch" href="https://assets.revenatium.com" />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://res.cloudinary.com" />

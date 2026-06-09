@@ -96,7 +96,7 @@
       <source data-source="desktop" media="(max-width: 767px)" srcset="{{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `/` .desktop.path}},
       {{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `,dpr_2/` .desktop.path}} 2x" >
       {{ end }}
-      <img src="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `,dpr_2/` .desktop.path}}" />
+      <img src="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `/` .desktop.path}}" srcset="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `,dpr_2/` .desktop.path}} 2x" fetchpriority="high" decode="async" />
    </picture>
    {{ end }}
    {{if .desktop.opacity}}<div class="desktop-image opacity" style="opacity: {{ div (float (.desktop.opacity | default 0)) 100 }}"></div>{{end}}
