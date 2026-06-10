@@ -1,7 +1,8 @@
 <div class="col col-md-4 mb-4 listItem-deal" data-categories="{{ categories }}" data-hotelId="{{hotelId}}">
   <div class="card bg-dark text-white border-0 itm-card-img-overlay">
       <img src="{{base}}f_auto,q_auto,h_400,w_340,c_fill/{{bucket}}/{{photo}}" alt="{{ title }}"
-      srcset="{{base}}f_auto,q_auto,h_400,w_340,c_fill,dpr_2/{{bucket}}/{{photo}} 2x"
+      srcset="{{base}}f_auto,q_auto,h_400,w_352,c_fill/{{bucket}}/{{photo}} 352w"
+      sizes="(max-width: 412px) 352px, 340px"
       class="itm-card-img" loading="lazy" />
       <div class="card-body itm-card-body d-flex align-items-center flex-column">
         {{#if hasDiscountPercentage }}
