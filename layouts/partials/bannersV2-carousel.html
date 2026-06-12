@@ -22,8 +22,8 @@
          {{ range $index, $element := (where $banners "isActive" true) }}
             {{ $desktop := (dict "path" (print $bucket `/` $element.desktop.path) "base" $base "type" $element.desktop.type "styles" $element.desktop.styles "opacity" $element.desktop.opacity "position" $element.desktop.position) }}
             {{ $mobile := (dict "path" (print $bucket `/` $element.mobile.path) "base" $base "type" $element.mobile.type "styles" $element.mobile.styles "opacity" $element.mobile.opacity "position" $element.mobile.position) }}
-            {{ $banner := (dict "desktop" $desktop "mobile" $mobile "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal "textAlignDesktop" $element.textAlignDesktop "textAlignMobile" $element.textAlignMobile) }}
-            {{ partial "bannersV2-banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }} 
+            {{ $banner := (dict "desktop" $desktop "mobile" $mobile "title" $element.title "subTitle" $element.subTitle "labelText" $element.labelText "actionText" $element.actionText "promotion" $element.promotion "isPromotion" $element.isPromotion "buttonUrl" $element.buttonUrl "showButton" $element.showButton "isButtonUrlExternal" $element.isButtonUrlExternal "textAlignDesktop" $element.textAlignDesktop "textAlignMobile" $element.textAlignMobile "hotelName" $element.hotelName) }}
+            {{ partial "bannersV2-banner" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $ "index" $index) }} 
          {{ end }}
       </div>
       <ol class="carousel-indicators">
