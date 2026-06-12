@@ -36,7 +36,7 @@
       <div class="carousel-inner c-inner">
          {{ range $index, $element := $banners }}
             {{ $banner := dict "image" (dict "path" $element "base" $base) }}
-            {{ partial "banner2" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $) }}
+            {{ partial "banner2" (dict "active" (eq $index 0) "isCarousel" true "banner" $banner "version" $version "main" $ "index" $index) }}
          {{ end }}
       </div>
       <ol class="carousel-indicators">

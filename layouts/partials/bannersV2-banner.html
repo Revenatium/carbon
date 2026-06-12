@@ -1,5 +1,6 @@
 {{ $ := .main }}
 {{ $version := .version }}
+{{ $bannerIndex := .index | default 0 }}
 {{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
 {{ $customScratch := newScratch }}
 {{ $customScratch.Add "classes" (slice "itm-banner-item-new") }}
@@ -44,6 +45,8 @@
 {{ $customScratch.Add "infoClasses" (slice "container itm-banner-info-container itm-banner-info-container--dark" $desktopInfoAlign $mobileInfoAlign) }}
 {{ $hasDestopVideo := or (or (strings.HasSuffix .desktop.path ".mp4") (strings.HasSuffix .desktop.path ".webm")) (strings.HasSuffix .desktop.path ".mpeg") }}
 {{ $hasMobileVideo := or (or (strings.HasSuffix .mobile.path ".mp4") (strings.HasSuffix .mobile.path ".webm")) (strings.HasSuffix .mobile.path ".mpeg") }}
+{{ $altText := "" }}
+{{ if .title.text }}{{ $altText = .title.text }}{{ else if .hotelName }}{{ $altText = .hotelName }}{{ else }}{{ $altText = print "banner image " (add $bannerIndex 1) }}{{ end }}
 
 <div class="{{ delimit ($customScratch.Get `classes`) ` ` }}">
    {{ if or $hasDestopVideo $hasMobileVideo }}
@@ -96,7 +99,7 @@
       <source data-source="desktop" media="(max-width: 767px)" srcset="{{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `/` .desktop.path}},
       {{print .desktop.base `f_auto,w_375,h_433,` .desktop.position `,dpr_2/` .desktop.path}} 2x" >
       {{ end }}
-      <img src="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `/` .desktop.path}}" srcset="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `,dpr_2/` .desktop.path}} 2x" fetchpriority="high" decode="async" />
+      <img src="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `/` .desktop.path}}" srcset="{{print .desktop.base `f_auto,w_992,h_480,` .desktop.position `,dpr_2/` .desktop.path}} 2x" alt="{{ $altText }}" fetchpriority="high" decode="async" />
    </picture>
    {{ end }}
    {{if .desktop.opacity}}<div class="desktop-image opacity" style="opacity: {{ div (float (.desktop.opacity | default 0)) 100 }}"></div>{{end}}

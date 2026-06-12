@@ -1,5 +1,6 @@
 {{ $ := .main }}
 {{ $version := .version }}
+{{ $bannerIndex := .index | default 0 }}
 {{ $bookingEngineUrl := $.Site.Params.bookingEngineURL }}
 {{ $video := $.Params.featured_video }}
 {{ $disableOpacity := $.Params.disableBannerOpacity }}
@@ -57,10 +58,8 @@
    {{ end }}
 {{ end }}
 
-{{ $alt := .title }}
-{{ with .alt }}
-   {{ $alt = . }}
-{{ end }}
+{{ $alt := "" }}
+{{ if .title }}{{ $alt = .title }}{{ else if .hotelName }}{{ $alt = .hotelName }}{{ else }}{{ $alt = print "banner image " (add $bannerIndex 1) }}{{ end }}
 
 {{ if .image }}
    <div 
@@ -98,7 +97,7 @@
          {{print .image.base `f_auto,w_768,h_600,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
          <source media="(max-width: 767px)" srcset="{{print .image.base `f_auto,w_375,h_433,c_fill,g_auto/` .image.path}},
          {{print .image.base `f_auto,w_375,h_433,c_fill,g_auto,dpr_2/` .image.path}} 2x" >
-         <img src="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto/` .image.path}}" srcset="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto/` .image.path}}, {{print .image.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .image.path}} 2x" {{with $alt }}alt="{{.}}"{{end}} fetchpriority="high" decoding="async" />
+         <img src="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto/` .image.path}}" srcset="{{print .image.base `f_auto,w_992,h_480,c_fill,g_auto/` .image.path}}, {{print .image.base `f_auto,w_992,h_480,c_fill,g_auto,dpr_2/` .image.path}} 2x" alt="{{ $alt }}" fetchpriority="high" decoding="async" />
 
       </picture>
       {{ end}}
