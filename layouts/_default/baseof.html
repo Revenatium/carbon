@@ -61,11 +61,14 @@
         <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .RelPermalink }}" />
         {{ end }}
       {{- end -}}
-      {{ range after 1 .AllTranslations }}
-        {{ if .Site.Params.canonicalUrl }}
-        <link rel="alternate" hreflang="x-default" href="{{ .Site.Params.canonicalUrl }}" />
-        {{ else }}
-        <link rel="alternate" hreflang="x-default" href="{{ .RelPermalink }}" />
+      {{ $defaultLang := or (site.Param "defaultContentLanguage") "en" }}
+      {{ range .AllTranslations }}
+        {{ if eq .Language.Lang $defaultLang }}
+          {{ if $.Site.Params.canonicalUrl }}
+          <link rel="alternate" hreflang="x-default" href="{{ $.Site.Params.canonicalUrl }}{{ .RelPermalink }}" />
+          {{ else }}
+          <link rel="alternate" hreflang="x-default" href="{{ absURL .RelPermalink }}" />
+          {{ end }}
         {{ end }}
       {{- end -}}
     {{ end }}
