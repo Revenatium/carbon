@@ -1,11 +1,10 @@
 {{ $base := .Get "imgBase" }}
 {{ $path := .Get "imgPath" }}
+{{ $imgAlt := .Get "imgAlt" }}
 {{ $btnClass := .Get "btnClass" }}
 {{ $imgPosition := .Get "imgPosition" }}
-{{ $alt := .Get "title" }}
-{{ with .Get "alt" }}
-   {{ $alt = . }}
-{{ end }}
+{{ $alt := "" }}
+{{ if .Get "imgAlt" }}{{ $alt = .Get "imgAlt" }}{{ else if .Get "title" }}{{ $alt = .Get "title" }}{{ else }}{{ $alt = print "page section image" }}{{ end }}
 {{ $imageContainerClass := "col-md-6 col-lg-8" }}
 {{ if .Get "imageContainerClass" }}
     {{ $imageContainerClass = .Get "imageContainerClass" }}
